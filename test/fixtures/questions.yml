@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  qc: MyString
+  literal: MyString
+  instrument_id: 
+
+two:
+  qc: MyString
+  literal: MyString
+  instrument_id: 

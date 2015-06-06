@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  variable_id: 
+  question_id: 
+  target_type: MyString
+
+two:
+  variable_id: 
+  question_id: 
+  target_type: MyString
