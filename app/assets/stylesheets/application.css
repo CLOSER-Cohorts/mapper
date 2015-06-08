@@ -12,4 +12,17 @@
  *
  *= require_tree .
  *= require_self
+ *= require genericons
  */
+
+div#wrapper {
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+div#container > h1:first-of-type {
+  background-color: #3E3E49;
+  padding: 10px;
+  color: white;
+}

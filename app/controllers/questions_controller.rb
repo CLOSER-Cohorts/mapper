@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
   # GET /instrument/1/questions.json
   def index
     @questions = @instrument.questions
+    render layout: "index"
   end
 
   # GET /questions/1

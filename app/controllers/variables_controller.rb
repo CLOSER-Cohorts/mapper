@@ -6,6 +6,7 @@ class VariablesController < ApplicationController
   # GET /variables.json
   def index
     @variables = @instrument.variables
+    render layout: "index"
   end
 
   # GET /variables/1

@@ -7,8 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="wrapper">
 
-<%= yield %>
+<%= content_for?(:content) ? yield(:content) : yield %>
 
+</div>
 </body>
 </html>

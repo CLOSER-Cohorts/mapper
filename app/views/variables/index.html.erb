@@ -18,9 +18,9 @@
         <td><%= variable.name %></td>
         <td><%= variable.label %></td>
         <td><%= variable.var_type %></td>
-        <td><%= link_to 'Show', variable %></td>
-        <td><%= link_to 'Edit', edit_variable_path(variable) %></td>
-        <td><%= link_to 'Destroy', variable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class='show'><%= link_to 'Show', variable %></td>
+        <td class='edit'><%= link_to 'Edit', edit_variable_path(variable) %></td>
+        <td class='destroy'><%= link_to 'Destroy', variable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

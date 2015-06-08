@@ -16,9 +16,9 @@
       <tr>
         <td><%= question.qc %></td>
         <td><%= question.literal %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class='show'><%= link_to 'Show', question %></td>
+        <td class='edit'><%= link_to 'Edit', edit_question_path(question) %></td>
+        <td class='destroy'><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
