@@ -13,16 +13,109 @@
  *= require_tree .
  *= require_self
  *= require genericons
+ *= require jquery-ui
+ *= require jquery.dynatable
  */
+
+html, body {
+  min-height: 100%;
+}
+
+th {
+  background-color: #652C90;
+  font-size: 14px;
+}
+
+td {
+  font-size: 12px;
+}
+
+a.dynatable-active-page {
+  background-color: #652C90;
+}
+
+div#banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 54px;
+  background-color: #3E3E49;
+}
+
+div#banner h1 {
+  color: white;
+  text-align: left;
+  margin-left: 250px;
+}
 
 div#wrapper {
   width: 800px;
   margin-right: auto;
   margin-left: auto;
+  margin-top: 84px;
 }
 
-div#container > h1:first-of-type {
+div#container {
+  position: relative;
+  min-height: 240px;
+}
+
+div#content {
+  padding-bottom: 30px;
+  overflow: hidden;
+}
+
+div#content > h1:first-of-type {
   background-color: #3E3E49;
   padding: 10px;
   color: white;
+}
+
+div#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 24px;
+  background-color: #3E3E49;
+}
+
+div#footer a {
+  color: #00ADEF;
+  padding-left: 10px;
+  line-height: 24px;
+  vertical-align: middle;
+}
+
+div#footer a:hover {
+  color: #FBAF3F;
+  background-color: #3E3E49;
+}
+
+a.add-new,
+a.back,
+a.edit {
+  font-size: 0;
+}
+
+a.add-new:before,
+a.back:before,
+a.edit:before {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font: normal 24px/1 Genericons;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+a.add-new:before {
+  content: '\f510';
+}
+
+a.back:before {
+  content: '\f430';
+}
+
+a.edit:before {
+  content: '\f411';
 }

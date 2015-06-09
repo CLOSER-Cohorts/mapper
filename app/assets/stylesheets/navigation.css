@@ -1,0 +1,48 @@
+div#navi {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin-left: 0;
+  margin-top: 0;
+  width: 240px;
+  background-color: #3E3E49;
+}
+
+div#navi ul {
+  list-style-type: none;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-padding-start: 0px;
+  margin-top: 122px;
+}
+
+div#navi ul li {
+  height: 38px;
+  width: 210px;
+  display: block;
+}
+
+div#navi ul li a {
+  color: #959595;
+  height: 100%;
+  width: 100%;
+  display: block;
+  padding-left: 20px;
+  border-left: 10px solid #3E3E49;
+  line-height: 38px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+div#navi ul li a:hover {
+  border-left: 10px solid #EC008B;
+  color: white;
+  background-color: black;
+}
+
+div#navi ul li.selected a {
+  border-left: 10px solid #38B449;
+  background-color: #303039;
+  color: white;
+}

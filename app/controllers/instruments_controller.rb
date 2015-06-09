@@ -11,6 +11,7 @@ class InstrumentsController < ApplicationController
   # GET /instruments/1
   # GET /instruments/1.json
   def show
+  render layout: "show"
   end
 
   # GET /instruments/new

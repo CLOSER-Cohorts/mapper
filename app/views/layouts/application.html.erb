@@ -7,10 +7,33 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div id="banner">
+  <h1>CLOSER Mapper</h1>
+</div>
+
+<div id="navi">
+<%= render_navigation %>
+</div>
+
 <div id="wrapper">
+
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
 
 <%= content_for?(:content) ? yield(:content) : yield %>
 
 </div>
+
+<% if content_for?(:javascript) then %>
+<script type="text/javascript">
+<%= yield(:javascript) %>
+</script>
+<% end %>
+
 </body>
 </html>

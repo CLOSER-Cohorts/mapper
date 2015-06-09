@@ -1,14 +1,38 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Prefix:</strong>
+<h1>
   <%= @instrument.prefix %>
-</p>
-
-<p>
-  <strong>Port:</strong>
+  :
   <%= @instrument.port %>
-</p>
+</h1>
 
-<%= link_to 'Edit', edit_instrument_path(@instrument) %> |
-<%= link_to 'Back', instruments_path %>
+<table id="questions">
+  <thead>
+    <tr>
+      <th style="width: 100px;">Qc</td>
+      <th style="width: 400px;">Literal</td>
+    </tr>
+  </thead>
+<% @instrument.questions.each do |question| %>
+  <tr>
+    <td><%= question.qc %></td>
+    <td><%= question.literal %></td>
+  </tr>
+<% end %>
+</table>
+
+<% content_for :footer do %>
+<%= link_to 'Back', instruments_path, class: 'back', title: 'Back to Instruments' %>
+<%= link_to 'Edit', edit_instrument_path(@instrument), class: 'edit', title: 'Edit Instrument' %> 
+<% end %>
+
+<% content_for :javascript do %>
+jQuery(document).ready(function() {
+  jQuery('#questions').dynatable({
+    dataset: {
+      ajax: true,
+      ajaxUrl: window.location.hostname + window.location.pathname + '.json',
+      ajaxOnLoad: true,
+      records: []
+    }
+  });
+});
+<% end %>

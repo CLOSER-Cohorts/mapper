@@ -1,7 +1,7 @@
 <% content_for :content do %>
-  <div id="container" class="index">
+  <div id="container" class="show">
     <div id="content">
-    <%= content_for?(:index_content) ? yield(:index_content) : yield %>
+    <%= content_for?(:show_content) ? yield(:show_content) : yield %>
     </div>
     <div id="footer">
     <%= if content_for?(:footer) then yield(:footer) end %>
