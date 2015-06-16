@@ -1,0 +1,7 @@
+<% var_names = [] %>
+<% question.variables.each do |variable| %>
+  <% var_names.push(variable.name + '<a href="#" class="remove remove-variable" id="remove-variable-' + question.id.to_s + '-' + variable.id.to_s + '" ></a>') %>
+<% end %>
+<%=raw var_names.join(', ') %>
+<br/>
+<input type="text" id="new-variables-<%= question.id %>" class="new-variables" />

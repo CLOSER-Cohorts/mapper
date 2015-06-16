@@ -6,7 +6,8 @@ div.index table {
   border-collapse: collapse;
 }
 
-div.index table thead {
+div.index table thead,
+div.index table th a {
   background-color: #652C90;
   color: white;
 }
@@ -19,11 +20,12 @@ div.index table td:first-child {
   border-left: none;
 }
 
-div.index table td.show,
-div.index table td.edit,
-div.index table td.destroy,
-div.index table td.question,
-div.index table td.variable {
+div.index table td.center {
+  text-align: center;
+}
+
+div.index table td a.question,
+div.index table td a.variable {
   font-size:0;
   text-align: center;
 }
@@ -44,11 +46,11 @@ div.index table td.variable a:hover {
   color: #FBAF3F;
 }
 
-div.index table td.show a:before,
-div.index table td.edit a:before,
-div.index table td.destroy a:before,
-div.index table td.question a:before,
-div.index table td.variable a:before {
+div.index table td a.show:before,
+div.index table td a.edit:before,
+div.index table td a.destroy:before,
+div.index table td a.question:before,
+div.index table td a.variable:before {
   -webkit-font-smoothing: antialiased;
   display: inline-block;
   font: normal 18px/1 Genericons;
@@ -56,22 +58,10 @@ div.index table td.variable a:before {
   text-align: center;
 }
 
-div.index table td.show a:before {
-  content: '\f403';
-}
-
-div.index table td.edit a:before {
-  content: '\f411';
-}
-
-div.index table td.destroy a:before {
-  content: '\f407';
-}
-
-div.index table td.question a:before {
+div.index table td a.question:before {
   content: '\f457';
 }
 
-div.index table td.variable a:before {
+div.index table td a.variable:before {
   content: '\f302';
 }

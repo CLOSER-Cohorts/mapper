@@ -1,11 +1,23 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :add_variable, :remove_variable]
   before_action :set_instrument, only: [:index, :new, :create]
 
   # GET instrument/1/questions
   # GET /instrument/1/questions.json
   def index
-    @questions = @instrument.questions
+    if params.has_key?(:queries)
+      @questions = @instrument.questions.where('qc LIKE ? OR literal LIKE ?', "%#{params[:queries][:search]}%", "%#{params[:queries][:search]}%")
+    else
+      @questions = @instrument.questions
+    end
+    if params.has_key?(:sorts)
+      if params[:sorts].values[0].to_i == 1
+        @questions = @questions.order(params[:sorts].keys[0])
+      else
+        @questions = @questions.order(params[:sorts].keys[0] + " DESC")
+      end
+    end
+    @questions = Kaminari.paginate_array(@questions).page(params[:page].to_i).per(params[:perPage].to_i)
     render layout: "index"
   end
 
@@ -60,8 +72,29 @@ class QuestionsController < ApplicationController
     @instrument = @question.instrument
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to instrument_questions_url(@instrument), notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to instrument_url(@instrument), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /questions/1/add_variable.json
+  def add_variable
+    params[:variable_names].each do |var_name|
+      variable = Variable.find_by name: var_name
+      if not variable.nil? and not @question.variables.find_by_id(variable.id)
+        @question.variables << variable
+      end
+    end
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
+    end
+  end
+
+  # POST /questions/1/remove_variable.json
+  def remove_variable
+    @question.variables.delete(Variable.find(params[:variable_id]))
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
     end
   end
 

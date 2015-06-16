@@ -4,35 +4,37 @@
   <%= @instrument.port %>
 </h1>
 
-<table id="questions">
+<table id="questions" style="width: 800px;">
   <thead>
     <tr>
-      <th style="width: 100px;">Qc</td>
-      <th style="width: 400px;">Literal</td>
+      <th style="width: 100px;">Qc</th>
+      <th style="width: 360px;">Literal</th>
+      <th style="width: 240px">Variables</th>
+      <th style="width: 100px;">Actions</th>
     </tr>
   </thead>
-<% @instrument.questions.each do |question| %>
-  <tr>
-    <td><%= question.qc %></td>
-    <td><%= question.literal %></td>
-  </tr>
-<% end %>
 </table>
+
+<div id="qlist-import" class="dialog" title="Import qlist.txt">
+  <%= form_for @instrument, :url => {:action => 'import_qlist'} do |f| %>
+    <%= f.file_field :qlist %>
+    <div class="actions">
+      <%= f.submit 'Upload qlist.txt' %>
+    </div>
+  <% end %>
+</div>
 
 <% content_for :footer do %>
 <%= link_to 'Back', instruments_path, class: 'back', title: 'Back to Instruments' %>
 <%= link_to 'Edit', edit_instrument_path(@instrument), class: 'edit', title: 'Edit Instrument' %> 
+<%= link_to 'Import qlist', '#', :onclick => 'jQuery("#qlist-import").dialog("open")' %>
 <% end %>
 
 <% content_for :javascript do %>
-jQuery(document).ready(function() {
-  jQuery('#questions').dynatable({
-    dataset: {
-      ajax: true,
-      ajaxUrl: window.location.hostname + window.location.pathname + '.json',
-      ajaxOnLoad: true,
-      records: []
-    }
-  });
-});
+  var variables = [
+    <% cs_vars = @instrument.get_comma_separated_variables %>
+    <% if not cs_vars.blank? %>
+    <%=raw '"' + cs_vars.gsub(',', '","') + '"' %>  
+    <% end %>
+  ]
 <% end %>

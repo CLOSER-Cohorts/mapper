@@ -17,8 +17,16 @@
  *= require jquery.dynatable
  */
 
+html {
+  position: relative;
+}
+
 html, body {
   min-height: 100%;
+}
+
+body {
+  margin-bottom: 0;
 }
 
 th {
@@ -94,13 +102,18 @@ div#footer a:hover {
 
 a.add-new,
 a.back,
-a.edit {
+a.show,
+a.edit,
+a.destroy {
   font-size: 0;
 }
 
 a.add-new:before,
 a.back:before,
-a.edit:before {
+a.show:before,
+a.edit:before,
+a.destroy:before,
+a.remove:before {
   -webkit-font-smoothing: antialiased;
   display: inline-block;
   font: normal 24px/1 Genericons;
@@ -118,4 +131,16 @@ a.back:before {
 
 a.edit:before {
   content: '\f411';
+}
+
+a.show:before {
+  content: '\f403';
+}
+
+a.destroy:before {
+  content: '\f407';
+}
+
+a.remove:before {
+  content: '\f405';
 }

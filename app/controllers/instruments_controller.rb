@@ -1,5 +1,5 @@
 class InstrumentsController < ApplicationController
-  before_action :set_instrument, only: [:show, :edit, :update, :destroy]
+  before_action :set_instrument, only: [:show, :edit, :update, :destroy, :questions, :import_qlist]
 
   # GET /instruments
   # GET /instruments.json
@@ -73,6 +73,16 @@ class InstrumentsController < ApplicationController
          format.json { render json: @instrument.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def import_qlist
+    qlist_io = params[:instrument][:qlist]
+    qlist = qlist_io.read
+    qlist.each_line do |line|
+      data = line.split("|")
+      @instrument.questions.create(:qc => data[1], :literal => data[3])
+    end
+    format.html { redirect_to @instrument, notice: 'qlist imported successfully.' }
   end
 
   private
