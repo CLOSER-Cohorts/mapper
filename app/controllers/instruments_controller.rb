@@ -94,7 +94,7 @@ class InstrumentsController < ApplicationController
     var_data.force_encoding('UTF-8')
     var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
     first_line = var_data.lines.first
-    if punc = first_line.scan(/[^\w\d_ ]+/)
+    if punc = first_line.scan(/[^\w\d_ \n\r]+/)
       if punc.length == 2 or punc.length == 4
         columns = 3
       elsif punc.length == 1 or punc.length == 3
