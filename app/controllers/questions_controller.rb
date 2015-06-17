@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
         @questions = @questions.order(params[:sorts].keys[0] + " DESC")
       end
     end
-    @questions = Kaminari.paginate_array(@questions).page(params[:page].to_i).per(params[:perPage].to_i)
+    #@questions = Kaminari.paginate_array(@questions).page(params[:page].to_i).per(params[:perPage].to_i)
     render layout: "index"
   end
 

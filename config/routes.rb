@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do
       patch :import_qlist
       patch :import_variables
+      patch :import_map
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

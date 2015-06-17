@@ -14,7 +14,6 @@
  *= require_self
  *= require genericons
  *= require jquery-ui
- *= require jquery.dynatable
  */
 
 html {
@@ -29,13 +28,22 @@ body {
   margin-bottom: 0;
 }
 
+table {
+  padding: 10px 0;
+}
+
 th {
+  color: white;
   background-color: #652C90;
   font-size: 14px;
 }
 
 td {
   font-size: 12px;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
 
 a.dynatable-active-page {

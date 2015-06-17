@@ -1,5 +1,5 @@
 class InstrumentsController < ApplicationController
-  before_action :set_instrument, only: [:show, :edit, :update, :destroy, :questions, :import_qlist, :import_variables]
+  before_action :set_instrument, only: [:show, :edit, :update, :destroy, :questions, :import_qlist, :import_variables, :import_map]
 
   # GET /instruments
   # GET /instruments.json
@@ -89,7 +89,7 @@ class InstrumentsController < ApplicationController
 
   def import_variables
     default = 'Normal'
-    var_io = params[:instrument][:qlist]
+    var_io = params[:instrument][:variables]
     var_data = var_io.read
     var_data.force_encoding('UTF-8')
     var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
@@ -124,6 +124,26 @@ class InstrumentsController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to @instrument, notice: 'Variables imported successfully.' }
+    end
+  end
+
+  def import_map
+    map_io = params[:instrument][:map]
+    map = map_io.read
+    map.each_line do |line|
+      data = line.split("\t")
+      if not data[0] == '0'
+        question = @instrument.questions.find_by_qc(data[0].chomp.strip)
+        if not question.nil?
+          variable = @instrument.variables.find_by_name(data[1].chomp.strip)
+          if not variable.nil?
+            question.variables << variable
+          end
+        end
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @instrument, notice: 'mapping.txt imported successfully.' }
     end
   end
 

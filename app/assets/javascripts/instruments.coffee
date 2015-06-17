@@ -4,18 +4,14 @@
 `
 var ready = function() {
   console.log('here');
-  jQuery('#questions').dynatable({
-    features: {
-      paginate: true
-    },
-    dataset: {
-      ajax: true,
-      ajaxUrl: window.location.pathname + '/questions.json',
-      ajaxOnLoad: true,
-      records: []
-    },
-  }).bind('dynatable:afterUpdate', function() {
-    reloadNewMap();
+  jQuery('#questions').dataTable({
+    ajax: window.location.pathname + '/questions.json',
+    columns: [
+      {data: 'qc'},
+      {data: 'literal'},
+      {data: 'variables'},
+      {data: 'actions'}
+    ]
   });
 
   jQuery('.dialog').dialog({
@@ -37,7 +33,7 @@ var reloadNewMap = function() {
       url: "/questions/" + q_id + "/remove_variable.json",
       data: {variable_id: variable_id},
       success: function(response) {
-        jQuery('#questions').data('dynatable').process();
+        
       },
       error: function(response) {console.log(response);}
     }); 
