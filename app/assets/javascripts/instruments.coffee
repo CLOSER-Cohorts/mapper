@@ -2,8 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
-jQuery(document).ready(function() {
-
+var ready = function() {
+  console.log('here');
   jQuery('#questions').dynatable({
     features: {
       paginate: true
@@ -22,7 +22,10 @@ jQuery(document).ready(function() {
     autoOpen: false
   });
 
-});
+};
+
+jQuery(document).ready(ready);
+jQuery(document).on('page:load', ready);
 
 var reloadNewMap = function() {
   jQuery('.remove-variable').click(function() {

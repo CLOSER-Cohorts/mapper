@@ -1,5 +1,5 @@
 class InstrumentsController < ApplicationController
-  before_action :set_instrument, only: [:show, :edit, :update, :destroy, :questions, :import_qlist]
+  before_action :set_instrument, only: [:show, :edit, :update, :destroy, :questions, :import_qlist, :import_variables]
 
   # GET /instruments
   # GET /instruments.json
@@ -82,7 +82,49 @@ class InstrumentsController < ApplicationController
       data = line.split("|")
       @instrument.questions.create(:qc => data[1], :literal => data[3])
     end
-    format.html { redirect_to @instrument, notice: 'qlist imported successfully.' }
+    respond_to do |format|
+      format.html { redirect_to @instrument, notice: 'qlist imported successfully.' }
+    end
+  end
+
+  def import_variables
+    default = 'Normal'
+    var_io = params[:instrument][:qlist]
+    var_data = var_io.read
+    var_data.force_encoding('UTF-8')
+    var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
+    first_line = var_data.lines.first
+    if punc = first_line.scan(/[^\w\d_ ]+/)
+      if punc.length == 2 or punc.length == 4
+        columns = 3
+      elsif punc.length == 1 or punc.length == 3
+        columns = 2
+      else
+        #throw error
+      end
+      if punc.length == 3 or punc.length == 4
+        splitter = punc[1].gsub('"','').gsub("'","")
+      else
+        splitter = punc[0]
+      end
+    else
+      #throw an error
+    end
+
+    var_data.each_line do |line|
+      data = line.strip.split(splitter)
+      data_name = data[0].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+      data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+      if columns == 3
+        data_var_type = data[2].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+      else
+        data_var_type = default
+      end
+      @instrument.variables.create(:name => data_name, :label => data_label, :var_type => data_var_type)
+    end
+    respond_to do |format|
+      format.html { redirect_to @instrument, notice: 'Variables imported successfully.' }
+    end
   end
 
   private

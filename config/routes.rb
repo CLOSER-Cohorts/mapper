@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :variables
     member do
       patch :import_qlist
+      patch :import_variables
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
