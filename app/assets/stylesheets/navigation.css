@@ -15,6 +15,7 @@ div#navi ul {
   -webkit-margin-after: 0em;
   -webkit-padding-start: 0px;
   margin-top: 122px;
+  padding-left: 0;
 }
 
 div#navi ul li {
