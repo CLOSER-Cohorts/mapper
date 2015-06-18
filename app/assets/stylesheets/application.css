@@ -66,9 +66,10 @@ div#banner h1 {
 }
 
 div#wrapper {
-  width: 800px;
+  min-width: 800px;
+  max-width: 1000px;
   margin-right: auto;
-  margin-left: auto;
+  margin-left: 232px;
   margin-top: 84px;
 }
 

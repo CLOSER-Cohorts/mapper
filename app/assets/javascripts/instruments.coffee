@@ -36,6 +36,7 @@ var ready = function() {
   $questions = jQuery('#questions').DataTable({
     ajax: window.location.pathname + '/questions.json',
     columns: [
+      {data: 'id'},
       {data: 'qc'},
       {data: 'literal'},
       {data: 'variables'},
@@ -55,6 +56,7 @@ var ready = function() {
   $variables = jQuery('#variables').DataTable({
     ajax: window.location.pathname + '/variables.json',
     columns: [
+      {data: 'id'},
       {data: 'name'},
       {data: 'label'},
       {data: 'questions'},
