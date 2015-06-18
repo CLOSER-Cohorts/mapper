@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
   belongs_to :instrument
   has_many :variables, :through => :map, :as => :mapable
-  has_many :map, as: :mapable
+  has_many :map, :as => :mapable, :dependent => :destroy 
 
   validates :qc, :uniqueness => {:scope => :instrument_id}
 

@@ -59,7 +59,7 @@ class VariablesController < ApplicationController
     @instrument = @variable.instrument
     @variable.destroy
     respond_to do |format|
-      format.html { redirect_to instrument_variables_url(@instrument), notice: 'Variable was successfully destroyed.' }
+      format.html { redirect_to instrument_url(@instrument), notice: 'Variable was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
