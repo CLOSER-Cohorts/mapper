@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-a.remove-variable {
-  color:red;
+a.remove-variable,
+a.remove-question {
+  color:red !important;
 }

@@ -13,10 +13,21 @@ var ready = function() {
       {data: 'actions'}
     ]
   });
+  jQuery('#variables').dataTable({
+    ajax: window.location.pathname + '/variables.json',
+    columns: [
+      {data: 'name'},
+      {data: 'label'},
+      {data: 'questions'},
+      {data: 'actions'}
+    ]
+  });
 
   jQuery('.dialog').dialog({
     autoOpen: false
   });
+
+  jQuery('#tabs').tabs();
 
 };
 
