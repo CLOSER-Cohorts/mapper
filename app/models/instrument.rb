@@ -11,4 +11,12 @@ class Instrument < ActiveRecord::Base
     end
     return var_names.join(',')
   end
+
+  def get_comma_separated_questions
+    qcs = []
+    questions.each do |question|
+      qcs.push(question.qc)
+    end
+    return qcs.join(',')
+  end
 end

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
         post :remove_variable
       end
     end
-    resources :variables
+    resources :variables do
+      member do
+        post :add_question
+        post :remove_question
+      end
+    end
     member do
       patch :import_qlist
       patch :import_variables

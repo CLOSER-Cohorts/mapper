@@ -79,10 +79,12 @@ class QuestionsController < ApplicationController
 
   # POST /questions/1/add_variable.json
   def add_variable
-    params[:variable_names].each do |var_name|
-      variable = Variable.find_by name: var_name
-      if not variable.nil? and not @question.variables.find_by_id(variable.id)
-        @question.variables << variable
+    if params.has_key?(:variable_names) 
+      params[:variable_names].each do |var_name|
+        variable = Variable.find_by name: var_name
+        if not variable.nil? and not @question.variables.find_by_id(variable.id)
+          @question.variables << variable
+        end
       end
     end
     respond_to do |format|

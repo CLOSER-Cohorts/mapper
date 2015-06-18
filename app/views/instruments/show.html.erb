@@ -78,5 +78,11 @@
     <% if not cs_vars.blank? %>
     <%=raw '"' + cs_vars.gsub(',', '","') + '"' %>  
     <% end %>
-  ]
+  ];
+  var questions = [
+    <% cs_qs = @instrument.get_comma_separated_questions %>
+    <% if not cs_qs.blank? %>
+    <%=raw '"' + cs_qs.gsub(',', '","') + '"' %>  
+    <% end %>
+  ];
 <% end %>

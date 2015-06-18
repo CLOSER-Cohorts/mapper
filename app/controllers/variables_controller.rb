@@ -1,5 +1,5 @@
 class VariablesController < ApplicationController
-  before_action :set_variable, only: [:show, :edit, :update, :destroy]
+  before_action :set_variable, only: [:show, :edit, :update, :destroy, :add_question, :remove_question]
   before_action :set_instrument, only: [:index, :new, :create]
 
   # GET /variables
@@ -61,6 +61,29 @@ class VariablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to instrument_url(@instrument), notice: 'Variable was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+  
+  # POST /variables/1/add_question.json
+  def add_question
+    if params.has_key?(:qcs) 
+      params[:qcs].each do |qc|
+        question = Question.find_by_qc qc
+        if not question.nil? and not @variable.questions.find_by_id(question.id)
+          @variable.questions << question
+        end
+      end
+    end
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
+    end
+  end
+
+  # POST /variables/1/remove_question.json
+  def remove_question
+    @variable.questions.delete(Question.find(params[:question_id]))
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
     end
   end
 
