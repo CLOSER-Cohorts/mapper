@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
 focus_id = null
+var getFocusID = function() {
+  jQuery(':focus').each(function() {
+    focus_id = jQuery(this).attr('id');
+  });
+};
 var reloadTables = function(activeCallback, totalCallback) {
   activeCallback = (typeof activeCallback === 'function') ? activeCallback : function() {};
   totalCallback = (typeof totalCallback === 'function') ? totalCallback : function() {};
@@ -13,9 +18,7 @@ var reloadTables = function(activeCallback, totalCallback) {
     if (total > 1)
       totalCallback();
   };
-  jQuery(':focus').each(function() {
-    focus_id = jQuery(this).attr('id');
-  });
+  getFocusID();
   jQuery(':focus').blur();
   genericCallback = function(tab) {
     if (jQuery('#tabs').tabs('option','active') === tab) {
@@ -45,7 +48,7 @@ var ready = function() {
   });
   
   $questions.on('xhr.dt', function() {
-    focus_id = jQuery(':focus').attr('id');
+    getFocusID();
     jQuery(':focus').blur();
   });
   $questions.on('draw.dt', function() {
@@ -65,7 +68,7 @@ var ready = function() {
   });
   
   $variables.on('xhr.dt', function() {
-    focus_id = jQuery(':focus').attr('id');
+    getFocusID();
     jQuery(':focus').blur();
   });
   $variables.on('draw.dt', function() {
@@ -234,6 +237,7 @@ var reloadNewMap = function() {
   
   jQuery('.new-variables').keydown(function(e){
     if (e.which == 13) {
+      focus_id = this.id;
       var variable_names = this.value.split(',');
       for (var i = 0; i < variable_names.length; i++) {
         variable_names[i] = variable_names[i].trim();
@@ -246,7 +250,6 @@ var reloadNewMap = function() {
       }
       this.value = null;
       q_id = this.id.split('-')[2];
-      jQuery(this).blur();
       var field_id = this.id
       jQuery.ajax({
         type: "POST",
@@ -273,6 +276,7 @@ var reloadNewMap = function() {
   
   jQuery('.new-questions').keydown(function(e){
     if (e.which == 13) {
+      focus_id = this.id;
       var qcs = this.value.split(',');
       for (var i = 0; i < qcs.length; i++) {
         qcs[i] = qcs[i].trim();
@@ -285,7 +289,6 @@ var reloadNewMap = function() {
       }
       this.value = null;
       v_id = this.id.split('-')[2];
-      jQuery(this).blur();
       var field_id = this.id
       jQuery.ajax({
         type: "POST",
@@ -302,10 +305,10 @@ var reloadNewMap = function() {
       if (this.value.trim().length > 0 && this.value.trim().slice(-1) != ',') {
         this.value = this.value.trim() + ',';
         e.preventDefault();
-        checkVariables(this);
+        checkQuestions(this);
       }
     } else if (e.which == 188) {
-      checkVariables(this);
+      checkQuestions(this);
     }
 
   });
