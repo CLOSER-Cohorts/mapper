@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require dataTables/jquery.dataTables
  *= require_self
  *= require genericons
  *= require jquery-ui
@@ -44,6 +45,10 @@ td {
 
 .nowrap {
   white-space: nowrap;
+}
+
+.hide {
+  display: none;
 }
 
 a.dynatable-active-page {

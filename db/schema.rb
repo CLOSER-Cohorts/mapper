@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615073700) do
+ActiveRecord::Schema.define(version: 20150703095334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20150615073700) do
     t.string   "mapable_type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "x"
+    t.integer  "y"
   end
 
   add_index "maps", ["mapable_type", "mapable_id"], name: "index_maps_on_mapable_type_and_mapable_id", using: :btree
@@ -44,6 +46,18 @@ ActiveRecord::Schema.define(version: 20150615073700) do
 
   add_index "questions", ["instrument_id"], name: "index_questions_on_instrument_id", using: :btree
   add_index "questions", ["qc", "instrument_id"], name: "index_questions_on_qc_and_instrument_id", unique: true, using: :btree
+
+  create_table "sequences", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "instrument_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "sequences", ["instrument_id"], name: "index_sequences_on_instrument_id", using: :btree
+  add_index "sequences", ["name", "instrument_id"], name: "index_sequences_on_name_and_instrument_id", unique: true, using: :btree
+  add_index "sequences", ["parent_id"], name: "index_sequences_on_parent_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.string   "name"
@@ -82,8 +96,10 @@ ActiveRecord::Schema.define(version: 20150615073700) do
   end
 
   add_index "variables", ["instrument_id"], name: "index_variables_on_instrument_id", using: :btree
+  add_index "variables", ["name", "instrument_id"], name: "index_variables_on_name_and_instrument_id", unique: true, using: :btree
 
   add_foreign_key "maps", "variables"
   add_foreign_key "questions", "instruments"
+  add_foreign_key "sequences", "instruments"
   add_foreign_key "variables", "instruments"
 end

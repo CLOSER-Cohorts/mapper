@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sequences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Instrument</th>
+      <th>Parent</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sequences.each do |sequence| %>
+      <tr>
+        <td><%= sequence.name %></td>
+        <td><%= sequence.instrument %></td>
+        <td><%= sequence.parent %></td>
+        <td><%= link_to 'Show', sequence %></td>
+        <td><%= link_to 'Edit', edit_sequence_path(sequence) %></td>
+        <td><%= link_to 'Destroy', sequence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sequence', new_sequence_path %>

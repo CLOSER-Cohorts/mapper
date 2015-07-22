@@ -1,0 +1,67 @@
+div.index table {
+  width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #3E3E49;
+  border-collapse: collapse;
+}
+
+div.index table thead,
+div.index table th a {
+  background-color: #652C90;
+  color: white;
+}
+
+div.index table td {
+  border-left: 1px solid #3E3E49;
+}
+
+div.index table td:first-child {
+  border-left: none;
+}
+
+div.index table td.center {
+  text-align: center;
+}
+
+div.index table td a.question,
+div.index table td a.variable {
+  font-size:0;
+  text-align: center;
+}
+
+div.index table td.show a,
+div.index table td.edit a,
+div.index table td.destroy a,
+div.index table td.question a,
+div.index table td.variable a {
+  color: #00ADEF;
+}
+
+div.index table td.show a:hover,
+div.index table td.edit a:hover,
+div.index table td.destroy a:hover,
+div.index table td.question a:hover,
+div.index table td.variable a:hover {
+  color: #FBAF3F;
+}
+
+div.index table td a.show:before,
+div.index table td a.edit:before,
+div.index table td a.destroy:before,
+div.index table td a.question:before,
+div.index table td a.variable:before {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font: normal 18px/1 Genericons;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+div.index table td a.question:before {
+  content: '\f457';
+}
+
+div.index table td a.variable:before {
+  content: '\f302';
+}

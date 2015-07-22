@@ -20,7 +20,12 @@
 <div id="wrapper">
 
 <% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
+  <div class="notice">
+    <p class="alert alert-success"><%= notice %></p>
+    <% if more_notice %>
+      <p class="more"><%= more_notice.html_safe %></p>
+    <% end %>
+  </div>
 <% end %>
 <% if alert %>
   <p class="alert alert-danger"><%= alert %></p>

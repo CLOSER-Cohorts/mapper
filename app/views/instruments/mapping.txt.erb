@@ -1,0 +1,7 @@
+<% @map.each do |row| %>
+<% if row['x'].nil? %>
+<%=raw row['qc'] %>	<%=raw row['variable'] %>
+<% else %>
+<%=raw row['qc'] %>$<%=raw row['x'] %>;<%=raw row['y'] %>	<%=raw row['variable'] %>
+<% end %>
+<% end %>

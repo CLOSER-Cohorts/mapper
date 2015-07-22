@@ -1,5 +1,5 @@
 class VariablesController < ApplicationController
-  before_action :set_variable, only: [:show, :edit, :update, :destroy, :add_question, :remove_question]
+  before_action :set_variable, only: [:show, :edit, :update, :destroy, :add_question, :remove_question, :add_variable, :remove_variable]
   before_action :set_instrument, only: [:index, :new, :create]
 
   # GET /variables
@@ -82,6 +82,29 @@ class VariablesController < ApplicationController
   # POST /variables/1/remove_question.json
   def remove_question
     @variable.questions.delete(Question.find(params[:question_id]))
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
+    end
+  end
+
+  # POST /variables/1/add_variable.json
+  def add_variable
+    if params.has_key?(:variable_names)
+      params[:variable_names].each do |var_name|
+        variable = Variable.find_by name: var_name
+        if not variable.nil? and not @variable.src_variables.find_by_id(variable.id)
+          @variable.src_variables << variable
+        end
+      end
+    end
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
+    end
+  end
+
+  # POST /questions/1/remove_variable.json
+  def remove_variable
+    @variable.src_variables.delete(Variable.find(params[:variable_id]))
     respond_to do |format|
       format.json { render json: true, status: :accepted }
     end

@@ -1,7 +1,0 @@
-<% qcs = [] %>
-<% variable.questions.each do |question| %>
-  <% qcs.push('<span class="nowrap">' + question.qc + '<a tabindex="-1" href="javascript://" class="remove remove-question" id="remove-question-' + variable.id.to_s + '-' + question.id.to_s + '" ></a></span>') %>
-<% end %>
-<%=raw qcs.join(', ') %>
-<br/>
-<input type="text" id="new-questions-<%= variable.id %>" class="new-questions" />

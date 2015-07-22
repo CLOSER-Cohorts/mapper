@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :sequences
+  resources :sequences
   devise_for :users
   resources :topics
   resources :instruments, shallow: true do
@@ -12,13 +14,25 @@ Rails.application.routes.draw do
       member do
         post :add_question
         post :remove_question
+        post :add_variable
+        post :remove_variable
+      end
+    end
+    resources :sequences do
+      member do
+        post :add_topic
+        post :remove_topic
       end
     end
     member do
       patch :import_qlist
       patch :import_variables
       patch :import_map
+      patch :import_dv
     end
+    get :mapping
+    get :dv
+    get :linking
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

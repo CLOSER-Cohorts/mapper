@@ -4,4 +4,4 @@
 <% end %>
 <%=raw var_names.join(', ') %>
 <br/>
-<input type="text" id="new-variables-<%= question.id %>" class="new-variables" />
+<input type="text" id="new-variables-<%= question.id %>" data-type="question" data-qc="<%= question.qc %>" data-id="<%= question.id %>" class="new-variables" />

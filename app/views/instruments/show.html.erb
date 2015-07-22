@@ -1,6 +1,3 @@
-<%= javascript_include_tag '//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js' %>
-<%= stylesheet_link_tag '//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css' %>
-
 <h1>
   <%= @instrument.prefix %>
   :
@@ -11,9 +8,10 @@
   <ul>
     <li><a href="#question-tab">Questions</a></li>
     <li><a href="#variable-tab">Variables</a></li>
+    <li><a href="#sequence-tab">Sequences</a></li>
   </ul>
 <div id="question-tab">
-  <table id="questions" style="width: 800px;">
+  <table id="questions" style="width: 900px;">
     <thead>
       <tr>
         <th style="width: 50px;">ID</th>
@@ -26,17 +24,32 @@
   </table>
 </div>
 <div id="variable-tab">
-<table id="variables" style="width: 800px;">
-  <thead>
-    <tr>
-      <th style="width: 50px;">ID</th>
-      <th style="width: 100px;">Name</th>
-      <th style="width: 360px;">Label</th>
-      <th style="width: 240px">Questions</th>
-      <th style="width: 50px;">Actions</th>
-    </tr>
-  </thead>
-</table>
+  <table id="variables" style="width: 900px;">
+    <thead>
+      <tr>
+        <th style="width: 50px;">ID</th>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">Type</th>
+        <th style="width: 310px;">Label</th>
+        <th style="width: 100px">Used In</th>
+        <th style="width: 190px">Sources</th>
+        <th style="width: 50px;">Actions</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div id="sequence-tab">
+  <table id="sequences" style="width: 900px;">
+    <thead>
+      <tr>
+        <th style="width: 50px;">ID</th>
+        <th style="width: 460px;">Text</th>
+        <th style="width: 240px">Topic</th>
+        <th style="width: 50px;">Actions</th>
+      </tr>
+    </thead>
+  </table>
+</div>
 </div>
 
 <div id="qlist-import" class="dialog" title="Import qlist.txt">
@@ -66,12 +79,22 @@
   <% end %>
 </div>
 
+<div id="dv-import" class="dialog" title="Import DV">
+  <%= form_for @instrument, :url => {:action => 'import_dv'} do |f| %>
+    <%= f.file_field :dv %>
+    <div class="actions">
+      <%= f.submit 'Upload DV' %>
+    </div>
+  <% end %>
+</div>
+
 <% content_for :footer do %>
 <%= link_to 'Back', instruments_path, class: 'back', title: 'Back to Instruments' %>
 <%= link_to 'Edit', edit_instrument_path(@instrument), class: 'edit', title: 'Edit Instrument' %> 
 <%= link_to 'Import qlist', '#', :onclick => 'jQuery("#qlist-import").dialog("open")' %>
 <%= link_to 'Import variables', '#', :onclick => 'jQuery("#variables-import").dialog("open")' %>
 <%= link_to 'Import map', '#', :onclick => 'jQuery("#map-import").dialog("open")' %>
+<%= link_to 'Import DV', '#', :onclick => 'jQuery("#dv-import").dialog("open")' %>
 <% end %>
 
 <% content_for :javascript do %>
@@ -85,6 +108,12 @@
     <% cs_qs = @instrument.get_comma_separated_questions %>
     <% if not cs_qs.blank? %>
     <%=raw '"' + cs_qs.gsub(',', '","') + '"' %>  
+    <% end %>
+  ];
+  var topics_lvl_one = [
+    <% cs_ts = Topic.get_comma_separated_topics(1) %>
+    <% if not cs_ts.blank? %>
+    <%=raw '"' + cs_ts.gsub(',', '","') + '"' %>
     <% end %>
   ];
 <% end %>

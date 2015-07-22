@@ -1,0 +1,14 @@
+<% labels = [] %>
+<% variable.questions.each do |question| %>
+  <% labels.push('<span class="nowrap">' + question.qc + '<a tabindex="-1" href="javascript://" class="remove remove-question" id="remove-question-' + variable.id.to_s + '-' + question.id.to_s + '" ></a></span>') %>
+<% end %>
+<% variable.src_variables.each do |var| %>
+  <% labels.push('<span class="nowrap">' + var.name + '<a tabindex="-1" href="javascript://" class="remove remove-variable" id="remove-variable-' + variable.id.to_s + '-' + var.id.to_s + '" ></a></span>') %>
+<% end %>
+<%=raw labels.join(', ') %>
+<br/>
+<% if variable.var_type == 'Normal' %>
+<input type="text" placeholder="Add Questions" id="new-questions-<%= variable.id %>" data-type="variable" data-name="<%= variable.name %>" data-id="<%= variable.id %>" class="new-questions" />
+<% elsif variable.var_type == 'Derived' %>
+<input type="text" placeholder="Add Variables" id="new-variables-<%= variable.id %>" data-type="variable" data-name="<%= variable.name %>" data-id="<%= variable.id %>" class="new-variables" />
+<% end %>
