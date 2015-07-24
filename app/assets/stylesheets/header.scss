@@ -1,0 +1,47 @@
+@keyframes bgscroll {
+  from {background-position-y: 0;}
+  to {background-position-y: -363px;}
+}
+
+@-webkit-keyframes bgscroll {
+  from {background-position-y: 0;}
+  to {background-position-y: -363px;}
+}
+
+@-moz-keyframes bgscroll {
+  from {background-position-y: 0;}
+  to {background-position-y: -363px;}
+}
+
+@-o-keyframes bgscroll {
+  from {background-position-y: 0;}
+  to {background-position-y: -363px;}
+}
+
+body > header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+}
+
+body > header #banner {
+  height: 60px;
+  border-bottom: 2px solid black;
+  background-image: image-url('logo.png');
+  background-repeat-x: no-repeat;
+  background-position-x: right;
+  animation: bgscroll 10s linear 0s infinite;
+  transform: translateZ(0);
+}
+
+body > header h1 {
+  color: black;
+  text-align: left;
+  margin-left: 50px;
+  font-size: 40px;
+  vertical-align: middle;
+  line-height: 60px;
+  margin-top: 0;
+}
