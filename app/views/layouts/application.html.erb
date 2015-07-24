@@ -11,7 +11,13 @@
 
 <header>
   <div id="banner">
-    <h1>CLOSER Mapper</h1>
+    <h1>CLOSER Mapper
+    <% if MySite::Application::BETA %>
+      <span class="beta">
+        BETA
+      </span>
+    <% end %>
+    </h1>
   </div>
 
   <div id="navi">
@@ -36,6 +42,10 @@
 <%= content_for?(:content) ? yield(:content) : yield %>
 
 </div>
+
+<footer>
+<span class="version">Version: <%= MySite::Application::VERSION %></span>
+</footer>
 
 <% if content_for?(:javascript) then %>
 <script type="text/javascript">

@@ -141,3 +141,9 @@ a.destroy:before {
 a.remove:before {
   content: '\f405';
 }
+
+footer {
+  background-color: black;
+  text-align: center;
+  color: #555;
+}
