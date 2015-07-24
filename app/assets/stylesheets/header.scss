@@ -9,8 +9,8 @@
 }
 
 @-moz-keyframes bgscroll {
-  from {background-position-y: 0;}
-  to {background-position-y: -363px;}
+  from {background-position: right 0;}
+  to {background-position: right -363px;}
 }
 
 @-o-keyframes bgscroll {
@@ -30,9 +30,15 @@ body > header #banner {
   height: 60px;
   border-bottom: 2px solid black;
   background-image: image-url('logo.png');
-  background-repeat-x: no-repeat;
-  background-position-x: right;
+  background-repeat: repeat-y;
+  background-position: right top;
+  -webkit-animation: bgscroll 10s linear 0s infinite;
+  -moz-animation: bgscroll 10s linear 0s infinite;
+  -o-animation: bgscroll 10s linear 0s infinite;
   animation: bgscroll 10s linear 0s infinite;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
   transform: translateZ(0);
 }
 
