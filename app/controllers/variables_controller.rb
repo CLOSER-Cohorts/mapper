@@ -1,10 +1,11 @@
 class VariablesController < ApplicationController
-  before_action :set_variable, only: [:show, :edit, :update, :destroy, :add_question, :remove_question, :add_variable, :remove_variable]
+  before_action :set_variable, only: [:show, :edit, :update, :destroy, :set_topic, :add_question, :remove_question, :add_variable, :remove_variable]
   before_action :set_instrument, only: [:index, :new, :create]
 
   # GET /variables
   # GET /variables.json
   def index
+    @topics = Topic.get_in_level_order
     @variables = @instrument.variables
     render layout: "index"
   end
@@ -61,6 +62,16 @@ class VariablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to instrument_url(@instrument), notice: 'Variable was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /variables/1/set_topic.json
+  def set_topic
+    if params.has_key?(:topic_id)
+      @variable.topic = Topic.find_by_id(params[:topic_id])
+    end
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
     end
   end
   

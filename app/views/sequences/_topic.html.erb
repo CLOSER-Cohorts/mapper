@@ -1,2 +1,6 @@
-<select>
+<select class="topic-selector" data-type="sequence" data-id="<%= sequence.id %>">
+  <option value="0">Inherit (<%= (sequence.parent.nil? or sequence.get_parent_topic.nil?) ? 'none' : sequence.get_parent_topic.name %>)</option>
+  <% @topics.each do |topic| %>
+    <option value="<%= topic.id %>" <%= topic == sequence.topic ? 'selected="selected"' : '' %>><%= topic.name %></option>
+  <% end %>
 </select>

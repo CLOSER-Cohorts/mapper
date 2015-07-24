@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703095334) do
+ActiveRecord::Schema.define(version: 20150722104811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20150703095334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "links", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "links", ["target_type", "target_id"], name: "index_links_on_target_type_and_target_id", using: :btree
+  add_index "links", ["topic_id"], name: "index_links_on_topic_id", using: :btree
 
   create_table "maps", force: :cascade do |t|
     t.integer  "variable_id"
@@ -42,9 +53,11 @@ ActiveRecord::Schema.define(version: 20150703095334) do
     t.integer  "instrument_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "parent_id"
   end
 
   add_index "questions", ["instrument_id"], name: "index_questions_on_instrument_id", using: :btree
+  add_index "questions", ["parent_id"], name: "index_questions_on_parent_id", using: :btree
   add_index "questions", ["qc", "instrument_id"], name: "index_questions_on_qc_and_instrument_id", unique: true, using: :btree
 
   create_table "sequences", force: :cascade do |t|
@@ -53,8 +66,10 @@ ActiveRecord::Schema.define(version: 20150703095334) do
     t.integer  "parent_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "URN"
   end
 
+  add_index "sequences", ["URN"], name: "index_sequences_on_URN", unique: true, using: :btree
   add_index "sequences", ["instrument_id"], name: "index_sequences_on_instrument_id", using: :btree
   add_index "sequences", ["name", "instrument_id"], name: "index_sequences_on_name_and_instrument_id", unique: true, using: :btree
   add_index "sequences", ["parent_id"], name: "index_sequences_on_parent_id", using: :btree
@@ -98,6 +113,7 @@ ActiveRecord::Schema.define(version: 20150703095334) do
   add_index "variables", ["instrument_id"], name: "index_variables_on_instrument_id", using: :btree
   add_index "variables", ["name", "instrument_id"], name: "index_variables_on_name_and_instrument_id", unique: true, using: :btree
 
+  add_foreign_key "links", "topics"
   add_foreign_key "maps", "variables"
   add_foreign_key "questions", "instruments"
   add_foreign_key "sequences", "instruments"

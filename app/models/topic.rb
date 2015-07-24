@@ -12,6 +12,26 @@ class Topic < ActiveRecord::Base
     return level
   end
 
+  def self.get_in_level_order
+    unsorted = Topic.all
+    sorted = {}
+    parental_counter = []
+    positions = {}
+    unsorted.each do |topic|
+      level = topic.get_level
+      parent_id = topic.parent.nil? ? 0 : topic.parent.id
+      parental_counter[parent_id] = parental_counter[parent_id].nil? ? 1 : parental_counter[parent_id] + 1
+      position = (parental_counter[parent_id] * (100 ** (5 - level))) + (positions[parent_id].nil? ? 0 : positions[parent_id])
+      positions[topic.id] = position
+      sorted[position] = topic
+    end
+    output = []
+    sorted.sort.each do |item|
+      output.push(item[1])
+    end
+    return output
+  end
+
   def self.get_comma_separated_topics(level = 0)
     if level < 1
       topics = Topic.all

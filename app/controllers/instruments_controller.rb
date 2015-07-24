@@ -1,5 +1,16 @@
 class InstrumentsController < ApplicationController
-  before_action :set_instrument, only: [:show, :edit, :update, :destroy, :questions, :import_qlist, :import_variables, :import_map, :import_dv]
+  before_action :set_instrument, only: [
+    :show, 
+    :edit, 
+    :update, 
+    :destroy, 
+    :questions, 
+    :import_qlist, 
+    :import_from_caddies, 
+    :import_variables, 
+    :import_map, 
+    :import_dv
+  ]
 
   add_flash_types :more_notice
 
@@ -86,6 +97,35 @@ class InstrumentsController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to @instrument, notice: 'qlist imported successfully.' }
+    end
+  end
+
+  def import_from_caddies
+    mapper_io = params[:instrument][:mapper]
+    mapper = mapper_io.read
+    mapper.each_line do |line|
+      data = line.split("|")
+      if data[1] == "Sequence"
+        parent_id = nil
+        if data[2] != "none"
+          parent = Sequence.find_by_URN(data[2])
+          if parent.nil?
+            #throw error
+          end
+          parent_id = parent.id
+        end
+        @instrument.sequences.create(name: data[3], parent_id: parent_id, URN: data[0])
+      else
+        parent = Sequence.find_by_URN(data[2])
+        if parent.nil?
+          #throw error
+        end
+        parent_id = parent.id
+        @instrument.questions.create(qc: data[0], literal: data[3], parent_id: parent_id)
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @instrument, notice: 'mapper.txt imported successfully.' }
     end
   end
 
@@ -256,6 +296,29 @@ class InstrumentsController < ApplicationController
     @map = Instrument.get_dv(params[:instrument_id])
     respond_to do |format|
       format.text { render 'dv.txt.erb', layout: false, content_type: 'text/plain' }
+      format.json  {}
+    end
+  end
+
+  def topic_min
+    @linking = Instrument.get_min_linking(params[:instrument_id])
+    respond_to do |format|
+      format.text { render 'mixed-linking.txt.erb', layout: false, content_type: 'text/plain' }
+      format.json  {}
+    end
+  end
+
+  def topic_max
+    @instrument = Instrument.find(params[:instrument_id])
+    @linking = []
+    @instrument.questions.each do |question|
+      @linking.push({'object' => question.qc, 'topic' => (question.get_topic.nil? ? 0 : question.get_topic.id), 'type' => 'Question'})
+    end
+    @instrument.variables.each do |variable|
+      @linking.push({'object' => variable.name, 'topic' => (variable.get_topic.nil? ? 0 : variable.get_topic.id), 'type' => 'Variable'})
+    end
+    respond_to do |format|
+      format.text { render 'mixed-linking.txt.erb', layout: false, content_type: 'text/plain' }
       format.json  {}
     end
   end

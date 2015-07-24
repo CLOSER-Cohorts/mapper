@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       member do
         post :add_variable
         post :remove_variable
+        post :set_topic
       end
     end
     resources :variables do
@@ -16,16 +17,17 @@ Rails.application.routes.draw do
         post :remove_question
         post :add_variable
         post :remove_variable
+        post :set_topic
       end
     end
     resources :sequences do
       member do
-        post :add_topic
-        post :remove_topic
+        post :set_topic
       end
     end
     member do
       patch :import_qlist
+      patch :import_from_caddies
       patch :import_variables
       patch :import_map
       patch :import_dv
@@ -33,6 +35,10 @@ Rails.application.routes.draw do
     get :mapping
     get :dv
     get :linking
+    get :topic_min, path: 'topic-min'
+    get :topic_max, path: 'topic-max'
+    get :topic_q, path: 'topic-q'
+    get :topic_v, path: 'topic-v'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

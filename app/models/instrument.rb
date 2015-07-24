@@ -39,4 +39,9 @@ class Instrument < ActiveRecord::Base
     r = self.sanitize_sql_array(["SELECT v1.name as variable, v2.name as src FROM variables v1 INNER JOIN maps ON v1.id = variable_id INNER JOIN variables v2 ON v2.id = mapable_id AND mapable_type = 'Variable' WHERE v1.instrument_id =? GROUP BY variable, src ORDER BY variable", instrument_id])
     self.connection.select_all r
   end
+
+  def self.get_min_linking( instrument_id )
+    r = self.sanitize_sql_array(["SELECT coalesce(\"URN\", qc, variables.name) as object, topic_id as topic, target_type as type FROM links LEFT JOIN sequences ON target_id = sequences.id AND target_type = 'Sequence' LEFT JOIN questions ON target_id = questions.id AND target_type = 'Question' LEFT JOIN variables ON target_id = variables.id AND target_type = 'Variable' WHERE sequences.instrument_id = ? OR questions.instrument_id = ? OR variables.instrument_id = ? ORDER BY \"URN\", qc, variables.name", instrument_id, instrument_id, instrument_id])
+    self.connection.select_all r
+  end
 end

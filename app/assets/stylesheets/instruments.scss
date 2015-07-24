@@ -6,3 +6,11 @@ a.remove-variable,
 a.remove-question {
   color:red !important;
 }
+
+select.topic-selector {
+  width: 100%;
+}
+
+select.topic-selector option.level-1 {
+  font-weight: bold;
+}

@@ -5,6 +5,7 @@ class SequencesController < ApplicationController
   # GET /sequences
   # GET /sequences.json
   def index
+    @topics = Topic.find_by_level(1)
     @sequences = @instrument.sequences.all
   end
 
@@ -59,6 +60,16 @@ class SequencesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to sequences_url, notice: 'Sequence was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /sequences/1/set_topic.json
+  def set_topic
+    if params.has_key?(:topic_id)
+      @sequence.topic = Topic.find_by_id(params[:topic_id])
+    end
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
     end
   end
 

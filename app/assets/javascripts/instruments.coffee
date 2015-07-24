@@ -163,6 +163,7 @@ var ready = function() {
       {data: 'qc'},
       {data: 'literal'},
       {data: 'variables'},
+      {data: 'topic'},
       {data: 'actions'}
     ]
   }));
@@ -176,6 +177,7 @@ var ready = function() {
       {data: 'label'},
       {data: 'outputs'},
       {data: 'sources'},
+      {data: 'topic'},
       {data: 'actions'}
     ]
   }));
@@ -227,6 +229,25 @@ var ready = function() {
     "variable_names",
     variables
   );
+  
+  jQuery('#questions,#variables,#sequences').on('change','select.topic-selector',function() {
+    type = jQuery(this).data('type');
+    id = jQuery(this).data('id');
+    data = {topic_id: this.value}
+    jQuery.ajax({
+      type: "POST",
+      url: "/" + type + "s/" + id + "/set_topic.json",
+      data: data,
+      beforeSend: function() {
+        jQuery('select.topic-selector').prop('disabled', true);
+      },
+      success: function(response) {
+        console.log(response);
+        reloadTables();
+      },
+      error: function(response) {console.log(response);}
+    });
+  });
   
   jQuery('#questions').on('click', '.remove-variable', function() {
     var id_bits = this.id.split('-');

@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy, :add_variable, :remove_variable]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :set_topic, :add_variable, :remove_variable]
   before_action :set_instrument, only: [:index, :new, :create]
 
   # GET instrument/1/questions
   # GET /instrument/1/questions.json
   def index
+    @topics = Topic.get_in_level_order
     if params.has_key?(:queries)
       @questions = @instrument.questions.where('qc LIKE ? OR literal LIKE ?', "%#{params[:queries][:search]}%", "%#{params[:queries][:search]}%")
     else
@@ -74,6 +75,16 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to instrument_url(@instrument), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /questions/1/set_topic.json
+  def set_topic
+    if params.has_key?(:topic_id)
+      @question.topic = Topic.find_by_id(params[:topic_id])
+    end
+    respond_to do |format|
+      format.json { render json: true, status: :accepted }
     end
   end
 

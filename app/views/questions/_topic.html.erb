@@ -1,0 +1,6 @@
+<select class="topic-selector" data-type="question" data-id="<%= question.id %>">
+  <option value="0">Inherit (<%= question.get_parent_topic.nil? ? 'none' : question.get_parent_topic.name %>)</option>
+  <% @topics.each do |topic| %>
+    <option value="<%= topic.id %>" class="level-<%= topic.get_level %>" <%= topic == question.topic ? 'selected="selected"' : '' %>><%= raw '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' * (topic.get_level - 1) %><%= topic.name %></option>
+  <% end %>
+</select>
