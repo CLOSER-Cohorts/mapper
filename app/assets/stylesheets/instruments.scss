@@ -7,6 +7,10 @@ a.remove-question {
   color:red !important;
 }
 
+select#original-topic-selector {
+  display: none;
+}
+
 select.topic-selector {
   width: 100%;
 }

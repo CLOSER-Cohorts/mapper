@@ -90,6 +90,26 @@
   <% end %>
 </div>
 
+<div id="linking-import" class="dialog" title="Import topic linking">
+  <%= form_for @instrument, :url => {:action => 'import_linking'} do |f| %>
+    <%= f.file_field :linking %>
+    <div class="actions">
+      <%= f.submit 'Upload linking' %>
+    </div>
+  <% end %>
+</div>
+
+<select id="original-topic-selector" class="topic-selector">
+  <option value="-1">
+    -- Inherit --
+  </option>
+  <% @topics.each do |topic| %>
+  <option value="<%= topic.id %>" class="level-<%= topic.get_level %>">
+    <%= raw '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' * (topic.get_level - 1) %><%= topic.name %>
+  </option>
+  <% end %>
+</select>
+
 <% content_for :footer do %>
 <%= link_to 'Back', instruments_path, class: 'back', title: 'Back to Instruments' %>
 <%= link_to 'Edit', edit_instrument_path(@instrument), class: 'edit', title: 'Edit Instrument' %> 
@@ -97,6 +117,7 @@
 <%= link_to 'Import variables', '#', :onclick => 'jQuery("#variables-import").dialog("open")' %>
 <%= link_to 'Import map', '#', :onclick => 'jQuery("#map-import").dialog("open")' %>
 <%= link_to 'Import DV', '#', :onclick => 'jQuery("#dv-import").dialog("open")' %>
+<%= link_to 'Import topics', '#', :onclick => 'jQuery("#linking-import").dialog("open")' %>
 <% end %>
 
 <% content_for :javascript do %>

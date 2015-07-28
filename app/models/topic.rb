@@ -13,7 +13,7 @@ class Topic < ActiveRecord::Base
   end
 
   def self.get_in_level_order
-    unsorted = Topic.all
+    unsorted = Topic.all.order(id: 'ASC')
     sorted = {}
     parental_counter = []
     positions = {}

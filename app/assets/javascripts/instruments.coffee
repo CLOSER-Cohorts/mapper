@@ -157,7 +157,32 @@ var reloadTables = function(activeCallback, totalCallback) {
 
 var ready = function() {
   tables.push(jQuery('#questions').DataTable({
-    ajax: window.location.pathname + '/questions.json',
+    ajax: {
+      url: window.location.pathname + '/questions.json',
+      dataSrc: function ( json ) {
+        $topic_selector = jQuery('#original-topic-selector');
+        for (var i = 0; i < json.data.length; i++) {
+          $selector = $topic_selector.clone();
+          $selector.removeProp('id')
+          $selector.attr('data-type', 'question').attr('data-id', json.data[i].id);
+          if (json.data[i].itopic != null) {
+            $selector.children('option[value="' + json.data[i].itopic.id + '"]').attr('selected', 'selected');
+          } else {
+            $selector.children().eq(1).attr('selected', 'selected');
+          }
+          if (json.data[i].ptopic != null)
+            $selector
+              .children('option[value="' + json.data[i].ptopic.id + '"]')
+                .append(' (inherited)');
+          else
+            $selector
+              .children().eq(1)
+                .append(' (inherited)');
+          json.data[i].topic = $selector.prop('outerHTML');
+        }
+        return json.data;
+      }
+    },
     columns: [
       {data: 'id'},
       {data: 'qc'},
@@ -239,7 +264,7 @@ var ready = function() {
       url: "/" + type + "s/" + id + "/set_topic.json",
       data: data,
       beforeSend: function() {
-        jQuery('select.topic-selector').prop('disabled', true);
+        //jQuery('select.topic-selector').prop('disabled', true);
       },
       success: function(response) {
         console.log(response);

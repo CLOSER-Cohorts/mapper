@@ -8,6 +8,8 @@ class Variable < ActiveRecord::Base
   has_one :topic, through: :link, as: :target
   has_one :link, :as => :target, :dependent => :destroy
 
+  include Linking
+
   def get_topic
     if topic.nil?
       return get_parent_topic
@@ -31,4 +33,20 @@ class Variable < ActiveRecord::Base
       end
     end
   end
+
+  def set_topic( new_topic )
+    
+    good = true
+    if not new_topic.nil?
+      good = good && integrity_check(questions, new_topic)
+      good = good && integrity_check(src_variables, new_topic)
+      good = good && integrity_check(out_variables, new_topic)
+    end
+    if good
+      association(:topic).writer(new_topic)
+    else
+      raise "Cannot assign topic"
+    end
+  end
+  alias topic= set_topic
 end

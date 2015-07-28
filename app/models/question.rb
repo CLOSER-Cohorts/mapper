@@ -8,6 +8,8 @@ class Question < ActiveRecord::Base
 
   validates :qc, :uniqueness => {:scope => :instrument_id}
 
+  include Linking
+
   def get_comma_separated_variables
     var_names = []
     variables.each do |variable|
@@ -27,4 +29,13 @@ class Question < ActiveRecord::Base
   def get_parent_topic
     return parent.get_topic
   end
+
+  def set_topic( new_topic )
+    if integrity_check(variables, new_topic)
+      topic = new_topic
+    else
+      raise "Cannot assign topic"
+    end
+  end
+  alias topic= set_topic
 end

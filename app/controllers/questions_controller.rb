@@ -5,7 +5,6 @@ class QuestionsController < ApplicationController
   # GET instrument/1/questions
   # GET /instrument/1/questions.json
   def index
-    @topics = Topic.get_in_level_order
     if params.has_key?(:queries)
       @questions = @instrument.questions.where('qc LIKE ? OR literal LIKE ?', "%#{params[:queries][:search]}%", "%#{params[:queries][:search]}%")
     else
@@ -117,7 +116,7 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
     end
     def set_instrument
-      @instrument = Instrument.find(params[:instrument_id])
+      @instrument = Instrument.includes(questions: [{parent: :topic},:topic, :variables]).find(params[:instrument_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

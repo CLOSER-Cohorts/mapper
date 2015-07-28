@@ -31,14 +31,13 @@ Rails.application.routes.draw do
       patch :import_variables
       patch :import_map
       patch :import_dv
+      patch :import_linking
     end
     get :mapping
     get :dv
     get :linking
-    get :topic_min, path: 'topic-min'
-    get :topic_max, path: 'topic-max'
-    get :topic_q, path: 'topic-q'
-    get :topic_v, path: 'topic-v'
+    get :question_topics, path: 'topic-q'
+    get :variable_topics, path: 'topic-v'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

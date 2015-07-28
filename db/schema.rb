@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722104811) do
+ActiveRecord::Schema.define(version: 20150727124149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,8 +77,9 @@ ActiveRecord::Schema.define(version: 20150722104811) do
   create_table "topics", force: :cascade do |t|
     t.string   "name"
     t.integer  "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "colectica_code"
   end
 
   add_index "topics", ["parent_id"], name: "index_topics_on_parent_id", using: :btree

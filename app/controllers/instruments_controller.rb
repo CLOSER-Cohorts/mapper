@@ -9,7 +9,8 @@ class InstrumentsController < ApplicationController
     :import_from_caddies, 
     :import_variables, 
     :import_map, 
-    :import_dv
+    :import_dv,
+    :import_linking
   ]
 
   add_flash_types :more_notice
@@ -24,7 +25,8 @@ class InstrumentsController < ApplicationController
   # GET /instruments/1
   # GET /instruments/1.json
   def show
-  render layout: "show"
+    @topics = Topic.get_in_level_order
+    render layout: "show"
   end
 
   # GET /instruments/new
@@ -284,6 +286,46 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  def import_linking
+    linking_io = params[:instrument][:linking]
+    linking = linking_io.read
+    no_of_cols = linking.lines.first.split("\t").count
+    first_id = linking.lines.first.split("\t")[0]
+    s_count = @instrument.sequences.where(URN: first_id).count
+    q_count = @instrument.questions.where(qc: first_id).count
+    v_count = @instrument.variables.where(name: first_id).count
+    if s_count + q_count + v_count == 1
+      if s_count == 1
+        targets = @instrument.sequences
+        target_param = :URN
+        topic_param = :id
+      elsif q_count == 1
+        targets = @instrument.questions
+        target_param = :qc
+        topic_param = :colectica_code
+      else
+        targets = @instrument.variables
+        target_param = :name
+        topic_param = :colectica_code
+      end
+      linking.each_line do |line|
+        data = line.split("\t")
+        target = targets.find_by(target_param => data.first)
+        topic = Topic.find_by(topic_param => data.last)
+        target.topic = topic
+        target.save!
+      end
+      respond_to do |format|
+        format.html { redirect_to @instrument, notice: 'Topic linking imported successfully.' }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @instrument, alert: 'Topic linking failed to import.' }
+      end
+    end
+    
+  end
+
   def mapping
     @map = Instrument.get_mapping(params[:instrument_id])   
     respond_to do |format|
@@ -300,25 +342,26 @@ class InstrumentsController < ApplicationController
     end
   end
 
-  def topic_min
-    @linking = Instrument.get_min_linking(params[:instrument_id])
+  def question_topics
+    @instrument = Instrument.find(params[:instrument_id])
+    @linking = []
+    @instrument.questions.each do |question|
+      @linking.push({'object' => question.qc, 'topic' => (question.get_topic.nil? ? 0 : question.get_topic.colectica_code)})
+    end
     respond_to do |format|
-      format.text { render 'mixed-linking.txt.erb', layout: false, content_type: 'text/plain' }
+      format.text { render 'linking.txt.erb', layout: false, content_type: 'text/plain' }
       format.json  {}
     end
   end
 
-  def topic_max
+  def variable_topics
     @instrument = Instrument.find(params[:instrument_id])
     @linking = []
-    @instrument.questions.each do |question|
-      @linking.push({'object' => question.qc, 'topic' => (question.get_topic.nil? ? 0 : question.get_topic.id), 'type' => 'Question'})
-    end
     @instrument.variables.each do |variable|
-      @linking.push({'object' => variable.name, 'topic' => (variable.get_topic.nil? ? 0 : variable.get_topic.id), 'type' => 'Variable'})
+      @linking.push({'object' => variable.name, 'topic' => (variable.get_topic.nil? ? 0 : variable.get_topic.colectica_code)})
     end
     respond_to do |format|
-      format.text { render 'mixed-linking.txt.erb', layout: false, content_type: 'text/plain' }
+      format.text { render 'linking.txt.erb', layout: false, content_type: 'text/plain' }
       format.json  {}
     end
   end

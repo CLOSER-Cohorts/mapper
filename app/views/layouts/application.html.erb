@@ -12,7 +12,7 @@
 <header>
   <div id="banner">
     <h1>CLOSER Mapper
-    <% if MySite::Application::BETA %>
+    <% if Mapper::Application::BETA %>
       <span class="beta">
         BETA
       </span>
@@ -44,7 +44,7 @@
 </div>
 
 <footer>
-<span class="version">Version: <%= MySite::Application::VERSION %></span>
+<span class="version">Version: <%= Mapper::Application::VERSION %></span>
 </footer>
 
 <% if content_for?(:javascript) then %>
