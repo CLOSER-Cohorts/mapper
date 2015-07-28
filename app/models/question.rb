@@ -32,7 +32,7 @@ class Question < ActiveRecord::Base
 
   def set_topic( new_topic )
     if integrity_check(variables, new_topic)
-      topic = new_topic
+      association(:topic).writer(new_topic)
     else
       raise "Cannot assign topic"
     end
