@@ -25,11 +25,7 @@ class Topic < ActiveRecord::Base
       positions[topic.id] = position
       sorted[position] = topic
     end
-    output = []
-    sorted.sort.each do |item|
-      output.push(item[1])
-    end
-    return output
+    return sorted.sort.map{|x| x[1]}
   end
 
   def self.get_comma_separated_topics(level = 0)
