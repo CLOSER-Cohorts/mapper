@@ -17,6 +17,40 @@ class Variable < ActiveRecord::Base
       return topic
     end
   end
+  
+  def get_topic
+    if topic.nil?
+      if out_variables.count > 0
+        o_topic = nil
+        out_variables.each do |var|
+          if not var.get_topic.nil?
+            if o_topic.nil?
+              o_topic = var.get_topic
+            else
+              if o_topic != var.get_topic
+                raise "The variable have mixed topics. This is a no no."
+              end
+            end
+          end
+        end
+        
+        p_topic = get_parent_topic
+        if o_topic.nil?
+          return p_topic
+        else
+          if o_topic == p_topic
+            return o_topic
+          else
+            raise "The variable have mixed topics. This is a no no."
+          end
+        end
+      else
+        return get_parent_topic
+      end
+    else
+      return topic
+    end
+  end
 
   def get_parent_topic
     if var_type == 'Normal'
@@ -53,4 +87,39 @@ class Variable < ActiveRecord::Base
     end
   end
   alias topic= set_topic
+  
+  def topic_nest_is_valid
+    return topic_nest_is_valid_worker([], nil)[0]
+  end
+  
+  def topic_nest_is_valid_worker ( exclude , running_topic )
+    exclude.push(self)
+    
+    if not topic.nil?
+      if running_topic.nil?
+        running_topic = topic
+      else
+        if running_topic != topic
+          return false, exclude, running_topic
+        end
+      end  
+    end
+    
+    to_check = questions.reject{|x| exclude.include? x}
+    to_check += src_variables.reject{|x| exclude.include? x}
+    to_check += out_variables.reject{|x| exclude.include? x}
+    
+    to_check.each do |x|
+      if x.topic.nil? || x.topic == topic || topic.nil?
+        result, exclude, running_topic = x.topic_nest_is_valid_worker(exclude, running_topic)
+        if not result
+          return false, exclude, running_topic
+        end
+      else
+        return false, exclude, running_topic
+      end
+    end
+    
+    return true, exclude, running_topic
+  end
 end
