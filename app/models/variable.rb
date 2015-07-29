@@ -34,6 +34,10 @@ class Variable < ActiveRecord::Base
     end
   end
 
+  def has_source
+    return (questions.count + src_variables.count) > 0
+  end
+
   def set_topic( new_topic )
     
     good = true
