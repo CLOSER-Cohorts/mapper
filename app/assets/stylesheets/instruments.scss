@@ -18,3 +18,17 @@ select.topic-selector {
 select.topic-selector option.level-1 {
   font-weight: bold;
 }
+
+table table {
+  max-width:1000px;
+  padding: 0;
+}
+
+table table .row-0,
+table table .col-0 {
+  background-color: lightblue !important;
+}
+
+table table input {
+    width: 100px;
+}

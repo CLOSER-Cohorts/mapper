@@ -5,6 +5,12 @@ class Instrument < ActiveRecord::Base
   accepts_nested_attributes_for :questions
   accepts_nested_attributes_for :variables
   accepts_nested_attributes_for :sequences
+  
+  attr_accessor :topic_nests
+  
+  after_initialize do |instrument|
+    instrument.topic_nests ||= [] # just in case the :topic_nests were passed to .new
+  end
 
   def get_comma_separated_variables
     var_names = []

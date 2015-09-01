@@ -155,33 +155,80 @@ var reloadTables = function(activeCallback, totalCallback) {
   }
 };
 
+var get_variable_names = function(id, variables, select_x, select_y) {
+  var var_names = [];
+	for (var j = 0; j < variables.length; j++) {
+	  console.log(variables[j].name + ' ' + variables[j].x + ' ' + variables[j].y);
+	  if (variables[j].x == select_x && variables[j].y == select_y) {
+		var_names.push('<span class="nowrap">' + variables[j].name + 
+		  '<a tabindex="-1" href="javascript://" class="remove remove-variable" id="remove-variable-' + 
+		  id + '-' + variables[j].id + '" ></a></span>');
+	  }
+	}
+	return var_names.join(', ');
+};
+
+var draw_subrow = function(d) {
+  // 'd' is the original data object for the row
+  var output = '';
+  output += '<div><table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+  for (var y = 0; y <= d.max_y; y++) {
+    output += '<tr class="row-' + y.toString() + '">';
+    for (var x = 0; x <= d.max_x; x++) {
+      output += '<td class="col-' + x.toString() + '">';
+      
+      for (var i = 0; i < d.variables.length; i++) {
+        
+      }
+      
+      output += '<input data-id="' + d.id + '" data-x="' + x.toString()
+      if (y < 1) {
+        output += '" disabled="disabled';
+      }
+      output += '" data-y="' + y.toString() + '" type="text" class="grid-coordinate" />';
+      output +=  '</td>';
+    }
+    output += '</tr>';
+  }
+    return output + '</table></div>';
+};
+
 var ready = function() {
+  var dataSrc = function ( json ) {
+	$topic_selector = jQuery('#original-topic-selector');
+	for (var i = 0; i < json.data.length; i++) {
+	  if (json.data[i].itopic != null && json.data[i].itopic.id == -1) {
+		json.data[i].topic = '<a style="color: red;" href="javascript://">ERROR</a>';
+	  } else {
+		$selector = $topic_selector.clone();
+		$selector.removeProp('id')
+		$selector.attr('data-type', 'question').attr('data-id', json.data[i].id);
+		if (json.data[i].itopic != null) {
+		  $selector.children('option[value="' + json.data[i].itopic.id + '"]').attr('selected', 'selected');
+		} else {
+		  $selector.children().eq(1).attr('selected', 'selected');
+		}
+		if (json.data[i].ptopic != null)
+		  $selector
+			.children('option[value="' + json.data[i].ptopic.id + '"]')
+			  .append(' (inherited)');
+		else
+		  $selector
+			.children().eq(1)
+			  .append(' (inherited)');
+		json.data[i].topic = $selector.prop('outerHTML');	
+	  }
+	  if (json.data[i].variables_with_coords != null) {
+	    json.data[i].variables = get_variable_names(json.data[i].id, json.data[i].variables_with_coords, null, null);
+	  }
+	}
+	return json.data;
+  }
+
   tables.push(jQuery('#questions').DataTable({
     ajax: {
       url: window.location.pathname + '/questions.json',
-      dataSrc: function ( json ) {
-        $topic_selector = jQuery('#original-topic-selector');
-        for (var i = 0; i < json.data.length; i++) {
-          $selector = $topic_selector.clone();
-          $selector.removeProp('id')
-          $selector.attr('data-type', 'question').attr('data-id', json.data[i].id);
-          if (json.data[i].itopic != null) {
-            $selector.children('option[value="' + json.data[i].itopic.id + '"]').attr('selected', 'selected');
-          } else {
-            $selector.children().eq(1).attr('selected', 'selected');
-          }
-          if (json.data[i].ptopic != null)
-            $selector
-              .children('option[value="' + json.data[i].ptopic.id + '"]')
-                .append(' (inherited)');
-          else
-            $selector
-              .children().eq(1)
-                .append(' (inherited)');
-          json.data[i].topic = $selector.prop('outerHTML');
-        }
-        return json.data;
-      }
+      dataSrc: dataSrc
     },
     columns: [
       {data: 'id'},
@@ -190,11 +237,15 @@ var ready = function() {
       {data: 'variables'},
       {data: 'topic'},
       {data: 'actions'}
-    ]
+    ],
+    scrollX: true
   }));
   
   tables.push(jQuery('#variables').DataTable({
-    ajax: window.location.pathname + '/variables.json',
+    ajax: {
+      url: window.location.pathname + '/variables.json',
+      dataSrc: dataSrc
+    },
     columns: [
       {data: 'id'},
       {data: 'name'},
@@ -225,6 +276,13 @@ var ready = function() {
     tables[i].on('draw.dt', function() {
       reloadNewMap();
       jQuery('#'+focus_id).focus();
+      if (this.id === "questions") {
+        jQuery(this).DataTable({retrieve: true}).rows().every(function() {
+          if (this.data().max_x !== null && this.data().max_y !== null) {
+            this.child( draw_subrow(this.data()) ).show();
+          }
+        });
+      }
     });
   }
 
