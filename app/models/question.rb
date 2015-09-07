@@ -45,7 +45,11 @@ class Question < ActiveRecord::Base
       vars.push(junc.variable)
       vars.last.x = junc.x
       vars.last.y = junc.y
+      logger.debug vars.last.x
+      logger.debug vars.last.y
+      logger.debug vars.last.inspect
     end
+    logger.debug vars
     return vars
   end
 end

@@ -12,4 +12,6 @@
 !/log/.keep
 /tmp
 
+test.rb
 .idea/
+*.swp

@@ -93,7 +93,10 @@
           
           data = {};
           data[payload_name] = names;
-          
+          if (this.hasAttribute("data-x") && this.hasAttribute("data-y")) {
+            data['x'] = this.dataset.x;
+            data['y'] = this.dataset.y;
+          }
           jQuery.ajax({
             type: "POST",
             url: parsed_url,
@@ -134,7 +137,7 @@ var reloadTables = function(activeCallback, totalCallback) {
   totalCallback = (typeof totalCallback === 'function') ? totalCallback : function() {};
 
   total = 0;
-  end = function() {
+  var end = function() {
     total++;
     if (total >= tables.length)
       totalCallback();
@@ -158,7 +161,6 @@ var reloadTables = function(activeCallback, totalCallback) {
 var get_variable_names = function(id, variables, select_x, select_y) {
   var var_names = [];
 	for (var j = 0; j < variables.length; j++) {
-	  console.log(variables[j].name + ' ' + variables[j].x + ' ' + variables[j].y);
 	  if (variables[j].x == select_x && variables[j].y == select_y) {
 		var_names.push('<span class="nowrap">' + variables[j].name + 
 		  '<a tabindex="-1" href="javascript://" class="remove remove-variable" id="remove-variable-' + 
@@ -166,6 +168,26 @@ var get_variable_names = function(id, variables, select_x, select_y) {
 	  }
 	}
 	return var_names.join(', ');
+};
+
+var draw_add_variable_input = function(id, x, y) {
+  var output = '';
+  
+  output += '<input data-id="' + id + '" ';
+  if (typeof x === 'number')
+    output += 'data-x="' + x.toString() + '" ';
+  if (typeof y === 'number') {
+    output += 'data-y="' + y.toString() + '" ';
+    if (y < 1)
+      output += 'disabled="disabled" ';
+  }
+  output += 'type="text" placeholder="Add Variables" ';
+  output += 'class="new-variables';
+  if (typeof x === 'number' && typeof y === 'number')
+    output += ' grid-coordinate';
+  output += '" />';
+  
+  return output;
 };
 
 var draw_subrow = function(d) {
@@ -176,16 +198,9 @@ var draw_subrow = function(d) {
     output += '<tr class="row-' + y.toString() + '">';
     for (var x = 0; x <= d.max_x; x++) {
       output += '<td class="col-' + x.toString() + '">';
-      
-      for (var i = 0; i < d.variables.length; i++) {
-        
-      }
-      
-      output += '<input data-id="' + d.id + '" data-x="' + x.toString()
-      if (y < 1) {
-        output += '" disabled="disabled';
-      }
-      output += '" data-y="' + y.toString() + '" type="text" class="grid-coordinate" />';
+      var var_names = get_variable_names(d.id, d.orig_variables, x, y);
+      output += (var_names.length > 0 ? var_names + '<br/>' : '');
+      output += draw_add_variable_input(d.id, x, y);
       output +=  '</td>';
     }
     output += '</tr>';
@@ -218,9 +233,11 @@ var ready = function() {
 			  .append(' (inherited)');
 		json.data[i].topic = $selector.prop('outerHTML');	
 	  }
-	  if (json.data[i].variables_with_coords != null) {
-	    json.data[i].variables = get_variable_names(json.data[i].id, json.data[i].variables_with_coords, null, null);
+	  json.data[i].variables = '';
+	  if (json.data[i].orig_variables != null) {
+	    json.data[i].variables = get_variable_names(json.data[i].id, json.data[i].orig_variables, null, null) + '<br/>';
 	  }
+	  json.data[i].variables += draw_add_variable_input(json.data[i].id);
 	}
 	return json.data;
   }
