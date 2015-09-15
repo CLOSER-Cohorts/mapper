@@ -1,4 +1,5 @@
 class InstrumentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_instrument, only: [
     :show, 
     :edit, 
@@ -18,13 +19,14 @@ class InstrumentsController < ApplicationController
   # GET /instruments
   # GET /instruments.json
   def index
-    @instruments = Instrument.all
+    @instruments = policy_scope(Instrument)
     render layout: "index"
   end
 
   # GET /instruments/1
   # GET /instruments/1.json
   def show
+    authorize @instrument
     @topics = Topic.get_in_level_order
     render layout: "show"
   end
@@ -41,6 +43,7 @@ class InstrumentsController < ApplicationController
   # POST /instruments
   # POST /instruments.json
   def create
+    authorize 
     @instrument = Instrument.new(instrument_params)
 
     respond_to do |format|

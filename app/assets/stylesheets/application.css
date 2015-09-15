@@ -55,6 +55,21 @@ a.dynatable-active-page {
   background-color: #652C90;
 }
 
+p.alert {
+  padding: 6px;
+  border-radius: 4px;
+}
+
+p.alert-success {
+  background-color: rgb(200,255,200);
+  color: darkgreen;
+}
+
+p.alert-danger {
+  background-color: rgb(255,200,200);
+  color: darkred;
+}
+
 div#wrapper {
   min-width: 800px;
   margin-right: 50px;

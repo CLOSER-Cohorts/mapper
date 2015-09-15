@@ -57,8 +57,8 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
     primary.item :home, 'Home', "/"
-    primary.item :instruments, 'Instruments', instruments_path
-    primary.item :topics, 'Topics', topics_path
+    primary.item :instruments, 'Instruments', instruments_path, if: -> { user_signed_in? }
+    primary.item :topics, 'Topics', topics_path, if: -> { user_signed_in? }
 
     # Add an item which has a sub navigation (same params, but with block)
     #primary.item :instruments, 'Instruments', url, options do |sub_nav|
@@ -70,7 +70,8 @@ SimpleNavigation::Configuration.run do |navigation|
     # Conditions are part of the options. They are evaluated in the context of the views,
     # thus you can use all the methods and vars you have available in the views.
     #primary.item :key_3, 'Admin', url, class: 'special', if: -> { current_user.admin? }
-    primary.item :account, 'Account', edit_user_registration_path, unless: -> { user_signed_in? }
+    primary.item :log_in, 'Log In', new_user_session_path, unless: -> { user_signed_in? }
+    primary.item :log_out, 'Log Out', destroy_user_session_path, if: -> { user_signed_in? }
 
     # you can also specify html attributes to attach to this particular level
     # works for all levels of the menu
