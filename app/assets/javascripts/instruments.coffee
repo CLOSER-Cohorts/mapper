@@ -3,6 +3,23 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
 
+resolveConflict = function(fixed_points) {
+  var items = [];
+  for (var i = 0; i < fixed_points.length; i++) {
+    if (fixed_points[i].type === "Question") {
+      items.push("<dt>" +  fixed_points[i].obj.qc +  "</dt>");
+      items.push('<dd class="label">' + fixed_points[i].obj.literal + '</dd>');
+    } else {
+      items.push("<dt>" +  fixed_points[i].obj.name+  "</dt>");
+      items.push('<dd class="label">' + fixed_points[i].obj.label + '</dd>');
+    }
+    items.push('<dd class="topic">' + fixed_points[i].topic.name + '</dd>');
+  }
+  jQuery('<div />')
+    .prop('title', 'Resolve Topic Conflict')
+    .html('<dl class="conflict-resolution">' + items.join('') + '</dl>').dialog({minWidth: 400});
+};
+
   jQuery.fn.extend({
     autoCompleteFromList: function (list) {
     
@@ -209,11 +226,12 @@ var draw_subrow = function(d) {
 };
 
 var ready = function() {
+
   var dataSrc = function ( json ) {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
 	  if (json.data[i].itopic != null && json.data[i].itopic.id == -1) {
-		json.data[i].topic = '<a style="color: red;" href="javascript://">ERROR</a>';
+		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + JSON.stringify(json.data[i].itopic.fixed_points) + ')\'>ERROR</a>';
 	  } else {
 		$selector = $topic_selector.clone();
 		$selector.removeProp('id')
@@ -254,8 +272,7 @@ var ready = function() {
       {data: 'variables'},
       {data: 'topic'},
       {data: 'actions'}
-    ],
-    scrollX: true
+    ]
   }));
   
   tables.push(jQuery('#variables').DataTable({
