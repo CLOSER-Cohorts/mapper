@@ -43,7 +43,7 @@ class InstrumentsController < ApplicationController
   # POST /instruments
   # POST /instruments.json
   def create
-    authorize 
+    authorize Instrument
     @instrument = Instrument.new(instrument_params)
 
     respond_to do |format|
@@ -112,21 +112,32 @@ class InstrumentsController < ApplicationController
       data = line.split("|")
       if data[1] == "Sequence"
         parent_id = nil
-        if data[2] != "none"
-          parent = Sequence.find_by_URN(data[2])
+        if data[3] != "none"
+          parent = Sequence.find_by_URN(data[3])
           if parent.nil?
             #throw error
           end
           parent_id = parent.id
         end
-        @instrument.sequences.create(name: data[3], parent_id: parent_id, URN: data[0])
+        @instrument.sequences.create(name: data[4], parent_id: parent_id, URN: data[0])
       else
-        parent = Sequence.find_by_URN(data[2])
+        parent = Sequence.find_by_URN(data[3])
         if parent.nil?
           #throw error
         end
         parent_id = parent.id
-        @instrument.questions.create(qc: data[0], literal: data[3], parent_id: parent_id)
+        if data[2] == '-'
+          @instrument.questions.create(qc: data[0], literal: data[4], parent_id: parent_id)
+        else
+          grid_limits = data[2].chomp(']').reverse.chomp('[').reverse.split(',')
+          @instrument.questions.create(
+            qc: data[0], 
+            literal: data[4], 
+            parent_id: parent_id, 
+            max_x: grid_limits[1].to_i - 1, 
+            max_y: grid_limits[0].to_i - 1
+          )
+        end
       end
     end
     respond_to do |format|
@@ -283,7 +294,7 @@ class InstrumentsController < ApplicationController
     respond_to do |format|
       format.html { 
         redirect_to @instrument, 
-        notice: 'mapping.txt imported successfully. ' + total_skipped.to_s + ' lines skipped.',
+        notice: 'dv.txt imported successfully. ' + total_skipped.to_s + ' lines skipped.',
         more_notice: pieces.join('<br/>') + '<br/>' + skipped_lines.join('<br/>')
       }
     end
