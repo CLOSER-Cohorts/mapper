@@ -36,9 +36,9 @@ class Variable < ActiveRecord::Base
     
     good = true
     if not new_topic.nil?
-      good = good && integrity_check(questions, new_topic)
-      good = good && integrity_check(src_variables, new_topic)
-      good = good && integrity_check(out_variables, new_topic)
+      #good = good && integrity_check(questions, new_topic)
+      #good = good && integrity_check(src_variables, new_topic)
+      #good = good && integrity_check(out_variables, new_topic)
     end
     if good
       association(:topic).writer(new_topic)

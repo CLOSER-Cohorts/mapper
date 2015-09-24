@@ -27,7 +27,6 @@ module Linking
   end
   
   def topic_nest_is_valid_worker ( nest )
-    logger.debug self.class.name + " " + self.id.to_s
     if not nest[:members].include? self.id
       nest[:members] << self.id
     end
@@ -44,9 +43,6 @@ module Linking
     end
 	
     to_check = get_relations.reject{|x| nest[:members].include? x.id}
-    logger.debug "###"
-    logger.debug to_check
-    logger.debug "#####"
     to_check.each do |x|
       if x.topic.nil? || x.topic == topic || nest[:topic].nil?
         nest = x.topic_nest_is_valid_worker(nest)
