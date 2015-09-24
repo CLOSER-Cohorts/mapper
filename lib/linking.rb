@@ -39,16 +39,16 @@ module Linking
           nest[:good] = false
         end
       end 
-      nest[:fixed_points] << self.id 
+      nest[:fixed_points] << {type: self.class.name, id: self.id, obj: self, topic: topic}
     end
 	
     to_check = get_relations.reject{|x| nest[:members].include? x.id}
-    
     to_check.each do |x|
       if x.topic.nil? || x.topic == topic || nest[:topic].nil?
         nest = x.topic_nest_is_valid_worker(nest)
       else
         nest[:good] = false
+        nest[:fixed_points] << {type: x.class.name, id: x.id, obj: x, topic: x.topic}
       end
     end
     

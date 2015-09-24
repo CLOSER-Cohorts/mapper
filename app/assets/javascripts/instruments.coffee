@@ -1,7 +1,46 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-`
+` 
+
+removeTopic = function(type, id) {
+  jQuery.ajax({
+    type: "POST",
+    url: "/" + type.toLowerCase() + "s/" + id + "/set_topic.json",
+    data: {topic_id: -1},
+    success: function(response) {
+	  console.log(response);
+	  var dt = jQuery('#' + type + '-' + id);
+	  dt.nextUntil('dt').remove();
+	  dt.remove();
+    },
+    error: function(response) {console.log(response);}
+    });
+};
+
+resolveConflict = function(fixed_points) {
+  var items = [];
+  for (var i = 0; i < fixed_points.length; i++) {
+    if (fixed_points[i].type === "Question") {
+      items.push("<dt id='" + fixed_points[i].type + "-" + fixed_points[i].obj.id + "'>" +  fixed_points[i].obj.qc +  "</dt>");
+      items.push('<dd class="label">' + fixed_points[i].obj.literal + '</dd>');
+    } else {
+      items.push("<dt id='" + fixed_points[i].type + "-" + fixed_points[i].obj.id + "'>" +  fixed_points[i].obj.name+  "</dt>");
+      items.push('<dd class="label">' + fixed_points[i].obj.label + '</dd>');
+    }
+    items.push('<dd class="topic">' + fixed_points[i].topic.name + 
+      '<a href="javascript://" class="remove" onClick="removeTopic(\'' + 
+      fixed_points[i].type + '\',\'' + fixed_points[i].obj.id + '\')" >Remove</a></dd>');
+  }
+  jQuery('<div />')
+    .prop('title', 'Resolve Topic Conflict')
+    .html('<dl class="conflict-resolution">' + items.join('') + '</dl>').dialog({
+      minWidth: 400,
+      close: function() {
+        reloadTables();
+      }
+    });
+};
 
   jQuery.fn.extend({
     autoCompleteFromList: function (list) {
@@ -209,15 +248,17 @@ var draw_subrow = function(d) {
 };
 
 var ready = function() {
+
   var dataSrc = function ( json ) {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
 	  if (json.data[i].itopic != null && json.data[i].itopic.id == -1) {
-		json.data[i].topic = '<a style="color: red;" href="javascript://">ERROR</a>';
+		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + JSON.stringify(json.data[i].itopic.fixed_points) + ')\'>ERROR</a>';
 	  } else {
 		$selector = $topic_selector.clone();
 		$selector.removeProp('id')
-		$selector.attr('data-type', 'question').attr('data-id', json.data[i].id);
+		$selector.attr('data-type', json.data[i].type).attr('data-id', json.data[i].id);
+		console.log(json.data[i].itopic);
 		if (json.data[i].itopic != null) {
 		  $selector.children('option[value="' + json.data[i].itopic.id + '"]').attr('selected', 'selected');
 		} else {
@@ -237,7 +278,16 @@ var ready = function() {
 	  if (json.data[i].orig_variables != null) {
 	    json.data[i].variables = get_variable_names(json.data[i].id, json.data[i].orig_variables, null, null) + '<br/>';
 	  }
+	  if (typeof json.data[i].out_variables !== 'undefined') {
+	    outputs = [];
+	    for (var j = 0; j < json.data[i].out_variables.length; j++) {
+	      outputs.push(json.data[i].out_variables[j].name);
+	    }
+	    json.data[i].outputs = '<span class="nowrap">' + outputs.join(', ') + '</span>'
+	  }
 	  json.data[i].variables += draw_add_variable_input(json.data[i].id);
+	  json.data[i].actions = '<a tabindex="-1" class="destroy" data-confirm="Are you sure?"' +
+	    'rel="nofollow" data-method="delete" href="/' + json.data[i].type + 's/' + json.data[i].id + '">Destroy</a>';
 	}
 	return json.data;
   }
@@ -254,8 +304,7 @@ var ready = function() {
       {data: 'variables'},
       {data: 'topic'},
       {data: 'actions'}
-    ],
-    scrollX: true
+    ]
   }));
   
   tables.push(jQuery('#variables').DataTable({

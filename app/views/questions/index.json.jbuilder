@@ -1,5 +1,6 @@
 json.data @questions do |question|
   json.extract! question, :id, :qc, :literal, :topic, :max_x, :max_y
+  json.type 'question'
   begin
     json.itopic question.get_topic
   rescue Exception

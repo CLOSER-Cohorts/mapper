@@ -127,7 +127,7 @@ class VariablesController < ApplicationController
       @variable = Variable.find(params[:id])
     end
     def set_instrument
-      @instrument = Instrument.find(params[:instrument_id])
+      @instrument = Instrument.includes(variables: [{questions: :topic}, {out_variables: :topic}, {src_variables: :topic},:topic]).find(params[:instrument_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
