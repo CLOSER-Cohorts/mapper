@@ -70,7 +70,10 @@ class InstrumentsController < ApplicationController
           if line[0,1] != "#"
             pieces = line.split("\t")
             if pieces.length > 6
-              instrument = Instrument.create({prefix: pieces[0], port: pieces[1], study: pieces[2]})
+              instrument = Instrument.find_by_prefix pieces[0]
+              if instrument.nil?
+                instrument = Instrument.create({prefix: pieces[0], port: pieces[1], study: pieces[2]})
+              end
               if pieces[3] != "0"
                 if files.has_key? pieces[3]
                   mapper = files[pieces[3]]
@@ -404,7 +407,10 @@ class InstrumentsController < ApplicationController
 			  end
 			  parent_id = parent.id
 			end
-			instrument.sequences.create(name: data[4], parent_id: parent_id, URN: data[0])
+			sequence = instrument.sequences.find_by_URN data[0]
+			if sequence.nil?
+			  instrument.sequences.create(name: data[4], parent_id: parent_id, URN: data[0])
+			end
 		  else
 			parent = Sequence.find_by_URN(data[3])
 			if parent.nil?
@@ -414,14 +420,17 @@ class InstrumentsController < ApplicationController
 			if data[2] == '-'
 			  instrument.questions.create(qc: data[0], literal: data[4], parent_id: parent_id)
 			else
-			  grid_limits = data[2].chomp(']').reverse.chomp('[').reverse.split(',')
-			  instrument.questions.create(
-				qc: data[0], 
-				literal: data[4], 
-				parent_id: parent_id, 
-				max_x: grid_limits[1].to_i - 1, 
-				max_y: grid_limits[0].to_i - 1
-			  )
+			  question = instrument.questions.find_by_qc data[0]
+			  if question.nil?
+			    grid_limits = data[2].chomp(']').reverse.chomp('[').reverse.split(',')
+			    instrument.questions.create(
+				  qc: data[0], 
+				  literal: data[4], 
+				  parent_id: parent_id, 
+				  max_x: grid_limits[1].to_i - 1, 
+				  max_y: grid_limits[0].to_i - 1
+			    )
+			  end
 			end
 		  end
 		end
