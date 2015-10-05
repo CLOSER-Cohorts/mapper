@@ -33,12 +33,17 @@ Rails.application.routes.draw do
       patch :import_dv
       patch :import_linking
     end
+    collection do 
+      post :batch
+      get :batch
+    end
     get :mapping
     get :dv
     get :linking
     get :question_topics, path: 'topic-q'
     get :variable_topics, path: 'topic-v'
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

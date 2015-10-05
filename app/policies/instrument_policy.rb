@@ -25,6 +25,7 @@ class InstrumentPolicy < ApplicationPolicy
   def create?
     user.admin?
   end
+  alias batch? create?
 
   def show?
     user.admin? || user.study == record.study || 

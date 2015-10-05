@@ -1,0 +1,4 @@
+<%= form_tag({method: 'post'},{multipart: true}) do %>
+  <%= file_field_tag "files[]", multiple: true %>
+  <%= submit_tag "Submit" %>
+<% end %>

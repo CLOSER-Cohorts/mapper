@@ -43,9 +43,8 @@ class InstrumentsController < ApplicationController
   # POST /instruments
   # POST /instruments.json
   def create
-    authorize Instrument
     @instrument = Instrument.new(instrument_params)
-
+    authorize @instrument
     respond_to do |format|
       if @instrument.save
         format.html { redirect_to @instrument, notice: 'Instrument was successfully created.' }
@@ -54,6 +53,39 @@ class InstrumentsController < ApplicationController
         format.html { render :new }
         format.json { render json: @instrument.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  #PATCH /instruments/batch
+  def batch
+    authorize Instrument
+    logger.debug params
+    if params.has_key?(:files)
+      if params['files'].any? {|file| file.original_filename == 'control.txt'}
+         files = {}
+        params['files'].each do |file|
+          files[file.original_filename] = file.read
+        end
+        files['control.txt'].each_line do |line|
+          if line[0,1] != "#"
+            pieces = line.split("\t")
+            if pieces.length > 6
+              instrument = Instrument.create({prefix: pieces[0], port: pieces[1], study: pieces[2]})
+              if pieces[3] != "0"
+                if files.has_key? pieces[3]
+                  mapper = files[pieces[3]]
+                  read_mapper_txt(instrument, mapper)
+                end
+              end
+            end
+          end
+        end
+        redirect_to instruments_url, notice: 'Instruments successfully created.'
+      else
+        render :batch, alert: 'No control.txt file included.'
+      end 
+    else
+      render :batch
     end
   end
 
@@ -108,38 +140,7 @@ class InstrumentsController < ApplicationController
   def import_from_caddies
     mapper_io = params[:instrument][:mapper]
     mapper = mapper_io.read
-    mapper.each_line do |line|
-      data = line.split("|")
-      if data[1] == "Sequence"
-        parent_id = nil
-        if data[3] != "none"
-          parent = Sequence.find_by_URN(data[3])
-          if parent.nil?
-            #throw error
-          end
-          parent_id = parent.id
-        end
-        @instrument.sequences.create(name: data[4], parent_id: parent_id, URN: data[0])
-      else
-        parent = Sequence.find_by_URN(data[3])
-        if parent.nil?
-          #throw error
-        end
-        parent_id = parent.id
-        if data[2] == '-'
-          @instrument.questions.create(qc: data[0], literal: data[4], parent_id: parent_id)
-        else
-          grid_limits = data[2].chomp(']').reverse.chomp('[').reverse.split(',')
-          @instrument.questions.create(
-            qc: data[0], 
-            literal: data[4], 
-            parent_id: parent_id, 
-            max_x: grid_limits[1].to_i - 1, 
-            max_y: grid_limits[0].to_i - 1
-          )
-        end
-      end
-    end
+    read_mapper_txt(@instrument, mapper)
     respond_to do |format|
       format.html { redirect_to @instrument, notice: 'mapper.txt imported successfully.' }
     end
@@ -389,5 +390,40 @@ class InstrumentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def instrument_params
       params.require(:instrument).permit(:prefix, :port)
+    end
+    
+    def read_mapper_txt (instrument, mapper)
+      mapper.each_line do |line|
+		  data = line.split("|")
+		  if data[1] == "Sequence"
+			parent_id = nil
+			if data[3] != "none"
+			  parent = Sequence.find_by_URN(data[3])
+			  if parent.nil?
+				#throw error
+			  end
+			  parent_id = parent.id
+			end
+			instrument.sequences.create(name: data[4], parent_id: parent_id, URN: data[0])
+		  else
+			parent = Sequence.find_by_URN(data[3])
+			if parent.nil?
+			  #throw error
+			end
+			parent_id = parent.id
+			if data[2] == '-'
+			  instrument.questions.create(qc: data[0], literal: data[4], parent_id: parent_id)
+			else
+			  grid_limits = data[2].chomp(']').reverse.chomp('[').reverse.split(',')
+			  instrument.questions.create(
+				qc: data[0], 
+				literal: data[4], 
+				parent_id: parent_id, 
+				max_x: grid_limits[1].to_i - 1, 
+				max_y: grid_limits[0].to_i - 1
+			  )
+			end
+		  end
+		end
     end
 end
