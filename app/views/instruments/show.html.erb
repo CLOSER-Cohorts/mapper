@@ -54,6 +54,15 @@
 </div>
 </div>
 
+<div id="variables-import" class="dialog" title="Import variables">
+  <%= form_for @instrument, :url => {:action => 'import_variables'} do |f| %>
+    <%= f.file_field :variables %>
+    <div class="actions">
+      <%= f.submit 'Upload Variables' %>
+    </div>
+  <% end %>
+</div>
+
 <% if current_user.admin? %>
 
 <div id="qlist-import" class="dialog" title="Import qlist.txt">
@@ -70,15 +79,6 @@
     <%= f.file_field :mapper %>
     <div class="actions">
       <%= f.submit 'Upload mapper.txt' %>
-    </div>
-  <% end %>
-</div>
-
-<div id="variables-import" class="dialog" title="Import variables">
-  <%= form_for @instrument, :url => {:action => 'import_variables'} do |f| %>
-    <%= f.file_field :variables %>
-    <div class="actions">
-      <%= f.submit 'Upload Variables' %>
     </div>
   <% end %>
 </div>
@@ -133,7 +133,9 @@
   <%= link_to 'Import map', '#', :onclick => 'jQuery("#map-import").dialog("open")' %>
   <%= link_to 'Import DV', '#', :onclick => 'jQuery("#dv-import").dialog("open")' %>
   <%= link_to 'Import topics', '#', :onclick => 'jQuery("#linking-import").dialog("open")' %>
-  <% end %>
+<% else %>
+  <%= link_to 'Import variables', '#', :onclick => 'jQuery("#variables-import").dialog("open")' %>
+<% end %>
 <% end %>
 
 <% content_for :javascript do %>
