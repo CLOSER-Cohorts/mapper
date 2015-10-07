@@ -157,19 +157,21 @@ class InstrumentsController < ApplicationController
     var_data = var_data.gsub /\r\n?/, "\n"
     var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
     first_line = var_data.lines.first
+    logger.debug first_line.scan(/[^\w\d_ \n\r]+/)
     if punc = first_line.scan(/[^\w\d_ \n\r]+/)
-      if punc.length == 2 or punc.length == 4
-        columns = 3
-      elsif punc.length == 1 or punc.length == 3
-        columns = 2
-      else
-        #throw error
-      end
-      if punc.length == 3 or punc.length == 4
-        splitter = punc[1].gsub('"','').gsub("'","")
+      quote_cladding = ''
+      if punc[0] == '"' or punc[0] == "'"
+        if punc[0] == '"'
+          quote_cladding = '"'
+        else
+          quote_cladding = "'"
+        end
+        splitter = punc[1]
       else
         splitter = punc[0]
       end
+      first_line = first_line.chomp(quote_cladding).reverse.chomp(quote_cladding).reverse
+      columns = first_line.split(splitter).length
     else
       #throw an error
     end
