@@ -49,6 +49,6 @@ class Variable < ActiveRecord::Base
   alias topic= set_topic
   
   def get_relations
-    output = questions + src_variables + out_variables
+    questions + src_variables + out_variables
   end
 end

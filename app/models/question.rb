@@ -17,6 +17,15 @@ class Question < ActiveRecord::Base
     end
     return var_names.join(',')
   end
+  
+  def get_topic
+    output = super
+    p_topic = get_parent_topic
+    if output.nil? && (not p_topic.nil?)
+      output = p_topic
+    end
+    return output
+  end
 
   def get_parent_topic
     if parent.nil?

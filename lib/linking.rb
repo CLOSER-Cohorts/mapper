@@ -65,4 +65,10 @@ module Linking
     end
     return true
   end
+  
+  def clear_nest
+    if not my_nest.nil?
+      Linking::topic_nests.delete_if { |nest| nest[:members].include? self.id }
+    end
+  end
 end

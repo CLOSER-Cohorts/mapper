@@ -264,14 +264,15 @@ var ready = function() {
 		} else {
 		  $selector.children().eq(1).attr('selected', 'selected');
 		}
-		if (json.data[i].ptopic != null)
+		if (json.data[i].ptopic != null) {
 		  $selector
 			.children('option[value="' + json.data[i].ptopic.id + '"]')
 			  .append(' (inherited)');
-		else
+		} else {
 		  $selector
 			.children().eq(1)
 			  .append(' (inherited)');
+		}
 		json.data[i].topic = $selector.prop('outerHTML');	
 	  }
 	  json.data[i].variables = '';
