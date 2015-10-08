@@ -385,6 +385,14 @@ class InstrumentsController < ApplicationController
       format.json  {}
     end
   end
+  
+  def mapper 
+    @instrument = Instrument.find(params[:instrument_id])
+    respond_to do |format|
+      format.text { render 'mapper.txt.erb', layout: false, content_type: 'text/plain' }
+      format.json  {}
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

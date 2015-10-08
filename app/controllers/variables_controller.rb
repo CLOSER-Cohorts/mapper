@@ -7,7 +7,11 @@ class VariablesController < ApplicationController
   def index
     @topics = Topic.get_in_level_order
     @variables = @instrument.variables
-    render layout: "index"
+    respond_to do |format|
+      format.html { render layout: "index" }
+      format.json { render layout: "index" }
+      format.text { render 'index.txt.erb', layout: false, content_type: 'text/plain' }
+    end
   end
 
   # GET /variables/1

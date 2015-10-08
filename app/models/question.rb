@@ -57,4 +57,12 @@ class Question < ActiveRecord::Base
     end
     return vars
   end
+  
+  def parent_reference
+    if parent.nil?
+      return 'none'
+    else
+      return parent.URN
+    end
+  end
 end
