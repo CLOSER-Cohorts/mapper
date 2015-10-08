@@ -29,6 +29,14 @@ class Sequence < ActiveRecord::Base
       association(:parent).writer(new_parent)
     end
   end
+  
+  def parent_reference
+    if parent.nil?
+      return 'none'
+    else
+      return parent.URN
+    end
+  end
 
   def are_you_my_child ( sequence )
     children.each do |child|

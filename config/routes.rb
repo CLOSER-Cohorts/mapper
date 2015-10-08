@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     get :linking
     get :question_topics, path: 'topic-q'
     get :variable_topics, path: 'topic-v'
+    get :mapper
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
