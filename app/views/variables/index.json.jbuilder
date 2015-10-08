@@ -13,6 +13,7 @@ json.data @variables do |variable|
   rescue Exception
     json.ptopic id: -1, name: 'Error', fixed_points: variable.my_nest[:fixed_points]
   end
+  json.my_nest variable.my_nest
   json.admin current_user.admin?
   #json.actions render partial: 'actions.html.erb', locals: {variable: variable}
 end
