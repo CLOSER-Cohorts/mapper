@@ -19,7 +19,18 @@ class InstrumentsController < ApplicationController
   # GET /instruments
   # GET /instruments.json
   def index
-    @instruments = policy_scope(Instrument)
+    if params.has_key?(:study) and params[:study].length > 1
+      if params[:study] == "CLS"
+        studies = ["BCS","MCS","NCDS"]
+      elsif params[:study] == "SOTON"
+        studies = ["HCS","SWS"]
+      else
+        studies = params[:study]
+      end
+      @instruments = policy_scope(Instrument.where(study: studies))
+    else
+      @instruments = policy_scope(Instrument)
+    end
     render layout: "index"
   end
 
@@ -402,7 +413,7 @@ class InstrumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instrument_params
-      params.require(:instrument).permit(:prefix, :port)
+      params.require(:instrument).permit(:prefix, :port, :study)
     end
     
     def read_mapper_txt (instrument, mapper)
