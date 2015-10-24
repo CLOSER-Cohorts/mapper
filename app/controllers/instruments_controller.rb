@@ -91,6 +91,12 @@ class InstrumentsController < ApplicationController
                   read_mapper_txt(instrument, mapper)
                 end
               end
+              if pieces[4] != "0"
+                if files.has_key? pieces[4]
+                  variables = files[pieces[4]]
+                  read_variables_txt(instrument, variables)
+                end
+              end
             end
           end
         end
@@ -161,43 +167,8 @@ class InstrumentsController < ApplicationController
   end
 
   def import_variables
-    default = 'Normal'
     var_io = params[:instrument][:variables]
-    var_data = var_io.read
-    var_data.force_encoding('UTF-8')
-    var_data = var_data.gsub /\r\n?/, "\n"
-    var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
-    first_line = var_data.lines.first
-    logger.debug first_line.scan(/[^\w\d_ \n\r]+/)
-    if punc = first_line.scan(/[^\w\d_ \n\r]+/)
-      quote_cladding = ''
-      if punc[0] == '"' or punc[0] == "'"
-        if punc[0] == '"'
-          quote_cladding = '"'
-        else
-          quote_cladding = "'"
-        end
-        splitter = punc[1]
-      else
-        splitter = punc[0]
-      end
-      first_line = first_line.chomp(quote_cladding).reverse.chomp(quote_cladding).reverse
-      columns = first_line.split(splitter).length
-    else
-      #throw an error
-    end
-
-    var_data.each_line do |line|
-      data = line.strip.split(splitter)
-      data_name = data[0].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
-      data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
-      if columns == 3
-        data_var_type = data[2].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
-      else
-        data_var_type = default
-      end
-      @instrument.variables.create(:name => data_name, :label => data_label, :var_type => data_var_type)
-    end
+    read_variables_txt(@instrument, var_io.read)
     respond_to do |format|
       format.html { redirect_to @instrument, notice: 'Variables imported successfully.' }
     end
@@ -455,5 +426,44 @@ class InstrumentsController < ApplicationController
 			end
 		  end
 		end
+    end
+    
+    def read_variables_txt (instrument, var_data)
+      default = 'Normal'
+      var_data.force_encoding('UTF-8')
+      var_data = var_data.gsub /\r\n?/, "\n"
+      var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
+      first_line = var_data.lines.first
+      logger.debug first_line.scan(/[^\w\d_ \n\r]+/)
+      if punc = first_line.scan(/[^\w\d_ \n\r]+/)
+        quote_cladding = ''
+
+        if (punc[0] == '"') || (punc[0] == "'")
+          if punc[0] == '"'
+            quote_cladding = '"'
+          else
+            quote_cladding = "'"
+          end
+          splitter = punc[1]
+        else
+          splitter = punc[0]
+        end
+        first_line = first_line.chomp(quote_cladding).reverse.chomp(quote_cladding).reverse
+        columns = first_line.split(splitter).length
+      else
+        #throw an error
+      end
+
+      var_data.each_line do |line|
+        data = line.strip.split(splitter)
+        data_name = data[0].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        if columns == 3
+          data_var_type = data[2].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        else
+          data_var_type = default
+        end
+        instrument.variables.create(:name => data_name, :label => data_label, :var_type => data_var_type)
+      end
     end
 end
