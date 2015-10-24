@@ -85,16 +85,32 @@ class InstrumentsController < ApplicationController
               if instrument.nil?
                 instrument = Instrument.create({prefix: pieces[0], port: pieces[1], study: pieces[2]})
               end
-              if pieces[3] != "0"
+              #mapper.txt
+              if pieces[3] != "0" || pieces[3].length > 0
                 if files.has_key? pieces[3]
                   mapper = files[pieces[3]]
                   read_mapper_txt(instrument, mapper)
                 end
               end
-              if pieces[4] != "0"
+              #variables.txt
+              if pieces[4] != "0" || pieces[4].length > 0
                 if files.has_key? pieces[4]
                   variables = files[pieces[4]]
                   read_variables_txt(instrument, variables)
+                end
+              end
+              #mapping.txt
+              if pieces[5] != "0" || pieces[5].length > 0
+                if files.has_key? pieces[5]
+                  mapping = files[pieces[5]]
+                  read_mapping_txt(instrument, mapping)
+                end
+              end
+              #dv.txt
+              if pieces[6] != "0" || pieces[6].length > 0
+                if files.has_key? pieces[6]
+                  dv = files[pieces[6]]
+                  read_dv_txt(instrument, dv)
                 end
               end
             end
@@ -176,29 +192,7 @@ class InstrumentsController < ApplicationController
 
   def import_map
     map_io = params[:instrument][:map]
-    map = map_io.read
-    map.each_line do |line|
-      data = line.split("\t")
-      if not data[0] == '0'
-        q_ref = data[0].chomp.strip.split('$')
-        question = @instrument.questions.find_by_qc(q_ref.first)
-        if not question.nil?
-          variable = @instrument.variables.find_by_name(data[1].chomp.strip)
-          if not variable.nil?
-            if q_ref.length > 1
-              if q_ref.second.count(';') == 1
-                g_ref = q_ref.second.split(';')
-                question.map.create(:variable => variable, :x => g_ref.first.to_i, :y => g_ref.second.to_i)
-              else
-                question.variables << variable
-              end
-            else
-              question.variables << variable
-            end
-          end
-        end
-      end
-    end
+    read_mapping_txt(@instrument,map_io.read)
     respond_to do |format|
       format.html { redirect_to @instrument, notice: 'mapping.txt imported successfully.' }
     end
@@ -206,79 +200,7 @@ class InstrumentsController < ApplicationController
 
   def import_dv
     dv_io = params[:instrument][:dv]
-    dv = dv_io.read
-    skipped = {
-      target_question_not_found: [], 
-      target_variable_not_found: [], 
-      dv_not_found: [], 
-      too_many_target_variables: [], 
-      wrong_variable_type: [],
-      already_mapped: []
-    }
-    line_counter = 0
-    dv.each_line do |line|
-      line_counter += 1
-      data = line.split("\t")
-      
-      if data[1][0...3] == 'qc_'
-        question = @instrument.questions.find_by_qc(data[1].chomp.strip)
-         if question.nil?
-           skipped[:target_question_not_found].push({line_number: line_counter, line: line})
-           next
-         else
-           if question.variables.length != 1
-             skipped[:too_many_target_variables].push({line_number: line_counter, line: line})
-             next
-           end
-         end 
-
-        src = question.variables.first 
-      else
-        src = Variable.find_by_name(data[1].chomp.strip)
-        if src.nil?
-          skipped[:target_variable_not_found].push({line_number: line_counter, line: line})
-          next
-        end
-      end
-
-      variable = @instrument.variables.find_by_name(data[0].chomp.strip)
-      if variable.nil?
-        skipped[:dv_not_found].push({line_number: line_counter, line: line})
-        next
-      else
-        if variable.questions.length > 0
-          skipped[:wrong_variable_type].push({line_number: line_counter, line: line})
-          next
-        end
-      end
-
-      already_mapped = variable.src_variables.find_by_id(src.id)
-      if not already_mapped.nil?
-        skipped[:already_mapped].push({line_number: line_counter, line: line})
-        next
-      end
-
-      if variable.var_type != 'Derived'
-        variable.var_type = 'Derived'
-        variable.save
-      end
-
-      variable.src_variables << src
-    end
-   
-    total_skipped = 0
-    pieces = []
-    skipped_lines = []
-    skipped.each do |key, skipped_type|
-      total_skipped += skipped_type.count
-      pieces << skipped_type.count.to_s + " " + key.to_s.gsub('_',' ').capitalize
-      if key != :already_mapped
-        skipped_type.each do |skipped_obj|
-          skipped_lines << "Skipped line " + skipped_obj[:line_number].to_s + ": " + skipped_obj[:line]
-        end
-      end
-    end    
-
+    total_skipped, skipped_lines, pieces = read_dv_txt(instrument, dv_io.read)
     respond_to do |format|
       format.html { 
         redirect_to @instrument, 
@@ -465,5 +387,105 @@ class InstrumentsController < ApplicationController
         end
         instrument.variables.create(:name => data_name, :label => data_label, :var_type => data_var_type)
       end
+    end
+    
+    def read_mapping_txt (instrument, map)
+      map.each_line do |line|
+        data = line.split("\t")
+        if not data[0] == '0'
+          q_ref = data[0].chomp.strip.split('$')
+          question = instrument.questions.find_by_qc(q_ref.first)
+          if not question.nil?
+            variable = instrument.variables.find_by_name(data[1].chomp.strip)
+            if not variable.nil?
+              if q_ref.length > 1
+                if q_ref.second.count(';') == 1
+                  g_ref = q_ref.second.split(';')
+                  question.map.create(:variable => variable, :x => g_ref.first.to_i, :y => g_ref.second.to_i)
+                else
+                  question.variables << variable
+                end
+              else
+                question.variables << variable
+              end
+            end
+          end
+        end
+      end
+    end
+    
+    def read_dv_txt (instrument, dv)
+      skipped = {
+        target_question_not_found: [], 
+        target_variable_not_found: [], 
+        dv_not_found: [], 
+        too_many_target_variables: [], 
+        wrong_variable_type: [],
+        already_mapped: []
+      }
+      line_counter = 0
+      dv.each_line do |line|
+        line_counter += 1
+        data = line.split("\t")
+      
+        if data[1][0...3] == 'qc_'
+          question = instrument.questions.find_by_qc(data[1].chomp.strip)
+          if question.nil?
+            skipped[:target_question_not_found].push({line_number: line_counter, line: line})
+            next
+          else
+            if question.variables.length != 1
+              skipped[:too_many_target_variables].push({line_number: line_counter, line: line})
+              next
+            end
+          end 
+
+          src = question.variables.first 
+        else
+          src = Variable.find_by_name(data[1].chomp.strip)
+          if src.nil?
+            skipped[:target_variable_not_found].push({line_number: line_counter, line: line})
+            next
+          end
+        end
+
+        variable = instrument.variables.find_by_name(data[0].chomp.strip)
+        if variable.nil?
+          skipped[:dv_not_found].push({line_number: line_counter, line: line})
+          next
+        else
+          if variable.questions.length > 0
+            skipped[:wrong_variable_type].push({line_number: line_counter, line: line})
+            next
+          end
+        end
+
+        already_mapped = variable.src_variables.find_by_id(src.id)
+        if not already_mapped.nil?
+          skipped[:already_mapped].push({line_number: line_counter, line: line})
+          next
+        end
+
+        if variable.var_type != 'Derived'
+          variable.var_type = 'Derived'
+          variable.save
+        end
+
+        variable.src_variables << src
+      end
+   
+      total_skipped = 0
+      pieces = []
+      skipped_lines = []
+      skipped.each do |key, skipped_type|
+        total_skipped += skipped_type.count
+        pieces << skipped_type.count.to_s + " " + key.to_s.gsub('_',' ').capitalize
+        if key != :already_mapped
+          skipped_type.each do |skipped_obj|
+            skipped_lines << "Skipped line " + skipped_obj[:line_number].to_s + ": " + skipped_obj[:line]
+          end
+        end
+      end 
+      return total_skipped, skipped_lines, pieces   
     end
 end
