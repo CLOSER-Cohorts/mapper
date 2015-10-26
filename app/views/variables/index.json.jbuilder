@@ -1,6 +1,6 @@
 json.data @variables do |variable|
   json.extract! variable, :id, :name, :label, :var_type, :topic, :out_variables, :src_variables, :questions
-  json.type 'variable'
+  json.type 'Variable'
   #json.outputs render partial: 'outputs.html.erb', locals: {variable: variable}
   json.sources render partial: 'sources.html.erb', locals: {variable: variable}
   begin

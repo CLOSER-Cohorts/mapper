@@ -252,28 +252,34 @@ var ready = function() {
   var dataSrc = function ( json ) {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
-	  if (json.data[i].itopic != null && json.data[i].itopic.id == -1) {
+	  if (!json.data[i].my_nest.good) {
 		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + JSON.stringify(json.data[i].itopic.fixed_points) + ')\'>ERROR</a>';
 	  } else {
-		$selector = $topic_selector.clone();
-		$selector.removeProp('id')
-		$selector.attr('data-type', json.data[i].type).attr('data-id', json.data[i].id);
-		console.log(json.data[i].itopic);
-		if (json.data[i].itopic != null) {
-		  $selector.children('option[value="' + json.data[i].itopic.id + '"]').attr('selected', 'selected');
-		} else {
-		  $selector.children().eq(1).attr('selected', 'selected');
-		}
-		if (json.data[i].ptopic != null) {
-		  $selector
-			.children('option[value="' + json.data[i].ptopic.id + '"]')
-			  .append(' (inherited)');
-		} else {
-		  $selector
-			.children().eq(1)
-			  .append(' (inherited)');
-		}
-		json.data[i].topic = $selector.prop('outerHTML');	
+	    if (json.data[i].my_nest.fixed_points.length > 0 && 
+	      jQuery.grep(json.data[i].my_nest.fixed_points, function(x){ return x.type == json.data[i].type && x.id == json.data[i].id; }).length == 0) {
+	      json.data[i].topic = json.data[i].my_nest.topic.name
+	    } else {
+		  $selector = $topic_selector.clone();
+		  $selector.removeProp('id')
+		  $selector.attr('data-type', json.data[i].type).attr('data-id', json.data[i].id);
+		  if (json.data[i].my_nest.topic != null) {
+		    $selector.children('option[value="' + json.data[i].my_nest.topic.id + '"]').attr('selected', 'selected');
+		  } else {
+		    $selector.children().eq(1).attr('selected', 'selected');
+		  }
+		  if (json.data[i].type == "Question") {
+		    if (json.data[i].ptopic != null) {
+		      $selector
+			    .children('option[value="' + json.data[i].ptopic.id + '"]')
+			      .append(' (inherited)');
+		    } else {
+		      $selector
+			    .children().eq(1)
+			      .append(' (inherited)');
+		    }
+		  }
+		  json.data[i].topic = $selector.prop('outerHTML');
+	    }
 	  }
 	  json.data[i].variables = '';
 	  if (json.data[i].orig_variables != null) {
@@ -386,7 +392,7 @@ var ready = function() {
     data = {topic_id: this.value}
     jQuery.ajax({
       type: "POST",
-      url: "/" + type + "s/" + id + "/set_topic.json",
+      url: "/" + type.toLowerCase() + "s/" + id + "/set_topic.json",
       data: data,
       beforeSend: function() {
         //jQuery('select.topic-selector').prop('disabled', true);
