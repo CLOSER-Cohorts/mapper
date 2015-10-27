@@ -48,6 +48,10 @@ class Variable < ActiveRecord::Base
   end
   alias topic= set_topic
   
+  def count_outs
+    r = Variable.count_by_sql("SELECT COUNT(*) FROM maps WHERE mapable_type='Variable' AND mapable_id = " + id.to_s)
+  end
+  
   def get_relations
     questions + src_variables + out_variables
   end

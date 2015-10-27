@@ -65,4 +65,8 @@ class Question < ActiveRecord::Base
       return parent.URN
     end
   end
+  
+  def count_outs
+    r = Question.count_by_sql("SELECT COUNT(*) FROM maps WHERE mapable_type='Question' AND mapable_id = " + id.to_s)
+  end
 end

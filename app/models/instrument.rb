@@ -7,10 +7,6 @@ class Instrument < ActiveRecord::Base
   accepts_nested_attributes_for :sequences
   
   attr_accessor :topic_nests
-  
-  after_initialize do |instrument|
-    instrument.topic_nests ||= [] # just in case the :topic_nests were passed to .new
-  end
 
   def get_comma_separated_variables
     var_names = []
@@ -39,12 +35,17 @@ class Instrument < ActiveRecord::Base
   def mapping_connections
     count = 0
     variables.each do |v|
-      count += v.out_variables.count
+      count += v.count_outs
     end
     questions.each do |q|
-      count += q.variables.count
+      count += q.count_outs
     end
     return count
+  end
+  
+  def mapping_density
+    density = mapping_connections.to_f / (variable_count + question_count)
+    return 0 if density.nan? else density
   end
   
   def topic_connections
@@ -60,6 +61,42 @@ class Instrument < ActiveRecord::Base
       end
     end
     return count
+  end
+  
+  def topic_density
+    count = 0
+    total = 0
+    bad = 0
+    variables.each do |v|
+      begin
+        if not v.get_topic.nil?
+          count += 1
+        end
+      rescue Exception
+        bad += 1
+      end
+      total += 1
+    end
+    questions.each do |q|
+      begin
+        if not q.get_topic.nil?
+          count += 1
+        end
+      rescue Exception 
+        bad += 1
+      end
+      total += 1
+    end
+    density = count.to_f/total
+    return 0 if density.nan? else density
+  end
+  
+  def variable_count
+    r = Instrument.count_by_sql("SELECT COUNT(*) as variable_count FROM variables WHERE variables.instrument_id = " + id.to_s)
+  end
+  
+  def question_count
+    r = Instrument.count_by_sql("SELECT COUNT(*) as question_count FROM questions WHERE questions.instrument_id = " + id.to_s)
   end
   
   def self.get_mapping( instrument_id )

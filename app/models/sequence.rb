@@ -6,12 +6,17 @@ class Sequence < ActiveRecord::Base
   has_one :topic, through: :link, as: :target
   has_one :link, :as => :target, :dependent => :destroy
 
+  @@topics_cache = {}
+  
   def get_topic
-    if topic.nil?
-      return get_parent_topic
-    else
-      return topic
+    if not @@topics_cache.has_key?(id)
+      if topic.nil?
+        @@topics_cache[id] = get_parent_topic
+      else
+        @@topics_cache[id] = topic
+      end
     end
+    return @@topics_cache[id]
   end
   
   def get_parent_topic

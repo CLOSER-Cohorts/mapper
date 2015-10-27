@@ -44,8 +44,8 @@
         <td><%= instrument.port %></td>
         <td><%= instrument.questions.count() %></td>
 	    <td><%= instrument.variables.count() %></td>
-	    <td><%= instrument.mapping_connections %></td>
-	    <td><%= instrument.topic_connections %></td>
+	    <td><%= instrument.mapping_density %></td>
+	    <td><%= instrument.topic_density %></td>
         <td class="center"><%= link_to 'Show', instrument, title: "Show", class: 'show' %></td>
         <% if current_user.admin? %>
         <td class="center"><%= link_to 'New Questions', new_instrument_question_path(instrument), title: "Add Question", class: 'question' %></td>
