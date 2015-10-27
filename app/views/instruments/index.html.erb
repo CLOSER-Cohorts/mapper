@@ -27,6 +27,8 @@
       <th>Port</th>
       <th>Questions</th>
       <th>Variables</th>
+      <th>Mapping</th>
+      <th>Topics</th>
       <% if current_user.admin? %>
       <th colspan="5"></th>
       <% else %>
@@ -41,7 +43,9 @@
         <td><%= instrument.prefix %></td>
         <td><%= instrument.port %></td>
         <td><%= instrument.questions.count() %></td>
-	<td><%= instrument.variables.count() %></td>
+	    <td><%= instrument.variables.count() %></td>
+	    <td><%= instrument.mapping_connections %></td>
+	    <td><%= instrument.topic_connections %></td>
         <td class="center"><%= link_to 'Show', instrument, title: "Show", class: 'show' %></td>
         <% if current_user.admin? %>
         <td class="center"><%= link_to 'New Questions', new_instrument_question_path(instrument), title: "Add Question", class: 'question' %></td>

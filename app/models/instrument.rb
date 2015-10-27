@@ -36,6 +36,32 @@ class Instrument < ActiveRecord::Base
     return seq_names.join(',')
   end
   
+  def mapping_connections
+    count = 0
+    variables.each do |v|
+      count += v.out_variables.count
+    end
+    questions.each do |q|
+      count += q.variables.count
+    end
+    return count
+  end
+  
+  def topic_connections
+    count = 0
+    variables.each do |v|
+      if not v.topic.nil?
+        count += 1
+      end
+    end
+    questions.each do |q|
+      if not q.topic.nil?
+        count += 1
+      end
+    end
+    return count
+  end
+  
   def self.get_mapping( instrument_id )
     r = self.sanitize_sql_array(["SELECT name as variable, COALESCE(qc, '0') as qc, x, y FROM variables LEFT JOIN maps ON variables.id = variable_id LEFT JOIN questions ON mapable_id = questions.id AND mapable_type = 'Question' WHERE variables.instrument_id =? GROUP BY variable, qc, x, y ORDER BY variable", instrument_id])
     self.connection.select_all r
