@@ -353,6 +353,7 @@ class InstrumentsController < ApplicationController
     def read_variables_txt (instrument, var_data)
       default = 'Normal'
       var_data.force_encoding('UTF-8')
+      var_data.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '?')
       var_data = var_data.gsub /\r\n?/, "\n"
       var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
       first_line = var_data.lines.first
