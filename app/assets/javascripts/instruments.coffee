@@ -252,28 +252,34 @@ var ready = function() {
   var dataSrc = function ( json ) {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
-	  if (json.data[i].itopic != null && json.data[i].itopic.id == -1) {
+	  if (!json.data[i].my_nest.good) {
 		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + JSON.stringify(json.data[i].itopic.fixed_points) + ')\'>ERROR</a>';
 	  } else {
-		$selector = $topic_selector.clone();
-		$selector.removeProp('id')
-		$selector.attr('data-type', json.data[i].type).attr('data-id', json.data[i].id);
-		console.log(json.data[i].itopic);
-		if (json.data[i].itopic != null) {
-		  $selector.children('option[value="' + json.data[i].itopic.id + '"]').attr('selected', 'selected');
-		} else {
-		  $selector.children().eq(1).attr('selected', 'selected');
-		}
-		if (json.data[i].ptopic != null) {
-		  $selector
-			.children('option[value="' + json.data[i].ptopic.id + '"]')
-			  .append(' (inherited)');
-		} else {
-		  $selector
-			.children().eq(1)
-			  .append(' (inherited)');
-		}
-		json.data[i].topic = $selector.prop('outerHTML');	
+	    if (json.data[i].my_nest.fixed_points.length > 0 && 
+	      jQuery.grep(json.data[i].my_nest.fixed_points, function(x){ return x.type == json.data[i].type && x.id == json.data[i].id; }).length == 0) {
+	      json.data[i].topic = json.data[i].my_nest.topic.name
+	    } else {
+		  $selector = $topic_selector.clone();
+		  $selector.removeProp('id')
+		  $selector.attr('data-type', json.data[i].type).attr('data-id', json.data[i].id);
+		  if (json.data[i].my_nest.topic != null) {
+		    $selector.children('option[value="' + json.data[i].my_nest.topic.id + '"]').attr('selected', 'selected');
+		  } else {
+		    $selector.children().eq(1).attr('selected', 'selected');
+		  }
+		  if (json.data[i].type == "Question") {
+		    if (json.data[i].ptopic != null) {
+		      $selector
+			    .children('option[value="' + json.data[i].ptopic.id + '"]')
+			      .append(' (inherited)');
+		    } else {
+		      $selector
+			    .children().eq(1)
+			      .append(' (inherited)');
+		    }
+		  }
+		  json.data[i].topic = $selector.prop('outerHTML');
+	    }
 	  }
 	  json.data[i].variables = '';
 	  if (json.data[i].orig_variables != null) {
@@ -287,6 +293,32 @@ var ready = function() {
 	    json.data[i].outputs = '<span class="nowrap">' + outputs.join(', ') + '</span>'
 	  }
 	  json.data[i].variables += draw_add_variable_input(json.data[i].id);
+	  sources = [];
+	  if (json.data[i].type == 'Variable') {
+	    for (var j = 0; j < json.data[i].src_variables.length; j++) {
+	      sources.push('<span class="nowrap">' + json.data[i].src_variables[j].name + 
+	        '<a tabindex="-1" href="javascript://" class="remove remove-variable" id="remove-variable-' + 
+	        json.data[i].id.toString() + '-' + json.data[i].src_variables[j].id.toString() + 
+	        '" ></a></span>');
+	    }
+	    for (var j = 0; j < json.data[i].questions.length; j++) {
+	      sources.push('<span class="nowrap">' + json.data[i].questions[j].qc + 
+	        '<a tabindex="-1" href="javascript://" class="remove remove-question" id="remove-question-' + 
+	        json.data[i].id.toString() + '-' + json.data[i].questions[j].id.toString() + 
+	        '" ></a></span>');
+	    }
+	    sources = sources.join(',') + '<br/>';
+	    if (json.data[i].var_type == 'Normal') {
+	      sources += '<input type="text" placeholder="Add Questions" id="new-questions-' + 
+	        json.data[i].id.toString() + '" data-type="variable" data-name="' + 
+	        json.data[i].name + '" data-id="' + json.data[i].id.toString() + '" class="new-questions" />';
+	    } else {
+	      sources += '<input type="text" placeholder="Add Variables" id="new-variables-' + 
+	        json.data[i].id.toString() + '" data-type="variable" data-name="' + 
+	        json.data[i].name + '" data-id="' + json.data[i].id.toString() + '" class="new-variables" />';
+	    }
+	    json.data[i].sources = sources;
+	  }
 	  json.data[i].actions = '<a tabindex="-1" class="destroy" data-confirm="Are you sure?"' +
 	    'rel="nofollow" data-method="delete" href="/' + json.data[i].type + 's/' + json.data[i].id + '">Destroy</a>';
 	}
@@ -386,7 +418,7 @@ var ready = function() {
     data = {topic_id: this.value}
     jQuery.ajax({
       type: "POST",
-      url: "/" + type + "s/" + id + "/set_topic.json",
+      url: "/" + type.toLowerCase() + "s/" + id + "/set_topic.json",
       data: data,
       beforeSend: function() {
         //jQuery('select.topic-selector').prop('disabled', true);
