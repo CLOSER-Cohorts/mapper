@@ -13,6 +13,4 @@ json.data @questions do |question|
   end
   json.my_nest question.my_nest
   json.orig_variables question.variables_with_coords, :id, :name, :label, :var_type, :instrument_id, :x, :y
-  #json.variables render partial: 'variables.html.erb', locals: {question: question}
-  json.actions render partial: 'actions.html.erb', locals: {question: question}
 end

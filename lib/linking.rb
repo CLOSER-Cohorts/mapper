@@ -18,7 +18,6 @@ module Linking
   end
   
   def topic_nest_is_valid
-    logger.debug "IS VALID HAS BEEN CALLED\n"
     topic_nest = my_nest
     if topic_nest == nil
       Linking::topic_nests << topic_nest_is_valid_worker({topic: nil, members: [], good: true, fixed_points: []})

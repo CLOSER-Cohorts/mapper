@@ -1,8 +1,6 @@
 json.data @variables do |variable|
   json.extract! variable, :id, :name, :label, :var_type, :topic, :out_variables, :src_variables, :questions
   json.type 'Variable'
-  #json.outputs render partial: 'outputs.html.erb', locals: {variable: variable}
-  json.sources render partial: 'sources.html.erb', locals: {variable: variable}
   begin
     json.itopic variable.get_topic
   rescue Exception
@@ -15,5 +13,4 @@ json.data @variables do |variable|
   end
   json.my_nest variable.my_nest
   json.admin current_user.admin?
-  #json.actions render partial: 'actions.html.erb', locals: {variable: variable}
 end

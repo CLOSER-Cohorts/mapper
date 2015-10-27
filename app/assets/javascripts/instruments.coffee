@@ -293,6 +293,32 @@ var ready = function() {
 	    json.data[i].outputs = '<span class="nowrap">' + outputs.join(', ') + '</span>'
 	  }
 	  json.data[i].variables += draw_add_variable_input(json.data[i].id);
+	  sources = [];
+	  if (json.data[i].type == 'Variable') {
+	    for (var j = 0; j < json.data[i].src_variables.length; j++) {
+	      sources.push('<span class="nowrap">' + json.data[i].src_variables[j].name + 
+	        '<a tabindex="-1" href="javascript://" class="remove remove-variable" id="remove-variable-' + 
+	        json.data[i].id.toString() + '-' + json.data[i].src_variables[j].id.toString() + 
+	        '" ></a></span>');
+	    }
+	    for (var j = 0; j < json.data[i].questions.length; j++) {
+	      sources.push('<span class="nowrap">' + json.data[i].questions[j].qc + 
+	        '<a tabindex="-1" href="javascript://" class="remove remove-question" id="remove-question-' + 
+	        json.data[i].id.toString() + '-' + json.data[i].questions[j].id.toString() + 
+	        '" ></a></span>');
+	    }
+	    sources = sources.join(',') + '<br/>';
+	    if (json.data[i].var_type == 'Normal') {
+	      sources += '<input type="text" placeholder="Add Questions" id="new-questions-' + 
+	        json.data[i].id.toString() + '" data-type="variable" data-name="' + 
+	        json.data[i].name + '" data-id="' + json.data[i].id.toString() + '" class="new-questions" />';
+	    } else {
+	      sources += '<input type="text" placeholder="Add Variables" id="new-variables-' + 
+	        json.data[i].id.toString() + '" data-type="variable" data-name="' + 
+	        json.data[i].name + '" data-id="' + json.data[i].id.toString() + '" class="new-variables" />';
+	    }
+	    json.data[i].sources = sources;
+	  }
 	  json.data[i].actions = '<a tabindex="-1" class="destroy" data-confirm="Are you sure?"' +
 	    'rel="nofollow" data-method="delete" href="/' + json.data[i].type + 's/' + json.data[i].id + '">Destroy</a>';
 	}
