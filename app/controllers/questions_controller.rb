@@ -92,7 +92,7 @@ class QuestionsController < ApplicationController
   def add_variable
     if params.has_key?(:variable_names) 
       params[:variable_names].each do |var_name|
-        variable = Variable.find_by name: var_name
+        variable = @question.instrument.variables.find_by name: var_name
         if not variable.nil? and not @question.variables.find_by_id(variable.id)
           if params.has_key?(:x) && params.has_key?(:y)
             @question.map.create(:variable => variable, :x => params[:x].to_i, :y => params[:y].to_i)
