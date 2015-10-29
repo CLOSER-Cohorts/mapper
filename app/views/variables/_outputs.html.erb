@@ -1,5 +1,0 @@
-<% labels = [] %>
-<% variable.out_variables.each do |var| %>
-  <% labels.push('<span class="nowrap">' + var.name + '<a tabindex="-1" href="javascript://" class="remove remove-variable hide" id="remove-variable-' + variable.id.to_s + '-' + var.id.to_s + '" ></a></span>') %>
-<% end %>
-<%=raw labels.join(', ') %>

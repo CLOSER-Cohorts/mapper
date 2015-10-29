@@ -5,19 +5,7 @@ class QuestionsController < ApplicationController
   # GET instrument/1/questions
   # GET /instrument/1/questions.json
   def index
-    if params.has_key?(:queries)
-      @questions = @instrument.questions.where('qc LIKE ? OR literal LIKE ?', "%#{params[:queries][:search]}%", "%#{params[:queries][:search]}%")
-    else
-      @questions = @instrument.questions
-    end
-    if params.has_key?(:sorts)
-      if params[:sorts].values[0].to_i == 1
-        @questions = @questions.order(params[:sorts].keys[0])
-      else
-        @questions = @questions.order(params[:sorts].keys[0] + " DESC")
-      end
-    end
-    #@questions = Kaminari.paginate_array(@questions).page(params[:page].to_i).per(params[:perPage].to_i)
+    @questions = @instrument.questions
     render layout: "index"
   end
 
@@ -29,7 +17,6 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = @instrument.questions.new
-    #@question = Question.new
   end
 
   # GET /questions/1/edit
@@ -92,7 +79,7 @@ class QuestionsController < ApplicationController
   def add_variable
     if params.has_key?(:variable_names) 
       params[:variable_names].each do |var_name|
-        variable = Variable.find_by name: var_name
+        variable = @question.instrument.variables.find_by name: var_name
         if not variable.nil? and not @question.variables.find_by_id(variable.id)
           if params.has_key?(:x) && params.has_key?(:y)
             @question.map.create(:variable => variable, :x => params[:x].to_i, :y => params[:y].to_i)

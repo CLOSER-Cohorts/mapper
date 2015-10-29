@@ -1,5 +1,25 @@
 <h1>Listing Instruments</h1>
 
+<% if current_user.admin? %>
+
+  <div class="field">
+    <%= label_tag :study, 'View as' %>
+    <%= select_tag(
+      :study, 
+      options_for_select(
+        [['',''],
+        ['ALSPAC','ALSPAC'],
+        ['CLS','CLS'],
+        ['NSHD','NSHD'],
+        ['SOTON','SOTON'],
+        ['US','US']],
+        params[:study]
+       ),
+       {onchange: "location.href=location.origin+location.pathname+'?study='+this.value"}) %>
+  </div>
+
+<% end %>
+
 <table>
   <thead>
     <tr>

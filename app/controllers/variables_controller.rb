@@ -84,7 +84,7 @@ class VariablesController < ApplicationController
   def add_question
     if params.has_key?(:qcs) 
       params[:qcs].each do |qc|
-        question = Question.find_by_qc qc
+        question = @variable.instrument.questions.find_by_qc qc
         if not question.nil? and not @variable.questions.find_by_id(question.id)
           @variable.questions << question
         end
@@ -107,7 +107,7 @@ class VariablesController < ApplicationController
   def add_variable
     if params.has_key?(:variable_names)
       params[:variable_names].each do |var_name|
-        variable = Variable.find_by name: var_name
+        variable = @variable.instrument.variables.find_by name: var_name
         if not variable.nil? and not @variable.src_variables.find_by_id(variable.id)
           @variable.src_variables << variable
         end
