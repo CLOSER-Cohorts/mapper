@@ -321,7 +321,7 @@ var ready = function() {
 	    json.data[i].sources = sources;
 	  }
 	  json.data[i].actions = '<a tabindex="-1" class="destroy" data-confirm="Are you sure?"' +
-	    'rel="nofollow" data-method="delete" href="/' + json.data[i].type + 's/' + json.data[i].id + '">Destroy</a>';
+	    'rel="nofollow" data-method="delete" href="/' + json.data[i].type.toLowerCase() + 's/' + json.data[i].id + '">Destroy</a>';
 	}
 	return json.data;
   }
