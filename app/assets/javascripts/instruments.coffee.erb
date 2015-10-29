@@ -253,7 +253,8 @@ var ready = function() {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
 	  if (!json.data[i].my_nest.good) {
-		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + JSON.stringify(json.data[i].itopic.fixed_points) + ')\'>ERROR</a>';
+		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + 
+		  JSON.stringify(json.data[i].my_nest.fixed_points) + ')\'>ERROR</a>';
 	  } else {
 	    if (json.data[i].my_nest.fixed_points.length > 0 && 
 	      jQuery.grep(json.data[i].my_nest.fixed_points, function(x){ return x.type == json.data[i].type && x.id == json.data[i].id; }).length == 0) {
@@ -337,7 +338,11 @@ var ready = function() {
       {data: 'variables'},
       {data: 'topic'},
       {data: 'actions'}
-    ]
+    ],
+    language: {
+      processing: "<img src='<%= image_path('ajax-loader.gif') %>' />"
+    },
+    processing: true
   }));
   
   tables.push(jQuery('#variables').DataTable({
@@ -354,7 +359,11 @@ var ready = function() {
       {data: 'sources'},
       {data: 'topic'},
       {data: 'actions'}
-    ]
+    ],
+    language: {
+      processing: "<img src='<%= image_path('ajax-loader.gif') %>' />"
+    },
+    processing: true
   }));
   
   tables.push(jQuery('#sequences').DataTable({
@@ -364,7 +373,11 @@ var ready = function() {
       {data: 'name'},
       {data: 'topic'},
       {data: 'actions'}
-    ]
+    ],
+    language: {
+      processing: "<img src='<%= image_path('ajax-loader.gif') %>' />"
+    },
+    processing: true
   }));
   
   for (var i = 0; i < tables.length; i++) {
