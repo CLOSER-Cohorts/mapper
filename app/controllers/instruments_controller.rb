@@ -200,7 +200,7 @@ class InstrumentsController < ApplicationController
 
   def import_dv
     dv_io = params[:instrument][:dv]
-    total_skipped, skipped_lines, pieces = read_dv_txt(instrument, dv_io.read)
+    total_skipped, skipped_lines, pieces = read_dv_txt(@instrument, dv_io.read)
     respond_to do |format|
       format.html { 
         redirect_to @instrument, 
