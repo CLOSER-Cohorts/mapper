@@ -1,5 +1,11 @@
 class InstrumentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [
+    :mapping,
+    :dv,
+    :question_topics,
+    :variable_topics,
+    :mapper
+  ]
   before_action :set_instrument, only: [
     :show, 
     :edit, 
