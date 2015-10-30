@@ -273,7 +273,7 @@ class InstrumentsController < ApplicationController
   end
 
   def question_topics
-    @instrument = Instrument.find(params[:instrument_id])
+    @instrument = Instrument.includes(questions: [{parent: :topic}, {variables: :topic},:topic]).find(params[:instrument_id])
     @linking = []
     @instrument.questions.each do |question|
       @linking.push({'object' => question.qc, 'topic' => (question.get_topic.nil? ? 0 : question.get_topic.colectica_code)})
@@ -285,7 +285,7 @@ class InstrumentsController < ApplicationController
   end
 
   def variable_topics
-    @instrument = Instrument.find(params[:instrument_id])
+    @instrument = Instrument.includes(variables: [{questions: :topic}, {out_variables: :topic}, {src_variables: :topic},:topic]).find(params[:instrument_id])
     @linking = []
     @instrument.variables.each do |variable|
       @linking.push({'object' => variable.name, 'topic' => (variable.get_topic.nil? ? 0 : variable.get_topic.colectica_code)})
