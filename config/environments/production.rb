@@ -56,6 +56,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  config.cache_store = :memory_store, {size: 64.megabytes}
   #config.cache_store = :dalli_store,
   #  (ENV["MEMCACHIER_BLUE_SERVERS"] || "").split(","),
   #  {:username => ENV["MEMCACHIER_BLUE_USERNAME"],
