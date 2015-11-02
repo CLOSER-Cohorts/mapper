@@ -68,6 +68,7 @@ class QuestionsController < ApplicationController
   def set_topic
     if params.has_key?(:topic_id)
       @question.topic = Topic.find_by_id(params[:topic_id])
+      @question.save!
     end
     @question.clear_nest
     respond_to do |format|

@@ -73,6 +73,7 @@ class VariablesController < ApplicationController
   def set_topic
     if params.has_key?(:topic_id)
       @variable.topic = Topic.find_by_id(params[:topic_id])
+      @variable.save!
     end
     @variable.clear_nest
     respond_to do |format|
