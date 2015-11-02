@@ -49,6 +49,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    connection_pool (2.2.0)
+    dalli (2.7.4)
     debug_inspector (0.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
@@ -178,6 +180,8 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  connection_pool
+  dalli
   devise
   genericons-rails (~> 0.5.0)
   jbuilder (~> 2.0)
