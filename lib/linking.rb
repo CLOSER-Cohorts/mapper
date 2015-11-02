@@ -1,4 +1,6 @@
 module Linking
+
+  @@lock = Mutex.new
   def self.topic_nests
     Rails.cache.fetch(:topic_nests) do
        []
@@ -24,9 +26,11 @@ module Linking
   def topic_nest_is_valid
     topic_nest = my_nest
     if topic_nest == nil
-      all_nests = Linking::topic_nests
-      all_nests << topic_nest_is_valid_worker({topic: nil, members: [], good: true, fixed_points: []})
-      Linking::topic_nests = all_nests
+      @@lock.synchronize do
+        all_nests = Linking::topic_nests
+        all_nests << topic_nest_is_valid_worker({topic: nil, members: [], good: true, fixed_points: []})
+        Linking::topic_nests = all_nests
+      end
       topic_nest = all_nests.last
     end
     return topic_nest[:good]
@@ -74,9 +78,11 @@ module Linking
   
   def clear_nest
     if not my_nest.nil?
-      all_nests = Linking::topic_nests
-      all_nests.delete_if { |nest| nest[:members].include? self.class.name + self.id.to_s }
-      Linking::topic_nests = all_nests
+      @@lock.synchronize do
+        all_nests = Linking::topic_nests
+        all_nests.delete_if { |nest| nest[:members].include? self.class.name + self.id.to_s }
+        Linking::topic_nests = all_nests
+      end
     end
   end
 end
