@@ -367,7 +367,17 @@ var ready = function() {
   }));
   
   tables.push(jQuery('#sequences').DataTable({
-    ajax: window.location.pathname + '/sequences.json',
+    ajax: {
+      url: window.location.pathname + '/sequences.json',
+      dataSrc: function() {
+        for (var i = 0; i < json.data.length; i++) {
+          if (json.data[i].topic != null) {
+            json.data[i].topic = json.data[i].topic.name;
+          }
+        }
+        return json.data;
+      }
+    },
     columns: [
       {data: 'id'},
       {data: 'name'},
