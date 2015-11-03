@@ -6,7 +6,7 @@ module Linking
     index = 'topic_nest_' + new_nest[:members][0]
     logger.debug index
     Rails.cache.write(index, new_nest)
-    new_nest.members.each do |member|
+    new_nest[:members].each do |member|
       Rails.cache.write('topic_nest_index_' + member, index)
     end
   end
