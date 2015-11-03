@@ -1,8 +1,10 @@
 module Linking
 
   @@lock = Mutex.new
-  def self.add_topic_nest(new_nest)
+  def add_topic_nest(new_nest)
+    logger.debug 'add_topic_nest called'
     index = 'topic_nest_' + new_nest.members[0]
+    logger.debug index
     Rails.cache.write(index, new_nest)
     new_nest.members.each do |member|
       Rails.cache.write('topic_nest_index_' + member, index)
@@ -10,7 +12,9 @@ module Linking
   end
   
   def my_nest
+    logger.debug 'my_nest called'
     index = Rails.cache.read('topic_nest_index_' + self.class.name + self.id.to_s)
+    logger.debug index 
     if index.nil?
       return
     end
@@ -18,6 +22,7 @@ module Linking
   end
   
   def get_topic
+    logger.debug 'get_topic called'
     if topic_nest_is_valid
       return my_nest[:topic]
     else
@@ -26,10 +31,14 @@ module Linking
   end
   
   def topic_nest_is_valid
+    logger.debug 'topic_nest_is_valid called'
     topic_nest = my_nest
-    if topic_nest == nil
+    logger.debug topic_nest
+    if topic_nest.nil?
+      logger.debug 'topic_nest was nil'
       topic_nest =  topic_nest_is_valid_worker({topic: nil, members: [], good: true, fixed_points: []})
-      Linking::add_topic_nest(topic_nest)
+      logger.debug topic_nest
+      add_topic_nest(topic_nest)
     end
     return topic_nest[:good]
   end
