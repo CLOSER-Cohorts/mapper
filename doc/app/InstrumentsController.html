@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class InstrumentsController - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-add_question">#add_question</a>
+    
+    <li ><a href="#method-i-batch">#batch</a>
+    
+    <li ><a href="#method-i-create">#create</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-dv">#dv</a>
+    
+    <li ><a href="#method-i-edit">#edit</a>
+    
+    <li ><a href="#method-i-import_dv">#import_dv</a>
+    
+    <li ><a href="#method-i-import_from_caddies">#import_from_caddies</a>
+    
+    <li ><a href="#method-i-import_linking">#import_linking</a>
+    
+    <li ><a href="#method-i-import_map">#import_map</a>
+    
+    <li ><a href="#method-i-import_qlist">#import_qlist</a>
+    
+    <li ><a href="#method-i-import_variables">#import_variables</a>
+    
+    <li ><a href="#method-i-index">#index</a>
+    
+    <li ><a href="#method-i-mapper">#mapper</a>
+    
+    <li ><a href="#method-i-mapping">#mapping</a>
+    
+    <li ><a href="#method-i-new">#new</a>
+    
+    <li ><a href="#method-i-question_topics">#question_topics</a>
+    
+    <li ><a href="#method-i-show">#show</a>
+    
+    <li ><a href="#method-i-update">#update</a>
+    
+    <li ><a href="#method-i-variable_topics">#variable_topics</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-InstrumentsController">
+  <h1 id="class-InstrumentsController" class="class">
+    class InstrumentsController
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_question" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_question</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_question-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_question</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">question_params</span>)
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Question was successfully added.&#39;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:ok</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span> }
+    <span class="ruby-keyword">else</span>
+       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&quot;questions/new&quot;</span> }
+       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-batch" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">batch</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PATCH /instruments/batch</p>
+          
+          
+
+          
+          <div class="method-source-code" id="batch-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">batch</span>
+  <span class="ruby-identifier">authorize</span> <span class="ruby-constant">Instrument</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:files</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">&#39;files&#39;</span>].<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">original_filename</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;control.txt&#39;</span>}
+       <span class="ruby-identifier">files</span> = {}
+      <span class="ruby-identifier">params</span>[<span class="ruby-string">&#39;files&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">files</span>[<span class="ruby-identifier">file</span>.<span class="ruby-identifier">original_filename</span>] = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">files</span>[<span class="ruby-string">&#39;control.txt&#39;</span>].<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">!=</span> <span class="ruby-node">&quot;#&quot;</span>
+          <span class="ruby-identifier">pieces</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\t&quot;</span>)
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">pieces</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">6</span>
+            <span class="ruby-identifier">instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">find_by_prefix</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">0</span>]
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">instrument</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">create</span>({<span class="ruby-identifier">prefix</span><span class="ruby-operator">:</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">port</span><span class="ruby-operator">:</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">study</span><span class="ruby-operator">:</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">2</span>]})
+            <span class="ruby-keyword">end</span>
+            <span class="ruby-comment">#mapper.txt</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">3</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;0&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">3</span>]
+                <span class="ruby-identifier">mapper</span> = <span class="ruby-identifier">files</span>[<span class="ruby-identifier">pieces</span>[<span class="ruby-value">3</span>]]
+                <span class="ruby-identifier">read_mapper_txt</span>(<span class="ruby-identifier">instrument</span>, <span class="ruby-identifier">mapper</span>)
+              <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">end</span>
+            <span class="ruby-comment">#variables.txt</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">4</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;0&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">4</span>]
+                <span class="ruby-identifier">variables</span> = <span class="ruby-identifier">files</span>[<span class="ruby-identifier">pieces</span>[<span class="ruby-value">4</span>]]
+                <span class="ruby-identifier">read_variables_txt</span>(<span class="ruby-identifier">instrument</span>, <span class="ruby-identifier">variables</span>)
+              <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">end</span>
+            <span class="ruby-comment">#mapping.txt</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">5</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;0&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">5</span>]
+                <span class="ruby-identifier">mapping</span> = <span class="ruby-identifier">files</span>[<span class="ruby-identifier">pieces</span>[<span class="ruby-value">5</span>]]
+                <span class="ruby-identifier">read_mapping_txt</span>(<span class="ruby-identifier">instrument</span>, <span class="ruby-identifier">mapping</span>)
+              <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">end</span>
+            <span class="ruby-comment">#dv.txt</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">6</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;0&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">pieces</span>[<span class="ruby-value">6</span>]
+                <span class="ruby-identifier">dv</span> = <span class="ruby-identifier">files</span>[<span class="ruby-identifier">pieces</span>[<span class="ruby-value">6</span>]]
+                <span class="ruby-identifier">read_dv_txt</span>(<span class="ruby-identifier">instrument</span>, <span class="ruby-identifier">dv</span>)
+              <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">instruments_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Instruments successfully created.&#39;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:batch</span>, <span class="ruby-identifier">alert</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;No control.txt file included.&#39;</span>
+    <span class="ruby-keyword">end</span> 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:batch</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST /instruments POST /instruments.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">instrument_params</span>)
+  <span class="ruby-identifier">authorize</span> <span class="ruby-ivar">@instrument</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Instrument was successfully created.&#39;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>DELETE /instruments/1 DELETE /instruments/1.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">instruments_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Instrument was successfully destroyed.&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dv</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dv-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 267</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dv</span>
+  <span class="ruby-ivar">@map</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">get_dv</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">text</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&#39;dv.txt.erb&#39;</span>, <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">content_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;text/plain&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>  {}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /instruments/1/edit</p>
+          
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_dv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_dv</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="import_dv-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 207</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_dv</span>
+  <span class="ruby-identifier">dv_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:dv</span>]
+  <span class="ruby-identifier">total_skipped</span>, <span class="ruby-identifier">skipped_lines</span>, <span class="ruby-identifier">pieces</span> = <span class="ruby-identifier">read_dv_txt</span>(<span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">dv_io</span>.<span class="ruby-identifier">read</span>)
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, 
+      <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dv.txt imported successfully. &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">total_skipped</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; lines skipped.&#39;</span>,
+      <span class="ruby-identifier">more_notice</span><span class="ruby-operator">:</span> <span class="ruby-identifier">pieces</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;&lt;br/&gt;&#39;</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&#39;&lt;br/&gt;&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">skipped_lines</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;&lt;br/&gt;&#39;</span>)
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_from_caddies" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_from_caddies</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="import_from_caddies-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_from_caddies</span>
+  <span class="ruby-identifier">mapper_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:mapper</span>]
+  <span class="ruby-identifier">mapper</span> = <span class="ruby-identifier">mapper_io</span>.<span class="ruby-identifier">read</span>
+  <span class="ruby-identifier">read_mapper_txt</span>(<span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">mapper</span>)
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;mapper.txt imported successfully.&#39;</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_linking" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_linking</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="import_linking-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 219</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_linking</span>
+  <span class="ruby-identifier">linking_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:linking</span>]
+  <span class="ruby-identifier">linking</span> = <span class="ruby-identifier">linking_io</span>.<span class="ruby-identifier">read</span>
+  <span class="ruby-identifier">no_of_cols</span> = <span class="ruby-identifier">linking</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\t&quot;</span>).<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">first_id</span> = <span class="ruby-identifier">linking</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\t&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">s_count</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">sequences</span>.<span class="ruby-identifier">where</span>(<span class="ruby-constant">URN</span><span class="ruby-operator">:</span> <span class="ruby-identifier">first_id</span>).<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">q_count</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">qc</span><span class="ruby-operator">:</span> <span class="ruby-identifier">first_id</span>).<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">v_count</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">variables</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">first_id</span>).<span class="ruby-identifier">count</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">s_count</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">q_count</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">v_count</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">s_count</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">targets</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">sequences</span>
+      <span class="ruby-identifier">target_param</span> = <span class="ruby-value">:URN</span>
+      <span class="ruby-identifier">topic_param</span> = <span class="ruby-value">:id</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">q_count</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">targets</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>
+      <span class="ruby-identifier">target_param</span> = <span class="ruby-value">:qc</span>
+      <span class="ruby-identifier">topic_param</span> = <span class="ruby-value">:colectica_code</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">targets</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">variables</span>
+      <span class="ruby-identifier">target_param</span> = <span class="ruby-value">:name</span>
+      <span class="ruby-identifier">topic_param</span> = <span class="ruby-value">:colectica_code</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">linking</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">data</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\t&quot;</span>)
+      <span class="ruby-identifier">target</span> = <span class="ruby-identifier">targets</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">target_param</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">first</span>)
+      <span class="ruby-identifier">topic</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">topic_param</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">last</span>)
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">topic</span> = <span class="ruby-identifier">topic</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">save!</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Topic linking imported successfully.&#39;</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">alert</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Topic linking failed to import.&#39;</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_map" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_map</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="import_map-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_map</span>
+  <span class="ruby-identifier">map_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:map</span>]
+  <span class="ruby-identifier">read_mapping_txt</span>(<span class="ruby-ivar">@instrument</span>,<span class="ruby-identifier">map_io</span>.<span class="ruby-identifier">read</span>)
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;mapping.txt imported successfully.&#39;</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_qlist" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_qlist</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="import_qlist-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 170</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_qlist</span>
+  <span class="ruby-identifier">qlist_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:qlist</span>]
+  <span class="ruby-identifier">qlist</span> = <span class="ruby-identifier">qlist_io</span>.<span class="ruby-identifier">read</span>
+  <span class="ruby-identifier">qlist</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;|&quot;</span>)
+    <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:qc</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">1</span>], <span class="ruby-value">:literal</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">3</span>])
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;qlist imported successfully.&#39;</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_variables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_variables</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="import_variables-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 191</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_variables</span>
+  <span class="ruby-identifier">var_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:variables</span>]
+  <span class="ruby-identifier">read_variables_txt</span>(<span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">var_io</span>.<span class="ruby-identifier">read</span>)
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Variables imported successfully.&#39;</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /instruments GET /instruments.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:study</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:study</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:study</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;CLS&quot;</span>
+      <span class="ruby-identifier">studies</span> = [<span class="ruby-string">&quot;BCS&quot;</span>,<span class="ruby-string">&quot;MCS&quot;</span>,<span class="ruby-string">&quot;NCDS&quot;</span>]
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:study</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;SOTON&quot;</span>
+      <span class="ruby-identifier">studies</span> = [<span class="ruby-string">&quot;HCS&quot;</span>,<span class="ruby-string">&quot;SWS&quot;</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">studies</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:study</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@instruments</span> = <span class="ruby-identifier">policy_scope</span>(<span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">study</span><span class="ruby-operator">:</span> <span class="ruby-identifier">studies</span>))
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@instruments</span> = <span class="ruby-identifier">policy_scope</span>(<span class="ruby-constant">Instrument</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;index&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mapper" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mapper</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mapper-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 299</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mapper</span> 
+  <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">text</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&#39;mapper.txt.erb&#39;</span>, <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">content_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;text/plain&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>  {}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mapping" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mapping</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mapping-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 259</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mapping</span>
+  <span class="ruby-ivar">@map</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">get_mapping</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])   
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">text</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&#39;mapping.txt.erb&#39;</span>, <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">content_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;text/plain&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>  {}
+  <span class="ruby-keyword">end</span>  
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /instruments/new</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-question_topics" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">question_topics</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="question_topics-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">question_topics</span>
+  <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-identifier">questions</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">parent</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>}, {<span class="ruby-identifier">variables</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>},<span class="ruby-value">:topic</span>]).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
+  <span class="ruby-ivar">@linking</span> = []
+  <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@linking</span>.<span class="ruby-identifier">push</span>({<span class="ruby-string">&#39;object&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">question</span>.<span class="ruby-identifier">qc</span>, <span class="ruby-string">&#39;topic&#39;</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">question</span>.<span class="ruby-identifier">get_topic</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">question</span>.<span class="ruby-identifier">get_topic</span>.<span class="ruby-identifier">colectica_code</span>)})
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">text</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&#39;linking.txt.erb&#39;</span>, <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">content_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;text/plain&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>  {}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /instruments/1 GET /instruments/1.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-identifier">authorize</span> <span class="ruby-ivar">@instrument</span>
+  <span class="ruby-ivar">@topics</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">get_in_level_order</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;show&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PATCH/PUT /instruments/1 PATCH/PUT /instruments/1.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">instrument_params</span>)
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Instrument was successfully updated.&#39;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:ok</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:edit</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-variable_topics" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">variable_topics</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="variable_topics-source">
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 287</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">variable_topics</span>
+  <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-identifier">variables</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">questions</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>}, {<span class="ruby-identifier">out_variables</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>}, {<span class="ruby-identifier">src_variables</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>},<span class="ruby-value">:topic</span>]).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
+  <span class="ruby-ivar">@linking</span> = []
+  <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">variables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">variable</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@linking</span>.<span class="ruby-identifier">push</span>({<span class="ruby-string">&#39;object&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">variable</span>.<span class="ruby-identifier">name</span>, <span class="ruby-string">&#39;topic&#39;</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">variable</span>.<span class="ruby-identifier">get_topic</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">variable</span>.<span class="ruby-identifier">get_topic</span>.<span class="ruby-identifier">colectica_code</span>)})
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">text</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&#39;linking.txt.erb&#39;</span>, <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">content_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;text/plain&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>  {}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

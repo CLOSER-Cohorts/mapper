@@ -1,3 +1,5 @@
+# The application controller supplies the root gateway for such tasks as the home page
+# and user actions.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

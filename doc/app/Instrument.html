@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class Instrument - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-get_dv">::get_dv</a>
+    
+    <li ><a href="#method-c-get_mapping">::get_mapping</a>
+    
+    <li ><a href="#method-c-get_min_linking">::get_min_linking</a>
+    
+    <li ><a href="#method-i-get_comma_separated_questions">#get_comma_separated_questions</a>
+    
+    <li ><a href="#method-i-get_comma_separated_sequences">#get_comma_separated_sequences</a>
+    
+    <li ><a href="#method-i-get_comma_separated_variables">#get_comma_separated_variables</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Instrument">
+  <h1 id="class-Instrument" class="class">
+    class Instrument
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-get_dv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_dv</span><span
+            class="method-args">( instrument_id )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_dv-source">
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_dv</span>( <span class="ruby-identifier">instrument_id</span> )
+  <span class="ruby-identifier">r</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sanitize_sql_array</span>([<span class="ruby-string">&quot;SELECT v1.name as variable, v2.name as src FROM variables v1 INNER JOIN maps ON v1.id = variable_id INNER JOIN variables v2 ON v2.id = mapable_id AND mapable_type = &#39;Variable&#39; WHERE v1.instrument_id =? GROUP BY variable, src ORDER BY variable&quot;</span>, <span class="ruby-identifier">instrument_id</span>])
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span> <span class="ruby-identifier">r</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-get_mapping" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_mapping</span><span
+            class="method-args">( instrument_id )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_mapping-source">
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_mapping</span>( <span class="ruby-identifier">instrument_id</span> )
+  <span class="ruby-identifier">r</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sanitize_sql_array</span>([<span class="ruby-string">&quot;SELECT name as variable, COALESCE(qc, &#39;0&#39;) as qc, x, y FROM variables LEFT JOIN maps ON variables.id = variable_id LEFT JOIN questions ON mapable_id = questions.id AND mapable_type = &#39;Question&#39; WHERE variables.instrument_id =? GROUP BY variable, qc, x, y ORDER BY variable&quot;</span>, <span class="ruby-identifier">instrument_id</span>])
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span> <span class="ruby-identifier">r</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-get_min_linking" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_min_linking</span><span
+            class="method-args">( instrument_id )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_min_linking-source">
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_min_linking</span>( <span class="ruby-identifier">instrument_id</span> )
+  <span class="ruby-identifier">r</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sanitize_sql_array</span>([<span class="ruby-string">&quot;SELECT coalesce(\&quot;URN\&quot;, qc, variables.name) as object, topic_id as topic, target_type as type FROM links LEFT JOIN sequences ON target_id = sequences.id AND target_type = &#39;Sequence&#39; LEFT JOIN questions ON target_id = questions.id AND target_type = &#39;Question&#39; LEFT JOIN variables ON target_id = variables.id AND target_type = &#39;Variable&#39; WHERE sequences.instrument_id = ? OR questions.instrument_id = ? OR variables.instrument_id = ? ORDER BY \&quot;URN\&quot;, qc, variables.name&quot;</span>, <span class="ruby-identifier">instrument_id</span>, <span class="ruby-identifier">instrument_id</span>, <span class="ruby-identifier">instrument_id</span>])
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span> <span class="ruby-identifier">r</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-get_comma_separated_questions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_comma_separated_questions</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_comma_separated_questions-source">
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_comma_separated_questions</span>
+  <span class="ruby-identifier">qcs</span> = []
+  <span class="ruby-identifier">questions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">qcs</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">question</span>.<span class="ruby-identifier">qc</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">qcs</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;,&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_comma_separated_sequences" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_comma_separated_sequences</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_comma_separated_sequences-source">
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_comma_separated_sequences</span>
+  <span class="ruby-identifier">seq_names</span> = []
+  <span class="ruby-identifier">sequences</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sequence</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">seq_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">sequence</span>.<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">seq_names</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;,&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_comma_separated_variables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_comma_separated_variables</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_comma_separated_variables-source">
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_comma_separated_variables</span>
+  <span class="ruby-identifier">var_names</span> = []
+  <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">variable</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">var_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">variable</span>.<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">var_names</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;,&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
