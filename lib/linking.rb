@@ -3,7 +3,7 @@ module Linking
   @@lock = Mutex.new
   def add_topic_nest(new_nest)
     logger.debug 'add_topic_nest called'
-    index = 'topic_nest_' + new_nest.members[0]
+    index = 'topic_nest_' + new_nest[:members][0]
     logger.debug index
     Rails.cache.write(index, new_nest)
     new_nest.members.each do |member|
