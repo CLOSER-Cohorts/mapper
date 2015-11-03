@@ -1,18 +1,20 @@
 module Linking
 
   @@lock = Mutex.new
-  def self.topic_nests
-    Rails.cache.fetch(:topic_nests) do
-       []
+  def self.add_topic_nest(new_nest)
+    index = 'topic_nest_' + new_nest.members[0]
+    Rails.cache.write(index, new_nest)
+    new_nest.members.each do |member|
+      Rails.cache.write('topic_nest_index_' + member, index)
     end
   end
   
-  def self.topic_nests=(all_nests)
-    Rails.cache.write(:topic_nests, all_nests)
-  end
-  
   def my_nest
-    return Linking::topic_nests.find { |nest| nest[:members].include? self.class.name + self.id.to_s }
+    index = Rails.cache.read('topic_nest_index_' + self.class.name + self.id.to_s)
+    if index.nil?
+      return
+    end
+    Rails.cache.read(index)
   end
   
   def get_topic
@@ -26,10 +28,8 @@ module Linking
   def topic_nest_is_valid
     topic_nest = my_nest
     if topic_nest == nil
-      all_nests = Linking::topic_nests
-      all_nests << topic_nest_is_valid_worker({topic: nil, members: [], good: true, fixed_points: []})
-      Linking::topic_nests = all_nests
-      topic_nest = all_nests.last
+      topic_nest =  topic_nest_is_valid_worker({topic: nil, members: [], good: true, fixed_points: []})
+      Linking::add_topic_nest(topic_nest)
     end
     return topic_nest[:good]
   end
@@ -76,9 +76,11 @@ module Linking
   
   def clear_nest
     if not my_nest.nil?
-      all_nests = Linking::topic_nests
-      all_nests.delete_if { |nest| nest[:members].include? self.class.name + self.id.to_s }
-      Linking::topic_nests = all_nests
+      index = Rails.cache.read('topic_nest_index_' + self.class.name + self.id.to_s)
+      if index.nil?
+        return
+      end
+      Rails.cache.delete(index)
     end
   end
 end
