@@ -1,3 +1,7 @@
+# The instruments controller handles requests relating to the
+# instrument model. It contains all the standard CRUD options
+# but also supplies import actions and configuration file 
+# outputs.
 class InstrumentsController < ApplicationController
   before_action :authenticate_user!, except: [
     :mapping,
@@ -73,7 +77,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
-  #PATCH /instruments/batch
+  # PATCH /instruments/batch
   def batch
     authorize Instrument
     logger.debug params
@@ -155,18 +159,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
-  def add_question
-    respond_to do |format|
-      if @instrument.questions.create(question_params)
-        format.html { redirect_to @instrument, notice: 'Question was successfully added.' }
-        format.json { render :show, status: :ok, location: @instrument }
-      else
-         format.html { render "questions/new" }
-         format.json { render json: @instrument.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
+  # PATCH /instruments/1/import_qlist
   def import_qlist
     qlist_io = params[:instrument][:qlist]
     qlist = qlist_io.read
@@ -179,6 +172,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # PATCH /instruments/1/import_from_caddies
   def import_from_caddies
     mapper_io = params[:instrument][:mapper]
     mapper = mapper_io.read
@@ -188,6 +182,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # PATCH /instruments/1/import_variables
   def import_variables
     var_io = params[:instrument][:variables]
     read_variables_txt(@instrument, var_io.read)
@@ -196,6 +191,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # PATCH /instruments/1/import_map
   def import_map
     map_io = params[:instrument][:map]
     read_mapping_txt(@instrument,map_io.read)
@@ -204,6 +200,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # PATCH /instruments/1/import_dv
   def import_dv
     dv_io = params[:instrument][:dv]
     total_skipped, skipped_lines, pieces = read_dv_txt(@instrument, dv_io.read)
@@ -216,6 +213,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # PATCH /instruments/1/import_linking
   def import_linking
     linking_io = params[:instrument][:linking]
     linking = linking_io.read
@@ -256,6 +254,8 @@ class InstrumentsController < ApplicationController
     
   end
 
+  # GET /instruments/1/mapping.txt
+  # GET /instruments/1/mapping.json
   def mapping
     @map = Instrument.get_mapping(params[:instrument_id])   
     respond_to do |format|
@@ -264,6 +264,8 @@ class InstrumentsController < ApplicationController
     end  
   end
 
+  # GET /instruments/1/dv.txt
+  # GET /instruments/1/dv.json
   def dv
     @map = Instrument.get_dv(params[:instrument_id])
     respond_to do |format|
@@ -272,6 +274,8 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # GET /instruments/1/topic-q.txt
+  # GET /instruments/1/topic-q.json
   def question_topics
     @instrument = Instrument.includes(questions: [{parent: :topic}, {variables: :topic},:topic]).find(params[:instrument_id])
     @linking = []
@@ -284,6 +288,8 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  # GET /instruments/1/topic-v.txt
+  # GET /instruments/1/topic-v.json
   def variable_topics
     @instrument = Instrument.includes(variables: [{questions: :topic}, {out_variables: :topic}, {src_variables: :topic},:topic]).find(params[:instrument_id])
     @linking = []
@@ -296,6 +302,8 @@ class InstrumentsController < ApplicationController
     end
   end
   
+  # GET /instruments/1/mapper.txt
+  # GET /instruments/1/mapper.json
   def mapper 
     @instrument = Instrument.find(params[:instrument_id])
     respond_to do |format|

@@ -95,6 +95,22 @@
 
   <section class="description">
     
+<p>The instrument model represents an entire  questionnare/data collection.</p>
+
+<p>Instruments are containers sequences, questions and variables. Objects can
+only be mapped or linked within an instrument.</p>
+
+<h4 id="class-Instrument-label-Attributes">Attributes<span><a href="#class-Instrument-label-Attributes">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>prefix - This is the unique identifier for an  instrument within the
+project.</p>
+</li><li>
+<p>port - The port is the port number by which the instrument can be accessed
+on CADDIES.</p>
+</li><li>
+<p>study - The study or group the instrument belongs  to.</p>
+</li></ul>
+
   </section>
 
   
@@ -129,13 +145,22 @@
 
         <div class="method-description">
           
-          
+          <p>Returns an <code>ActiveRecord::Result</code> of all derived  variable
+mapping data for an instrument.</p>
+
+<h4 id="method-c-get_dv-label-Attributes">Attributes<span><a href="#method-c-get_dv-label-Attributes">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>instrument_id - The ID number of an instrument</p>
+
+<pre class="ruby"><span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">get_dv</span>(<span class="ruby-value">4</span>) <span class="ruby-comment">#=&gt; &lt;ActiveRecord::Result&gt;</span>
+</pre>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="get_dv-source">
-            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_dv</span>( <span class="ruby-identifier">instrument_id</span> )
   <span class="ruby-identifier">r</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sanitize_sql_array</span>([<span class="ruby-string">&quot;SELECT v1.name as variable, v2.name as src FROM variables v1 INNER JOIN maps ON v1.id = variable_id INNER JOIN variables v2 ON v2.id = mapable_id AND mapable_type = &#39;Variable&#39; WHERE v1.instrument_id =? GROUP BY variable, src ORDER BY variable&quot;</span>, <span class="ruby-identifier">instrument_id</span>])
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span> <span class="ruby-identifier">r</span>
@@ -163,13 +188,22 @@
 
         <div class="method-description">
           
-          
+          <p>Returns an <code>ActiveRecord::Result</code> of all mapping  data for an
+instrument.</p>
+
+<h4 id="method-c-get_mapping-label-Attributes">Attributes<span><a href="#method-c-get_mapping-label-Attributes">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>instrument_id - The ID number of an instrument</p>
+
+<pre class="ruby"><span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">get_mapping</span>(<span class="ruby-value">4</span>) <span class="ruby-comment">#=&gt; &lt;ActiveRecord::Result&gt;</span>
+</pre>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="get_mapping-source">
-            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_mapping</span>( <span class="ruby-identifier">instrument_id</span> )
   <span class="ruby-identifier">r</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sanitize_sql_array</span>([<span class="ruby-string">&quot;SELECT name as variable, COALESCE(qc, &#39;0&#39;) as qc, x, y FROM variables LEFT JOIN maps ON variables.id = variable_id LEFT JOIN questions ON mapable_id = questions.id AND mapable_type = &#39;Question&#39; WHERE variables.instrument_id =? GROUP BY variable, qc, x, y ORDER BY variable&quot;</span>, <span class="ruby-identifier">instrument_id</span>])
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span> <span class="ruby-identifier">r</span>
@@ -197,13 +231,26 @@
 
         <div class="method-description">
           
-          
+          <p>Returns an <code>ActiveRecord::Result</code> of all the</p>
+
+<p>topic linking data for an instrument.</p>
+
+<p>The data is returned in its most minified form, only returning the fixed
+points instead of the entire nests.</p>
+
+<h4 id="method-c-get_min_linking-label-Attributes">Attributes<span><a href="#method-c-get_min_linking-label-Attributes">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>instrument_id - The ID number of an instrument</p>
+
+<pre class="ruby"><span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">get_min_linking</span>(<span class="ruby-value">4</span>) <span class="ruby-comment">#=&gt; &lt;ActiveRecord::Result&gt;</span>
+</pre>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="get_min_linking-source">
-            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 43</span>
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 92</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_min_linking</span>( <span class="ruby-identifier">instrument_id</span> )
   <span class="ruby-identifier">r</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sanitize_sql_array</span>([<span class="ruby-string">&quot;SELECT coalesce(\&quot;URN\&quot;, qc, variables.name) as object, topic_id as topic, target_type as type FROM links LEFT JOIN sequences ON target_id = sequences.id AND target_type = &#39;Sequence&#39; LEFT JOIN questions ON target_id = questions.id AND target_type = &#39;Question&#39; LEFT JOIN variables ON target_id = variables.id AND target_type = &#39;Variable&#39; WHERE sequences.instrument_id = ? OR questions.instrument_id = ? OR variables.instrument_id = ? ORDER BY \&quot;URN\&quot;, qc, variables.name&quot;</span>, <span class="ruby-identifier">instrument_id</span>, <span class="ruby-identifier">instrument_id</span>, <span class="ruby-identifier">instrument_id</span>])
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span> <span class="ruby-identifier">r</span>
@@ -239,13 +286,14 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a string of all question qcs that belong to this instrument
+separated by commas.</p>
           
           
 
           
           <div class="method-source-code" id="get_comma_separated_questions-source">
-            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_comma_separated_questions</span>
   <span class="ruby-identifier">qcs</span> = []
   <span class="ruby-identifier">questions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span>
@@ -276,13 +324,14 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a string of all sequence names that  belong to this instrument
+separated by commas.</p>
           
           
 
           
           <div class="method-source-code" id="get_comma_separated_sequences-source">
-            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_comma_separated_sequences</span>
   <span class="ruby-identifier">seq_names</span> = []
   <span class="ruby-identifier">sequences</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sequence</span><span class="ruby-operator">|</span>
@@ -313,13 +362,14 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a string of all variable namess that belong to this instrument
+separated by commas.</p>
           
           
 
           
           <div class="method-source-code" id="get_comma_separated_variables-source">
-            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/models/instrument.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_comma_separated_variables</span>
   <span class="ruby-identifier">var_names</span> = []
   <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">variable</span><span class="ruby-operator">|</span>

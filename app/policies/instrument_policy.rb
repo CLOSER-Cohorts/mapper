@@ -1,6 +1,9 @@
+# This sets the basic policies for instruments using
+# Pundit for authorization.
 class InstrumentPolicy < ApplicationPolicy
-
+  # A Pundit scope, I think
   class Scope < Scope
+    # Hmm
     def resolve
       if user.admin?
         scope.all
@@ -22,11 +25,13 @@ class InstrumentPolicy < ApplicationPolicy
     end
   end
 
+  # Authorization for action create
   def create?
     user.admin?
   end
   alias batch? create?
-
+ 
+  # Authorization for action show
   def show?
     user.admin? || user.study == record.study || 
     (user.study == "CLS" && (record.study == "BCS" || record.study == "MCS" || record.study == "NCDS")) ||

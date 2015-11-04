@@ -101,6 +101,9 @@
 
   <section class="description">
     
+<p>This sets the basic policies for the application using Pundit for
+authorization.</p>
+
   </section>
 
   
@@ -128,7 +131,7 @@
 
         <div class="method-description">
         
-        
+        <p>I am not sure what this does</p>
         
         </div>
       </div>
@@ -141,7 +144,7 @@
 
         <div class="method-description">
         
-        
+        <p>I am not sure what this does</p>
         
         </div>
       </div>
@@ -169,13 +172,13 @@
 
         <div class="method-description">
           
-          
+          <p>I need help</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 4</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">record</span>)
   <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
   <span class="ruby-ivar">@record</span> = <span class="ruby-identifier">record</span>
@@ -211,13 +214,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for create</p>
           
           
 
           
           <div class="method-source-code" id="create-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create?</span>
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
@@ -244,13 +247,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for destroy</p>
           
           
 
           
           <div class="method-source-code" id="destroy-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy?</span>
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
@@ -277,13 +280,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for edit</p>
           
           
 
           
           <div class="method-source-code" id="edit-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 29</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit?</span>
   <span class="ruby-identifier">update?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -310,13 +313,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for index</p>
           
           
 
           
           <div class="method-source-code" id="index-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index?</span>
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
@@ -343,13 +346,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for new</p>
           
           
 
           
           <div class="method-source-code" id="new-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new?</span>
   <span class="ruby-identifier">create?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -376,13 +379,13 @@
 
         <div class="method-description">
           
-          
+          <p>Not sure what this does either</p>
           
           
 
           
           <div class="method-source-code" id="scope-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 37</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">scope</span>
   <span class="ruby-constant">Pundit</span>.<span class="ruby-identifier">policy_scope!</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">record</span>.<span class="ruby-identifier">class</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -409,13 +412,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for show</p>
           
           
 
           
           <div class="method-source-code" id="show-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show?</span>
   <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">exists?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -442,13 +445,13 @@
 
         <div class="method-description">
           
-          
+          <p>Sets the basic authorization for update</p>
           
           
 
           
           <div class="method-source-code" id="update-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/policies/application_policy.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update?</span>
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>

@@ -91,6 +91,12 @@
 
   <section class="description">
     
+<p>The topic model represents a single topic from the controlled vocabulary.
+Each question, variable and sequence can be linked to a topic.</p>
+
+<p>The topic model self joins to create a child and parent relationship. It
+has  currently been hard coded to only accept 5 generations (or levels).</p>
+
   </section>
 
   
@@ -125,13 +131,13 @@
 
         <div class="method-description">
           
-          
+          <p>An addtional finder to seek by level</p>
           
           
 
           
           <div class="method-source-code" id="find_by_level-source">
-            <pre><span class="ruby-comment"># File app/models/topic.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/models/topic.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_by_level</span>(<span class="ruby-identifier">level</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">get_level</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">level</span>}
 <span class="ruby-keyword">end</span></pre>
@@ -158,13 +164,15 @@
 
         <div class="method-description">
           
-          
+          <p>Returns all the topics of a given level in a comma separated string.</p>
+
+<p>If a level is provided below 1 is provided, all topics will be included.</p>
           
           
 
           
           <div class="method-source-code" id="get_comma_separated_topics-source">
-            <pre><span class="ruby-comment"># File app/models/topic.rb, line 31</span>
+            <pre><span class="ruby-comment"># File app/models/topic.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_comma_separated_topics</span>(<span class="ruby-identifier">level</span> = <span class="ruby-value">0</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">level</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
     <span class="ruby-identifier">topics</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">all</span>
@@ -200,13 +208,17 @@
 
         <div class="method-description">
           
-          
+          <p>Returns all topics sorted by there level</p>
+
+<p>The topics are returned by first level and then id, returning both values
+in ascending order. Children of a parent topic are returned with its
+parent.</p>
           
           
 
           
           <div class="method-source-code" id="get_in_level_order-source">
-            <pre><span class="ruby-comment"># File app/models/topic.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/models/topic.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_in_level_order</span>
   <span class="ruby-identifier">unsorted</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">order</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ASC&#39;</span>)
   <span class="ruby-identifier">sorted</span> = {}
@@ -253,13 +265,13 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the level of a topic</p>
           
           
 
           
           <div class="method-source-code" id="get_level-source">
-            <pre><span class="ruby-comment"># File app/models/topic.rb, line 5</span>
+            <pre><span class="ruby-comment"># File app/models/topic.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_level</span>
   <span class="ruby-identifier">level</span> = <span class="ruby-value">1</span>
   <span class="ruby-identifier">topic_check</span> = <span class="ruby-keyword">self</span>

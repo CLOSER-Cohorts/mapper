@@ -1,3 +1,6 @@
+# The questions controller handles requests relating to the
+# question model. It contains all the standard CRUD options
+# but also several actions to map variables and link topics.
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy, :set_topic, :add_variable, :remove_variable]
   before_action :set_instrument, only: [:index, :new, :create]

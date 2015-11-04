@@ -1,3 +1,5 @@
+# The questions controller handles requests relating to the
+# question model. It contains all the standard CRUD actions.
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 

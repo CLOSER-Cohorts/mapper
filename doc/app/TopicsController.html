@@ -97,6 +97,9 @@
 
   <section class="description">
     
+<p>The questions controller handles requests relating to the question model.
+It contains all the standard CRUD actions.</p>
+
   </section>
 
   
@@ -137,7 +140,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@topic</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">topic_params</span>)
 
@@ -180,7 +183,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 57</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@topic</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -217,7 +220,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -249,7 +252,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@topics</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">all</span>
   <span class="ruby-identifier">render</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;index&quot;</span>
@@ -283,7 +286,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@topic</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -316,7 +319,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -348,7 +351,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 43</span>
+            <pre><span class="ruby-comment"># File app/controllers/topics_controller.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@topic</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">topic_params</span>)

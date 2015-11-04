@@ -95,6 +95,11 @@
 
   <section class="description">
     
+<p>The user model represents a user account within Mapper.</p>
+
+<p><a href="User.html">User</a> accounts are primarily being used for
+authorization and authentication.</p>
+
   </section>
 
   
@@ -129,13 +134,13 @@
 
         <div class="method-description">
           
-          
+          <p>Returns true if the user is a member of the admin group.</p>
           
           
 
           
           <div class="method-source-code" id="admin-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Admin&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -194,13 +199,14 @@
 
         <div class="method-description">
           
-          
+          <p>Returns true if the user is part of any of the CLS studies or a member of
+the CLS group.</p>
           
           
 
           
           <div class="method-source-code" id="cls-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 10</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cls</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;CLS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;BCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;MCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;NCDS&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -259,13 +265,14 @@
 
         <div class="method-description">
           
-          
+          <p>Returns true if the user is part of any of the Southampton studies or a
+member of the SOTON group.</p>
           
           
 
           
           <div class="method-source-code" id="soton-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">soton</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;SOTON&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;HCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;SWS&quot;</span>
 <span class="ruby-keyword">end</span></pre>

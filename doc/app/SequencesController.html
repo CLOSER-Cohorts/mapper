@@ -99,6 +99,10 @@
 
   <section class="description">
     
+<p>The sequence controller handles requests relating to the sequence model. It
+contains all the standard CRUD options but also several actions tolink
+topics.</p>
+
   </section>
 
   
@@ -139,7 +143,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@sequence</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">sequences</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sequence_params</span>)
 
@@ -182,7 +186,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 58</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@sequence</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -219,7 +223,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -251,7 +255,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@topics</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">find_by_level</span>(<span class="ruby-value">1</span>)
   <span class="ruby-ivar">@sequences</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">sequences</span>.<span class="ruby-identifier">all</span>
@@ -285,7 +289,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 18</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@sequence</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">sequences</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -318,7 +322,7 @@
 
           
           <div class="method-source-code" id="set_topic-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 67</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_topic</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:topic_id</span>)
     <span class="ruby-ivar">@sequence</span>.<span class="ruby-identifier">topic</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:topic_id</span>])
@@ -356,7 +360,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -388,7 +392,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/controllers/sequences_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@sequence</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">sequence_params</span>)

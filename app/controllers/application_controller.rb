@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :more_notice
 
+  # The root action that delivers a static home page.
   def index
     render template: "static/home.html.erb"
   end

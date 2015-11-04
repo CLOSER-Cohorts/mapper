@@ -93,6 +93,19 @@
 
   <section class="description">
     
+<p>The sequence model represents a sequence within DDI.</p>
+
+<p>Sequences contain questions and other sequences. There primary purpose is
+to have a topic linked, that then will trickle down to all immediate child
+questions.</p>
+
+<h4 id="class-Sequence-label-Attributes">Attributes<span><a href="#class-Sequence-label-Attributes">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>name - The literal text that makes up the sequence</p>
+</li><li>
+<p>URN  - The unqiue identifier reference for the project</p>
+</li></ul>
+
   </section>
 
   
@@ -127,13 +140,19 @@
 
         <div class="method-description">
           
-          
+          <p>Returns whether one sequence is the child of  another.</p>
+
+<p>The functions works recurively checking against all decdant sequences.</p>
+
+<pre class="ruby"><span class="ruby-identifier">sequence_one</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-identifier">sequence_two</span>
+<span class="ruby-identifier">sequence_two</span>.<span class="ruby-identifier">are_you_my_child</span> <span class="ruby-identifier">sequence_one</span> <span class="ruby-comment">#=&gt; true</span>
+</pre>
           
           
 
           
           <div class="method-source-code" id="are_you_my_child-source">
-            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">are_you_my_child</span> ( <span class="ruby-identifier">sequence</span> )
   <span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">child</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">sequence</span>
@@ -168,13 +187,17 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the topic of the immediate parent of this sequence.</p>
+
+<p>If the parent doesn&#39;t have a topic, then the ancestory will be checked
+until a topic is found or <code>Nil:nil</code> will be returned if one
+cannot be  found.</p>
           
           
 
           
           <div class="method-source-code" id="get_parent_topic-source">
-            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_parent_topic</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
@@ -205,13 +228,17 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the topic for this sequence.</p>
+
+<p>If no topic has been assigned to this sequence, then it anestory will be
+checked until a topic is found or <code>Nil:nil</code> will be returned if
+one cannot be found.</p>
           
           
 
           
           <div class="method-source-code" id="get_topic-source">
-            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_topic</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">topic</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">get_parent_topic</span>
@@ -242,13 +269,18 @@
 
         <div class="method-description">
           
-          
+          <p>Allows parent to be set as an attribute safely.</p>
+
+<p>This method performs a check to protect against  circular references.</p>
+
+<pre class="ruby"><span class="ruby-identifier">sequence_one</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-identifier">sequence_two</span>
+</pre>
           
           
 
           
           <div class="method-source-code" id="parent-3D-source">
-            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parent=</span> ( <span class="ruby-identifier">new_parent</span> )
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">are_you_my_child</span>(<span class="ruby-identifier">new_parent</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;This would cause a circular reference&quot;</span>
@@ -279,13 +311,13 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the URN reference for the immediate  parent.</p>
           
           
 
           
           <div class="method-source-code" id="parent_reference-source">
-            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/models/sequence.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parent_reference</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;none&#39;</span>

@@ -1,3 +1,7 @@
+# The variables controller handles requests relating to the
+# variable model. It contains all the standard CRUD options
+# but also several actions to map questions and variables
+# and link topics.
 class VariablesController < ApplicationController
   before_action :set_variable, only: [:show, :edit, :update, :destroy, :set_topic, :add_question, :remove_question, :add_variable, :remove_variable]
   before_action :set_instrument, only: [:index, :new, :create]

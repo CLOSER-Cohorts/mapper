@@ -103,6 +103,10 @@
 
   <section class="description">
     
+<p>The questions controller handles requests relating to the question model.
+It contains all the standard CRUD options but also several actions to map
+variables and link topics.</p>
+
   </section>
 
   
@@ -143,7 +147,7 @@
 
           
           <div class="method-source-code" id="add_variable-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 80</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_variable</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:variable_names</span>) 
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:variable_names</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">var_name</span><span class="ruby-operator">|</span>
@@ -190,7 +194,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@question</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">question_params</span>)
 
@@ -233,7 +237,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 58</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@instrument</span> = <span class="ruby-ivar">@question</span>.<span class="ruby-identifier">instrument</span>
   <span class="ruby-ivar">@question</span>.<span class="ruby-identifier">destroy</span>
@@ -271,7 +275,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -303,7 +307,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@questions</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>
   <span class="ruby-identifier">render</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;index&quot;</span>
@@ -337,7 +341,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 18</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@question</span> = <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -370,7 +374,7 @@
 
           
           <div class="method-source-code" id="remove_variable-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 99</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_variable</span>
   <span class="ruby-ivar">@question</span>.<span class="ruby-identifier">variables</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-constant">Variable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:variable_id</span>]))
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -406,7 +410,7 @@
 
           
           <div class="method-source-code" id="set_topic-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 68</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_topic</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:topic_id</span>)
     <span class="ruby-ivar">@question</span>.<span class="ruby-identifier">topic</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:topic_id</span>])
@@ -446,7 +450,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -478,7 +482,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/controllers/questions_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@question</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">question_params</span>)

@@ -70,8 +70,6 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-add_question">#add_question</a>
-    
     <li ><a href="#method-i-batch">#batch</a>
     
     <li ><a href="#method-i-create">#create</a>
@@ -123,6 +121,10 @@
 
   <section class="description">
     
+<p>The instruments controller handles requests relating to the instrument
+model. It contains all the standard CRUD options but also supplies import
+actions and configuration file  outputs.</p>
+
   </section>
 
   
@@ -144,47 +146,6 @@
        </header>
 
     
-      <div id="method-i-add_question" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">add_question</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="add_question-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 158</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_question</span>
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">question_params</span>)
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Question was successfully added.&#39;</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:ok</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span> }
-    <span class="ruby-keyword">else</span>
-       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&quot;questions/new&quot;</span> }
-       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
       <div id="method-i-batch" class="method-detail ">
         
         <div class="method-heading">
@@ -204,7 +165,7 @@
 
           
           <div class="method-source-code" id="batch-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 77</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">batch</span>
   <span class="ruby-identifier">authorize</span> <span class="ruby-constant">Instrument</span>
   <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">params</span>
@@ -290,7 +251,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 62</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">instrument_params</span>)
   <span class="ruby-identifier">authorize</span> <span class="ruby-ivar">@instrument</span>
@@ -333,7 +294,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 150</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 154</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -364,13 +325,13 @@
 
         <div class="method-description">
           
-          
+          <p>GET /instruments/1/dv.txt GET /instruments/1/dv.json</p>
           
           
 
           
           <div class="method-source-code" id="dv-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 267</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 269</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dv</span>
   <span class="ruby-ivar">@map</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">get_dv</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -407,7 +368,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 57</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -433,13 +394,13 @@
 
         <div class="method-description">
           
-          
+          <p>PATCH /instruments/1/import_dv</p>
           
           
 
           
           <div class="method-source-code" id="import_dv-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 207</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 204</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import_dv</span>
   <span class="ruby-identifier">dv_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:dv</span>]
   <span class="ruby-identifier">total_skipped</span>, <span class="ruby-identifier">skipped_lines</span>, <span class="ruby-identifier">pieces</span> = <span class="ruby-identifier">read_dv_txt</span>(<span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">dv_io</span>.<span class="ruby-identifier">read</span>)
@@ -474,13 +435,13 @@
 
         <div class="method-description">
           
-          
+          <p>PATCH /instruments/1/import_from_caddies</p>
           
           
 
           
           <div class="method-source-code" id="import_from_caddies-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 182</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 176</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import_from_caddies</span>
   <span class="ruby-identifier">mapper_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:mapper</span>]
   <span class="ruby-identifier">mapper</span> = <span class="ruby-identifier">mapper_io</span>.<span class="ruby-identifier">read</span>
@@ -512,13 +473,13 @@
 
         <div class="method-description">
           
-          
+          <p>PATCH /instruments/1/import_linking</p>
           
           
 
           
           <div class="method-source-code" id="import_linking-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 219</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 217</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import_linking</span>
   <span class="ruby-identifier">linking_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:linking</span>]
   <span class="ruby-identifier">linking</span> = <span class="ruby-identifier">linking_io</span>.<span class="ruby-identifier">read</span>
@@ -581,13 +542,13 @@
 
         <div class="method-description">
           
-          
+          <p>PATCH /instruments/1/import_map</p>
           
           
 
           
           <div class="method-source-code" id="import_map-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 199</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import_map</span>
   <span class="ruby-identifier">map_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:map</span>]
   <span class="ruby-identifier">read_mapping_txt</span>(<span class="ruby-ivar">@instrument</span>,<span class="ruby-identifier">map_io</span>.<span class="ruby-identifier">read</span>)
@@ -618,13 +579,13 @@
 
         <div class="method-description">
           
-          
+          <p>PATCH /instruments/1/import_qlist</p>
           
           
 
           
           <div class="method-source-code" id="import_qlist-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 170</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 163</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import_qlist</span>
   <span class="ruby-identifier">qlist_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:qlist</span>]
   <span class="ruby-identifier">qlist</span> = <span class="ruby-identifier">qlist_io</span>.<span class="ruby-identifier">read</span>
@@ -659,13 +620,13 @@
 
         <div class="method-description">
           
-          
+          <p>PATCH /instruments/1/import_variables</p>
           
           
 
           
           <div class="method-source-code" id="import_variables-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 191</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 186</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import_variables</span>
   <span class="ruby-identifier">var_io</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument</span>][<span class="ruby-value">:variables</span>]
   <span class="ruby-identifier">read_variables_txt</span>(<span class="ruby-ivar">@instrument</span>, <span class="ruby-identifier">var_io</span>.<span class="ruby-identifier">read</span>)
@@ -702,7 +663,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:study</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:study</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:study</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;CLS&quot;</span>
@@ -741,13 +702,13 @@
 
         <div class="method-description">
           
-          
+          <p>GET /instruments/1/mapper.txt GET /instruments/1/mapper.json</p>
           
           
 
           
           <div class="method-source-code" id="mapper-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 299</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 307</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mapper</span> 
   <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -778,7 +739,7 @@
 
         <div class="method-description">
           
-          
+          <p>GET /instruments/1/mapping.txt GET /instruments/1/mapping.json</p>
           
           
 
@@ -821,7 +782,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 52</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -848,13 +809,13 @@
 
         <div class="method-description">
           
-          
+          <p>GET /instruments/1/topic-q.txt GET /instruments/1/topic-q.json</p>
           
           
 
           
           <div class="method-source-code" id="question_topics-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 275</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 279</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">question_topics</span>
   <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-identifier">questions</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">parent</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>}, {<span class="ruby-identifier">variables</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>},<span class="ruby-value">:topic</span>]).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
   <span class="ruby-ivar">@linking</span> = []
@@ -895,7 +856,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-identifier">authorize</span> <span class="ruby-ivar">@instrument</span>
   <span class="ruby-ivar">@topics</span> = <span class="ruby-constant">Topic</span>.<span class="ruby-identifier">get_in_level_order</span>
@@ -930,7 +891,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 136</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 140</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instrument</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">instrument_params</span>)
@@ -965,13 +926,13 @@
 
         <div class="method-description">
           
-          
+          <p>GET /instruments/1/topic-v.txt GET /instruments/1/topic-v.json</p>
           
           
 
           
           <div class="method-source-code" id="variable_topics-source">
-            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 287</span>
+            <pre><span class="ruby-comment"># File app/controllers/instruments_controller.rb, line 293</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">variable_topics</span>
   <span class="ruby-ivar">@instrument</span> = <span class="ruby-constant">Instrument</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-identifier">variables</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">questions</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>}, {<span class="ruby-identifier">out_variables</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>}, {<span class="ruby-identifier">src_variables</span><span class="ruby-operator">:</span> <span class="ruby-value">:topic</span>},<span class="ruby-value">:topic</span>]).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:instrument_id</span>])
   <span class="ruby-ivar">@linking</span> = []

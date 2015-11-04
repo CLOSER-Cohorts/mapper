@@ -89,6 +89,9 @@
 
   <section class="description">
     
+<p>This sets the basic policies for instruments using Pundit for
+authorization.</p>
+
   </section>
 
   
@@ -151,13 +154,13 @@
 
         <div class="method-description">
           
-          
+          <p>Authorization for action create</p>
           
           
 
           
           <div class="method-source-code" id="create-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/instrument_policy.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/policies/instrument_policy.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create?</span>
   <span class="ruby-identifier">user</span>.<span class="ruby-identifier">admin?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -188,13 +191,13 @@
 
         <div class="method-description">
           
-          
+          <p>Authorization for action show</p>
           
           
 
           
           <div class="method-source-code" id="show-3F-source">
-            <pre><span class="ruby-comment"># File app/policies/instrument_policy.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/policies/instrument_policy.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show?</span>
   <span class="ruby-identifier">user</span>.<span class="ruby-identifier">admin?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">study</span> <span class="ruby-operator">||</span> 
   (<span class="ruby-identifier">user</span>.<span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;CLS&quot;</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">record</span>.<span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;BCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;MCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;NCDS&quot;</span>)) <span class="ruby-operator">||</span>

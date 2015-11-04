@@ -1,3 +1,6 @@
+# The sequence controller handles requests relating to the
+# sequence model. It contains all the standard CRUD options
+# but also several actions tolink topics.
 class SequencesController < ApplicationController
   before_action :set_sequence, only: [:show, :edit, :update, :destroy, :set_topic]
   before_action :set_instrument, only: [:index, :new, :create]
