@@ -2,6 +2,17 @@
 #
 # User accounts are primarily being used for authorization and
 # authentication.
+#
+# ==== Attributes
+# * email - User email address
+# * password - User password used for login authentication
+# * study - User group (badly named)
+#
+#     u = User.new
+#     u.email = 'example@closer.ac.uk'
+#     u.password = 'supersecret'
+#     u.study = 'Admin'
+#     u.save! 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

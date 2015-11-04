@@ -100,6 +100,23 @@
 <p><a href="User.html">User</a> accounts are primarily being used for
 authorization and authentication.</p>
 
+<h4 id="class-User-label-Attributes">Attributes<span><a href="#class-User-label-Attributes">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>email - <a href="User.html">User</a> email address</p>
+</li><li>
+<p>password - <a href="User.html">User</a> password used for login
+authentication</p>
+</li><li>
+<p>study - <a href="User.html">User</a> group (badly named)</p>
+
+<pre class="ruby"><span class="ruby-identifier">u</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-identifier">u</span>.<span class="ruby-identifier">email</span> = <span class="ruby-string">&#39;example@closer.ac.uk&#39;</span>
+<span class="ruby-identifier">u</span>.<span class="ruby-identifier">password</span> = <span class="ruby-string">&#39;supersecret&#39;</span>
+<span class="ruby-identifier">u</span>.<span class="ruby-identifier">study</span> = <span class="ruby-string">&#39;Admin&#39;</span>
+<span class="ruby-identifier">u</span>.<span class="ruby-identifier">save!</span>
+</pre>
+</li></ul>
+
   </section>
 
   
@@ -140,7 +157,7 @@ authorization and authentication.</p>
 
           
           <div class="method-source-code" id="admin-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 12</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Admin&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -206,7 +223,7 @@ the CLS group.</p>
 
           
           <div class="method-source-code" id="cls-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cls</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;CLS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;BCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;MCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;NCDS&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -272,7 +289,7 @@ member of the SOTON group.</p>
 
           
           <div class="method-source-code" id="soton-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">soton</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;SOTON&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;HCS&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">study</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;SWS&quot;</span>
 <span class="ruby-keyword">end</span></pre>
