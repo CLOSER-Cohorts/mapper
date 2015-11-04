@@ -83,7 +83,7 @@ class SequencesController < ApplicationController
     end
 
     def set_instrument
-      @instrument = Instrument.find(params[:instrument_id])
+      @instrument = Instrument.includes(sequences: :topic).find(params[:instrument_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
