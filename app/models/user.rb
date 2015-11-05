@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+  add_closer_centres
 
   # Returns true if the user is a member of the admin group.
   def admin
