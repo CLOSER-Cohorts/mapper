@@ -36,7 +36,7 @@ namespace :mapper do
       print output.last[:id].to_s + "\t" + output.last[:prefix] + "\t" + (output.last[:count].to_f/output.last[:total].to_f).to_s + "\n"
     end
     output.each do |o|
-      print o.id.to_s + "\t" + o.prefix + "\t" + (o.count.to_f/o.total.to_f).to_s + "\n"
+      print o[:id].to_s + "\t" + o[:prefix] + "\t" + (o[:count].to_f/o[:total].to_f).to_s + "\n"
     end
   end
 
