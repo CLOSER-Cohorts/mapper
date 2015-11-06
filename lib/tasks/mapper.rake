@@ -61,7 +61,7 @@ namespace :mapper do
   end
 
   desc "Outputs list of intrument ids, prefixes and variable-question percentage"
-  task qv: :environment do
+  task mapping: :environment do
     output = []
     Instrument.find_each do |i|
       output.append({prefix: i.prefix, id: i.id, qv: 0, vv: 0, mapped_q: 0, mapped_v: 0, total_v: i.variables.count, total_q: i.questions.count})
