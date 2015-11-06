@@ -69,7 +69,7 @@ namespace :mapper do
         begin
           output.last[:qv] += v.questions.length
           output.last[:vv] += v.src_variables.length
-          if (not v.get_relations.nil?) && v.get_relations.count > 0)
+          if (not v.get_relations.nil?) && v.get_relations.count > 0
             output.last[:mapped_v] += 1
           end
         rescue
@@ -77,7 +77,7 @@ namespace :mapper do
       end
       i.questions.find_each do |q|
         begin
-          if (not q.get_relations.nil?) && q.get_relations.count > 0)
+          if (not q.get_relations.nil?) && q.get_relations.count > 0
             output.last[:mapped_q] += 1
           end
         rescue
