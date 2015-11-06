@@ -33,7 +33,7 @@ class InstrumentsController < ApplicationController
       else
         studies = params[:study]
       end
-      @instruments = policy_scope(Instrument.where(study: studies))
+      @instruments = policy_scope(Instrument.where(instruments_params))
     else
       @instruments = policy_scope(Instrument)
     end
@@ -313,6 +313,10 @@ class InstrumentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def instrument_params
       params.require(:instrument).permit(:prefix, :port, :study)
+    end
+    
+    def instruments_params
+      params.permit(:study)
     end
     
     def read_mapper_txt (instrument, mapper)
