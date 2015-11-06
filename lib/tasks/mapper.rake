@@ -40,6 +40,26 @@ namespace :mapper do
     end
   end
 
+  desc "Outputs list of intrument ids, prefixes and variable-question percentage"
+  task tv: :environment do
+    output = []
+    Instrument.find_each do |i|
+      output.append({prefix: i.prefix, id: i.id, count: 0, total: i.variables.count})
+      i.variables.find_each do |v|
+        begin
+          if not v.get_topic.nil?
+            output.last[:count] += 1
+          end
+        rescue
+        end
+      end
+      print output.last[:id].to_s + "\t" + output.last[:prefix] + "\t" + (output.last[:count].to_f/output.last[:total].to_f).to_s + "\n"
+    end
+    output.each do |o|
+      print o[:id].to_s + "\t" + o[:prefix] + "\t" + (o[:count].to_f/o[:total].to_f).to_s + "\n"
+    end
+  end
+
   desc "This task exports the entire app for use or import. It includes a control file."
   task export: :environment do
   end
