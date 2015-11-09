@@ -48,6 +48,8 @@ gem "kaminari"
 gem "jquery-datatables-rails"
 gem "skylight"
 
+gem "closer", git: 'git@github.com:CLOSER-Cohorts/closer-mapper-gem.git'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
