@@ -4,18 +4,6 @@ class InstrumentPolicy < ApplicationPolicy
     def resolve
       if user.admin?
         scope.all
-      elsif user.cls?
-        if user.study == "BCS" || user.study == "MCS" || user.study == "NCDS"
-          scope.where(study: user.study)
-        else
-          scope.where("study=? OR study=? OR study=?", "BCS", "MCS", "NCDS")
-        end
-      elsif user.soton?
-        if user.study == "HCS" || user.study == "SWS"
-          scope.where(study: user.study)
-        else
-          scope.where("study=? OR study=?", "HCS", "SWS")
-        end
       else
         scope.where(study: user.study)
       end

@@ -26,13 +26,6 @@ class InstrumentsController < ApplicationController
   # GET /instruments.json
   def index
     if params.has_key?(:study) and params[:study].length > 1
-      if params[:study] == "CLS"
-        studies = ["BCS","MCS","NCDS"]
-      elsif params[:study] == "SOTON"
-        studies = ["HCS","SWS"]
-      else
-        studies = params[:study]
-      end
       @instruments = policy_scope(Instrument.where(instruments_params))
     else
       @instruments = policy_scope(Instrument)
