@@ -1,5 +1,6 @@
 class InstrumentsController < ApplicationController
   before_action :authenticate_user!, except: [
+    :index,
     :mapping,
     :dv,
     :question_topics,
@@ -25,17 +26,33 @@ class InstrumentsController < ApplicationController
   # GET /instruments
   # GET /instruments.json
   def index
-    if params.has_key?(:study) and params[:study].length > 1
-      if params[:study] == "CLS"
-        studies = ["BCS","MCS","NCDS"]
-      elsif params[:study] == "SOTON"
-        studies = ["HCS","SWS"]
+    if params.has_key?(:format) && params[:format] == "json"
+      if params.has_key?(:study) && params[:study].length > 1
+        if params[:study] == "CLS"
+          studies = ["BCS","MCS","NCDS"]
+        elsif params[:study] == "SOTON"
+          studies = ["HCS","SWS"]
+        else
+          studies = params[:study]
+        end
+        @instruments = Instrument.where(study: studies)
       else
-        studies = params[:study]
+        @instruments = Instrument.all
       end
-      @instruments = policy_scope(Instrument.where(study: studies))
     else
-      @instruments = policy_scope(Instrument)
+      authenticate_user!
+      if params.has_key?(:study) && params[:study].length > 1
+        if params[:study] == "CLS"
+          studies = ["BCS","MCS","NCDS"]
+        elsif params[:study] == "SOTON"
+          studies = ["HCS","SWS"]
+        else
+          studies = params[:study]
+        end
+        @instruments = policy_scope(Instrument.where(study: studies))
+      else
+        @instruments = policy_scope(Instrument)
+      end
     end
     render layout: "index"
   end
