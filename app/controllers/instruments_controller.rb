@@ -402,7 +402,11 @@ class InstrumentsController < ApplicationController
       var_data.each_line do |line|
         data = line.strip.split(splitter)
         data_name = data[0].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
-        data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        if data[1].nil?
+          data_label = ""
+        else
+          data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        end
         if columns == 3
           data_var_type = data[2].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
         else
