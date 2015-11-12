@@ -380,8 +380,7 @@ class InstrumentsController < ApplicationController
       var_data = var_data.gsub /\r\n?/, "\n"
       var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
       first_line = var_data.lines.first
-      logger.debug first_line.scan(/[^\w\d_ \n\r]+/)
-      if punc = first_line.scan(/[^\w\d_ \n\r]+/)
+      if punc = first_line.scan(/[^\w\d_\. \n\r]+/)
         quote_cladding = ''
 
         if (punc[0] == '"') || (punc[0] == "'")
