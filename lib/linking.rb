@@ -66,7 +66,6 @@ module Linking
     to_check.each do |x|
       if (not x.topic.nil?) && x.topic != topic && (not nest[:topic].nil?)
         nest[:good] = false
-        nest[:fixed_points] << {type: x.class.name, id: x.id, obj: x, topic: x.topic}
       end
       logger.debug x
       nest = x.topic_nest_is_valid_worker(nest)
@@ -104,5 +103,5 @@ module Linking
     end
   end
   
-  #private :topic_nest_is_valid_worker
+  protected :topic_nest_is_valid_worker
 end
