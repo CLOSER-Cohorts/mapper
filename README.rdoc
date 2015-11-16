@@ -1,5 +1,18 @@
 == README
 
+Currently this app has only be delpoyed via Heroku, so there is not a full
+set of guidence to get you setup.
+
+=== Keypoints
+
+* Ruby version: 2.2.1
+* Rails version: 4.2.1
+* Web server: Puma: 2.14.1
+
+The production environment uses Memcached to share cached variables between
+prcoesses/threads/worksers.
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

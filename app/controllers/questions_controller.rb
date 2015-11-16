@@ -73,7 +73,6 @@ class QuestionsController < ApplicationController
       @question.topic = Topic.find_by_id(params[:topic_id])
       @question.save!
     end
-    @question.clear_nest
     respond_to do |format|
       format.json { render json: true, status: :accepted }
     end

@@ -79,7 +79,6 @@ class VariablesController < ApplicationController
       @variable.topic = Topic.find_by_id(params[:topic_id])
       @variable.save!
     end
-    @variable.clear_nest
     respond_to do |format|
       format.json { render json: true, status: :accepted }
     end

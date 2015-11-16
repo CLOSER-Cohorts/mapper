@@ -4,6 +4,7 @@
 # outputs.
 class InstrumentsController < ApplicationController
   before_action :authenticate_user!, except: [
+    :index,
     :mapping,
     :dv,
     :question_topics,
@@ -29,17 +30,33 @@ class InstrumentsController < ApplicationController
   # GET /instruments
   # GET /instruments.json
   def index
-    if params.has_key?(:study) and params[:study].length > 1
-      if params[:study] == "CLS"
-        studies = ["BCS","MCS","NCDS"]
-      elsif params[:study] == "SOTON"
-        studies = ["HCS","SWS"]
+    if params.has_key?(:format) && params[:format] == "json"
+      if params.has_key?(:study) && params[:study].length > 1
+        if params[:study] == "CLS"
+          studies = ["BCS","MCS","NCDS"]
+        elsif params[:study] == "SOTON"
+          studies = ["HCS","SWS"]
+        else
+          studies = params[:study]
+        end
+        @instruments = Instrument.where(study: studies)
       else
-        studies = params[:study]
+        @instruments = Instrument.all
       end
-      @instruments = policy_scope(Instrument.where(study: studies))
     else
-      @instruments = policy_scope(Instrument)
+      authenticate_user!
+      if params.has_key?(:study) && params[:study].length > 1
+        if params[:study] == "CLS"
+          studies = ["BCS","MCS","NCDS"]
+        elsif params[:study] == "SOTON"
+          studies = ["HCS","SWS"]
+        else
+          studies = params[:study]
+        end
+        @instruments = policy_scope(Instrument.where(study: studies))
+      else
+        @instruments = policy_scope(Instrument)
+      end
     end
     render layout: "index"
   end
@@ -371,8 +388,7 @@ class InstrumentsController < ApplicationController
       var_data = var_data.gsub /\r\n?/, "\n"
       var_data = var_data.gsub('“','"').gsub('”', '"').gsub("‘", "'").gsub("’","'")
       first_line = var_data.lines.first
-      logger.debug first_line.scan(/[^\w\d_ \n\r]+/)
-      if punc = first_line.scan(/[^\w\d_ \n\r]+/)
+      if punc = first_line.scan(/[^\w\d_\. \n\r]+/)
         quote_cladding = ''
 
         if (punc[0] == '"') || (punc[0] == "'")
@@ -394,7 +410,11 @@ class InstrumentsController < ApplicationController
       var_data.each_line do |line|
         data = line.strip.split(splitter)
         data_name = data[0].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
-        data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        if data[1].nil?
+          data_label = ""
+        else
+          data_label = data[1].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
+        end
         if columns == 3
           data_var_type = data[2].chomp('"').chomp("'").reverse.chomp('"').chomp("'").reverse
         else
