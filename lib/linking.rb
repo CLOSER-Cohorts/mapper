@@ -47,12 +47,14 @@ module Linking
     return topic_nest[:good]
   end
   
-  # This private method is only used by +topic_nest_is_valid+ to generate a topic nest.
+  # This protected method is only used by +topic_nest_is_valid+ to generate a topic nest.
   def topic_nest_is_valid_worker ( nest )
     if not nest[:members].include? self.class.name + self.id.to_s
       nest[:members] << self.class.name + self.id.to_s
+    else
+      return nest
     end
-	if not topic.nil?
+    if not topic.nil?
       if nest[:topic].nil?
         nest[:topic] = topic
       else
