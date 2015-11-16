@@ -19,6 +19,7 @@ module Linking
   # Retrieves the nest that this object relates to from the cache.
   def my_nest
     index = Rails.cache.read('topic_nest_index_' + self.class.name + self.id.to_s)
+    logger.debug index
     if index.nil?
       return
     end
@@ -51,7 +52,6 @@ module Linking
     if not nest[:members].include? self.class.name + self.id.to_s
       nest[:members] << self.class.name + self.id.to_s
     end
-	
 	if not topic.nil?
       if nest[:topic].nil?
         nest[:topic] = topic
@@ -62,17 +62,15 @@ module Linking
       end 
       nest[:fixed_points] << {type: self.class.name, id: self.id, obj: self, topic: topic}
     end
-	
     to_check = get_relations.reject{|x| nest[:members].include? x.class.name + x.id.to_s}
     to_check.each do |x|
-      if x.topic.nil? || x.topic == topic || nest[:topic].nil?
-        nest = x.topic_nest_is_valid_worker(nest)
-      else
+      if (not x.topic.nil?) && x.topic != topic && (not nest[:topic].nil?)
         nest[:good] = false
         nest[:fixed_points] << {type: x.class.name, id: x.id, obj: x, topic: x.topic}
       end
+      logger.debug x
+      nest = x.topic_nest_is_valid_worker(nest)
     end
-    
     return nest
   end
 
@@ -106,5 +104,5 @@ module Linking
     end
   end
   
-  private :topic_nest_is_valid_worker
+  #private :topic_nest_is_valid_worker
 end
