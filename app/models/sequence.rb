@@ -43,6 +43,15 @@ class Sequence < ActiveRecord::Base
       return parent.get_topic
     end
   end
+  
+  def parent_topic
+    Topic.find_by_sql("WITH RECURSIVE tree AS (SELECT id, ARRAY[]::integer[] AS ancestors" +
+    " FROM sequences WHERE parent_id IS NULL UNION ALL SELECT sequences.id, tree.ancestors" + 
+    " || sequences.parent_id FROM sequences, tree WHERE sequences.parent_id = tree.id) " +
+    "SELECT topics.* FROM sequences INNER JOIN links ON target_id = sequences.id AND "+
+    "target_type ='Sequence' INNER JOIN topics ON topic_id = topics.id WHERE sequences.id"+
+    " IN (SELECT unnest(ancestors) FROM tree WHERE id = " + id.to_s + ")")
+  end
 
   # Allows parent to be set as an attribute safely.
   #

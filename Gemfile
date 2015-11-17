@@ -59,4 +59,6 @@ group :development, :test do
   gem 'spring'
 
   gem 'rb-readline'
+  gem 'rails-perftest'
+  gem 'ruby-prof'
 end
