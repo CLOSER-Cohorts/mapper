@@ -8,7 +8,6 @@ class SequencesController < ApplicationController
   # GET /sequences
   # GET /sequences.json
   def index
-    @topics = Topic.find_by_level(1)
     @sequences = @instrument.sequences.all
   end
 
