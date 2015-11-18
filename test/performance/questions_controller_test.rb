@@ -1,0 +1,12 @@
+require 'test_helper'
+require 'rails/performance_test_help'
+
+class QuestionsControllerTest < ActionDispatch::PerformanceTest
+  # Refer to the documentation for all available options
+  self.profile_options = { runs: 5, metrics: [:wall_time, :memory],
+                           output: 'tmp/performance', formats: [:flat] }
+
+  test "instrument question index in json" do
+    get '/instruments/107/questions.json'
+  end
+end

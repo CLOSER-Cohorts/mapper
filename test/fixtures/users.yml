@@ -1,11 +1,111 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-#one: {}
-# column: value
-#
-#two: {}
-#  column: value
+---
+User_1:
+  id: 1
+  email: w.poynter@ioe.ac.uk
+  encrypted_password: "$2a$10$ndRT/lm8B6fzpHRs7W.VPuya2SnGi0zTLPKL74J/cUKZd/BujQFLW"
+  sign_in_count: 25
+  current_sign_in_at: 2015-11-12 21:18:22.118310000 Z
+  last_sign_in_at: 2015-11-05 12:15:11.775709000 Z
+  current_sign_in_ip: !ruby/object:IPAddr
+    family: 30
+    addr: 1
+    mask_addr: 340282366920938463463374607431768211455
+  last_sign_in_ip: !ruby/object:IPAddr
+    family: 30
+    addr: 1
+    mask_addr: 340282366920938463463374607431768211455
+  created_at: 2015-06-08 12:58:33.728534000 Z
+  updated_at: 2015-11-12 21:18:22.120947000 Z
+  study: Admin
+User_2:
+  id: 2
+  email: j.johnson@ioe.ac.uk
+  encrypted_password: "$2a$10$kDZWGLtmG0L/Gw47RNmrHeQXHd05K79ORhB./hPpiWzzl5hEFORJK"
+  remember_created_at: 2015-10-16 07:25:21.919669000 Z
+  sign_in_count: 10
+  current_sign_in_at: 2015-11-02 08:12:47.829429000 Z
+  last_sign_in_at: 2015-10-29 17:51:17.450367000 Z
+  current_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2421302813
+    mask_addr: 4294967295
+  last_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2421302813
+    mask_addr: 4294967295
+  created_at: 2015-09-24 07:50:52.322001000 Z
+  updated_at: 2015-11-02 08:12:47.831518000 Z
+  study: CLS
+User_3:
+  id: 3
+  email: i.bickerstaffe@bristol.ac.uk
+  encrypted_password: "$2a$10$jmdxqpCo4Oh5YQfMp2fJr.yZ.TksJECRmUltxr9.OysAoL5H1Q0mi"
+  sign_in_count: 3
+  current_sign_in_at: 2015-11-02 10:16:03.434628000 Z
+  last_sign_in_at: 2015-10-30 11:29:16.998124000 Z
+  current_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2313036175
+    mask_addr: 4294967295
+  last_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2313036175
+    mask_addr: 4294967295
+  created_at: 2015-10-05 16:39:48.939382000 Z
+  updated_at: 2015-11-02 10:16:03.436285000 Z
+  study: ALSPAC
+User_4:
+  id: 4
+  email: sarah.matthews@bristol.ac.uk
+  encrypted_password: "$2a$10$u.CtWwQWukr919fgGOx.eOl4u/rG7aF4Bb9rS1bBKcw2/CRZ.D1Mi"
+  remember_created_at: 2015-10-06 15:37:32.671002000 Z
+  sign_in_count: 4
+  current_sign_in_at: 2015-11-02 09:47:55.441442000 Z
+  last_sign_in_at: 2015-10-30 11:51:00.726436000 Z
+  current_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2313067176
+    mask_addr: 4294967295
+  last_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2313067176
+    mask_addr: 4294967295
+  created_at: 2015-10-05 16:40:53.352974000 Z
+  updated_at: 2015-11-02 09:47:55.443458000 Z
+  study: ALSPAC
+User_5:
+  id: 5
+  email: vac@mrc.soton.ac.uk
+  encrypted_password: "$2a$10$f3NtoZ75YAtIAQtSnsEpWu7tHEiQMQHUYwMxtgAaPMAKZVREB4Jy."
+  sign_in_count: 1
+  current_sign_in_at: 2015-10-07 13:40:42.488419000 Z
+  last_sign_in_at: 2015-10-07 13:40:42.488419000 Z
+  current_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2421302813
+    mask_addr: 4294967295
+  last_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2421302813
+    mask_addr: 4294967295
+  created_at: 2015-10-07 13:38:50.173029000 Z
+  updated_at: 2015-10-07 13:40:42.507151000 Z
+  study: SOTON
+User_6:
+  id: 6
+  email: philip.curran@ucl.ac.uk
+  encrypted_password: "$2a$10$MWFhF2H3DKWH9Drf4sdAEe/tErxMV9q0Fv2lg38YRSkxroBzfSrwm"
+  sign_in_count: 2
+  current_sign_in_at: 2015-10-13 13:43:49.933222000 Z
+  last_sign_in_at: 2015-10-13 13:37:20.455463000 Z
+  current_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 2421320809
+    mask_addr: 4294967295
+  last_sign_in_ip: !ruby/object:IPAddr
+    family: 2
+    addr: 3571141621
+    mask_addr: 4294967295
+  created_at: 2015-10-08 12:08:49.572309000 Z
+  updated_at: 2015-10-13 13:43:49.935496000 Z
+  study: NSHD
