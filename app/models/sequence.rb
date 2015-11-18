@@ -35,23 +35,17 @@ class Sequence < ActiveRecord::Base
   # If the parent doesn't have a topic, then the
   # ancestory will be checked until a topic is found
   # or +Nil:nil+ will be returned if one cannot be 
-  # found.
-  def get_parent_topic
-    if parent.nil?
-      return nil
-    else
-      return parent.get_topic
-    end
-  end
-  
+  # found. 
   def parent_topic
-    Topic.find_by_sql("WITH RECURSIVE tree AS (SELECT id, ARRAY[]::integer[] AS ancestors" +
+    r = Topic.find_by_sql("WITH RECURSIVE tree AS (SELECT id, ARRAY[]::integer[] AS ancestors" +
     " FROM sequences WHERE parent_id IS NULL UNION ALL SELECT sequences.id, tree.ancestors" + 
     " || sequences.parent_id FROM sequences, tree WHERE sequences.parent_id = tree.id) " +
     "SELECT topics.* FROM sequences INNER JOIN links ON target_id = sequences.id AND "+
     "target_type ='Sequence' INNER JOIN topics ON topic_id = topics.id WHERE sequences.id"+
     " IN (SELECT unnest(ancestors) FROM tree WHERE id = " + id.to_s + ")")
+    if r.length > 0 then r.first else nil end
   end
+  alias get_parent_topic parent_topic
 
   # Allows parent to be set as an attribute safely.
   #

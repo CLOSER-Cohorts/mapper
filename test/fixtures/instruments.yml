@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  prefix: MyString
-  port: MyString
+ione:
+  id: 1
+  prefix: dummy_15_one
+  port: 4001
 
-two:
-  prefix: MyString
-  port: MyString
+itwo:
+  id: 2
+  prefix: dummpy_15_two
+  port: 4002

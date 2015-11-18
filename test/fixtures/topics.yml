@@ -1,9 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  parent_id: 
+north:
+  id: 1
+  name: North
+  parent_id: NULL 
 
-two:
-  name: MyString
-  parent_id: 
+east:
+  id: 2
+  name: East
+  parent_id: 1
+
+south:
+  id: 3
+  name: South
+  parent_id: 2
+
+west:
+  id: 4
+  name: West
+  parent_id: 3 

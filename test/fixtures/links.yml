@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  topic_id: 
-  target_id: 
+lone:
+  topic_id: 1
+  target_id: 1
+  target_type: Sequence
 
-two:
-  topic_id: 
-  target_id: 
+#lltwo:
+#  topic_id: :north
+#  target_id: :twotwo
