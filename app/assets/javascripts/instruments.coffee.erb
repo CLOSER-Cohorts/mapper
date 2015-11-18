@@ -18,7 +18,10 @@ removeTopic = function(type, id) {
     });
 };
 
+conflict = {};
+
 resolveConflict = function(fixed_points) {
+  console.log(fixed_points);
   var items = [];
   for (var i = 0; i < fixed_points.length; i++) {
     if (fixed_points[i].type === "Question") {
@@ -253,8 +256,9 @@ var ready = function() {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
 	  if (!json.data[i].my_nest.good) {
-		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick=\'resolveConflict(' + 
-		  JSON.stringify(json.data[i].my_nest.fixed_points) + ')\'>ERROR</a>';
+	    conflict[json.data[i].type+json.data[i].id.toString()] = resolveConflict.bind({},json.data[i].my_nest.fixed_points);
+		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick="conflict[\'' + 
+		  json.data[i].type+json.data[i].id.toString() + '\']();">ERROR</a>';
 	  } else {
 	    if (json.data[i].my_nest.fixed_points.length > 0 && 
 	      jQuery.grep(json.data[i].my_nest.fixed_points, function(x){ return x.type == json.data[i].type && x.id == json.data[i].id; }).length == 0) {
