@@ -53,6 +53,7 @@ class Question < ActiveRecord::Base
       raise "Cannot assign topic"
     end
     clear_nest
+    get_topic
   end
   alias topic= set_topic
   

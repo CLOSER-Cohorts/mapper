@@ -19,7 +19,6 @@ module Linking
   # Retrieves the nest that this object relates to from the cache.
   def my_nest
     index = Rails.cache.read('topic_nest_index_' + self.class.name + self.id.to_s)
-    logger.debug index
     if index.nil?
       return
     end
