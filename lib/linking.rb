@@ -65,10 +65,6 @@ module Linking
     end
     to_check = get_relations.reject{|x| nest[:members].include? x.class.name + x.id.to_s}
     to_check.each do |x|
-      if (not x.topic.nil?) && x.topic != topic && (not nest[:topic].nil?)
-        nest[:good] = false
-      end
-      logger.debug x
       nest = x.topic_nest_is_valid_worker(nest)
     end
     return nest
