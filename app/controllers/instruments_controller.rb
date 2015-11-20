@@ -17,6 +17,7 @@ class InstrumentsController < ApplicationController
     :update, 
     :destroy, 
     :questions, 
+    :topic_nests,
     :import_qlist, 
     :import_from_caddies, 
     :import_variables, 
@@ -92,6 +93,11 @@ class InstrumentsController < ApplicationController
         format.json { render json: @instrument.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /instruments/1/topic_nests.json
+  def topic_nests
+    render json: @instrument.topic_nests, status: :ok
   end
 
   # PATCH /instruments/batch
