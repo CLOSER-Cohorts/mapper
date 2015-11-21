@@ -28,9 +28,7 @@
       <th>Questions</th>
       <th>Variables</th>
       <% if current_user.admin? %>
-      <th colspan="5"></th>
-      <% else %>
-      <th></th>
+      <th colspan="4"></th>
       <% end %>
     </tr>
   </thead>
@@ -38,11 +36,10 @@
   <tbody>
     <% @instruments.each do |instrument| %>
       <tr>
-        <td><%= instrument.prefix %></td>
+        <td><%= link_to instrument.prefix, instrument, title: "Show" %></td>
         <td><%= instrument.port %></td>
         <td><%= instrument.questions.count() %></td>
 	<td><%= instrument.variables.count() %></td>
-        <td class="center"><%= link_to 'Show', instrument, title: "Show", class: 'show' %></td>
         <% if current_user.admin? %>
         <td class="center"><%= link_to 'New Questions', new_instrument_question_path(instrument), title: "Add Question", class: 'question' %></td>
         <td class="center"><%= link_to 'New Variables', new_instrument_variable_path(instrument), title: "Add Variable", class: 'variable' %></td> 
