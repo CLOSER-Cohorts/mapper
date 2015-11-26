@@ -97,7 +97,7 @@ class InstrumentsController < ApplicationController
 
   # GET /instruments/1/topic_nests.json
   def topic_nests
-    render json: @instrument.topic_nests, status: :ok
+    render :topic_nests
   end
 
   # PATCH /instruments/batch

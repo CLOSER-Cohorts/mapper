@@ -23,23 +23,14 @@ class Instrument < ActiveRecord::Base
 
   def topic_nests
     nests = []
-    done = []
-    variables.each do |v|
-      if not done.include? v.id
-        begin
-          v.get_topic
-        rescue        
-        end
-        if not v.my_nest.nil?
-          nests.append(v.my_nest)
-          v.my_nest[:members].each do |m|
-            if m.first == 'V'
-              done.append(m[8,m.length-8].to_i)
-            end
-          end
-        end
+    
+    qvs = variables.to_a + questions.to_a
+    qvs.each do |qv|
+      if nests.index{ |nest| nest.members.include? qv }.nil?
+        nests << Nest.new(qv)
       end
     end
+   
     nests
   end
 
