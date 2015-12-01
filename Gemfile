@@ -47,6 +47,7 @@ gem "jquery-ui-rails"
 gem "kaminari"
 gem "jquery-datatables-rails"
 gem "skylight"
+gem "rails-backbone"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

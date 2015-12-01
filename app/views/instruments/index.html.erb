@@ -1,60 +1,10 @@
-<h1>Listing Instruments</h1>
+<div id="instruments-view"></div>
 
-<% if current_user.admin? %>
-
-  <div class="field">
-    <%= label_tag :study, 'View as' %>
-    <%= select_tag(
-      :study, 
-      options_for_select(
-        [['',''],
-        ['ALSPAC','ALSPAC'],
-        ['CLS','CLS'],
-        ['NSHD','NSHD'],
-        ['SOTON','SOTON'],
-        ['US','US']],
-        params[:study]
-       ),
-       {onchange: "location.href=location.origin+location.pathname+'?study='+this.value"}) %>
-  </div>
-
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Prefix</th>
-      <th>Port</th>
-      <th>Questions</th>
-      <th>Variables</th>
-      <% if current_user.admin? %>
-      <th colspan="4"></th>
-      <% end %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @instruments.each do |instrument| %>
-      <tr>
-        <td><%= link_to instrument.prefix, instrument, title: "Show" %></td>
-        <td><%= instrument.port %></td>
-        <td><%= instrument.questions.count() %></td>
-	<td><%= instrument.variables.count() %></td>
-        <% if current_user.admin? %>
-        <td class="center"><%= link_to 'New Questions', new_instrument_question_path(instrument), title: "Add Question", class: 'question' %></td>
-        <td class="center"><%= link_to 'New Variables', new_instrument_variable_path(instrument), title: "Add Variable", class: 'variable' %></td> 
-        <td class="center"><%= link_to 'Edit', edit_instrument_path(instrument), title: "Edit", class: 'edit' %></td>
-        <td class="center"><%= link_to 'Destroy', instrument, method: :delete, title: "Delete", class: 'destroy', data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% content_for :footer do %>
-<% if current_user.admin? %>
-  <%= link_to 'New Instrument', new_instrument_path, title: 'New Instrument', class: 'add-new' %>
-<% end %>
-<% end %>
+<script type="text/javascript">
+  $(function() {
+    window.router = new Mapper.Routers.InstrumentsRouter({instruments: <%= @instruments.to_json.html_safe -%>});
+    if (!Backbone.History.started) {
+      Backbone.history.start();
+    }
+  });
+</script>

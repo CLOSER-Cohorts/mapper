@@ -1,27 +1,10 @@
-<h1>Listing Questions</h1>
+<div id="instruments"></div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Qc</th>
-      <th>Literal</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.qc %></td>
-        <td><%= question.literal %></td>
-        <td class='show'><%= link_to 'Show', question %></td>
-        <td class='edit'><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td class='destroy'><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Question', new_instrument_question_path %>
+<script type="text/javascript">
+  $(function() {
+    window.router = new Mapper.Routers.InstrumentsRouter({instruments: <%= @instruments.to_json.html_safe -%>});
+    if (!Backbone.History.started) {
+      Backbone.history.start();
+    }
+  });
+</script>
