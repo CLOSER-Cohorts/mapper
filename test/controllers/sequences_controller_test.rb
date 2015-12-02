@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SequencesControllerTest < ActionController::TestCase
   setup do
-    @sequence = sequences(:first)
+    @sequence = Sequence.all.first
   end
 
   test "should get index" do
