@@ -6,3 +6,6 @@ services:
 before_script:
   - psql -c 'create database mapper_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
+  - rake db:drop RAILS_ENV=test
+  - rake db:create RAILS_ENV=test
+  - rake db:schema:load RAILS_ENV=test
