@@ -2,23 +2,24 @@ require 'test_helper'
 
 class VariablesControllerTest < ActionController::TestCase
   setup do
-    @variable = variables(:one)
+    @variable = variables :Variable_1
+    @instrument = @variable.instrument
   end
 
   test "should get index" do
-    get :index
+    get :index, {'instrument_id' => @instrument.id}
     assert_response :success
     assert_not_nil assigns(:variables)
   end
 
   test "should get new" do
-    get :new
+    get :new, {'instrument_id' => @instrument.id}
     assert_response :success
   end
 
   test "should create variable" do
     assert_difference('Variable.count') do
-      post :create, variable: {  }
+      post :create, {instrument_id: @instrument.id, variable: { instrument_id: @instrument.id, var_type: 'Normal', name: 'testing', label: @variable.label }}
     end
 
     assert_redirected_to variable_path(assigns(:variable))
@@ -44,6 +45,6 @@ class VariablesControllerTest < ActionController::TestCase
       delete :destroy, id: @variable
     end
 
-    assert_redirected_to variables_path
+    assert_redirected_to instrument_path assigns(:instrument)
   end
 end

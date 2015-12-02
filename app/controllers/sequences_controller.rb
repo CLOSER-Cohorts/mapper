@@ -32,7 +32,7 @@ class SequencesController < ApplicationController
 
     respond_to do |format|
       if @sequence.save
-        format.html { redirect_to @sequence, notice: 'Sequence was successfully created.' }
+        format.html { redirect_to instrument_path @instrument, notice: 'Sequence was successfully created.' }
         format.json { render :show, status: :created, location: @sequence }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class SequencesController < ApplicationController
   def update
     respond_to do |format|
       if @sequence.update(sequence_params)
-        format.html { redirect_to instrument_path, notice: 'Sequence was successfully updated.' }
+        format.html { redirect_to instrument_path @sequence.instrument, notice: 'Sequence was successfully updated.' }
         format.json { render :show, status: :ok, location: @sequence }
       else
         format.html { render :edit }
