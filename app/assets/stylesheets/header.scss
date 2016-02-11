@@ -32,14 +32,6 @@ body > header #banner {
   background-image: image-url('logo.png');
   background-repeat: repeat-y;
   background-position: right top;
-  -webkit-animation: bgscroll 10s linear 0s infinite;
-  -moz-animation: bgscroll 10s linear 0s infinite;
-  -o-animation: bgscroll 10s linear 0s infinite;
-  animation: bgscroll 10s linear 0s infinite;
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
 }
 
 body > header h1 {
