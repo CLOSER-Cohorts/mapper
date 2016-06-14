@@ -62,6 +62,33 @@
   <% end %>
 </div>
 
+<div id="map-import" class="dialog" title="Import mapping.txt">
+  <%= form_for @instrument, :url => {:action => 'import_map'} do |f| %>
+      <%= f.file_field :map %>
+      <div class="actions">
+        <%= f.submit 'Upload Map' %>
+      </div>
+  <% end %>
+</div>
+
+<div id="dv-import" class="dialog" title="Import dv.txt">
+  <%= form_for @instrument, :url => {:action => 'import_dv'} do |f| %>
+      <%= f.file_field :dv %>
+      <div class="actions">
+        <%= f.submit 'Upload DV' %>
+      </div>
+  <% end %>
+</div>
+
+<div id="linking-import" class="dialog" title="Import topic linking">
+  <%= form_for @instrument, :url => {:action => 'import_linking'} do |f| %>
+      <%= f.file_field :linking %>
+      <div class="actions">
+        <%= f.submit 'Upload linking' %>
+      </div>
+  <% end %>
+</div>
+
 <% if current_user.admin? %>
 
 <div id="qlist-import" class="dialog" title="Import qlist.txt">
@@ -78,33 +105,6 @@
     <%= f.file_field :mapper %>
     <div class="actions">
       <%= f.submit 'Upload mapper.txt' %>
-    </div>
-  <% end %>
-</div>
-
-<div id="map-import" class="dialog" title="Import mapping">
-  <%= form_for @instrument, :url => {:action => 'import_map'} do |f| %>
-    <%= f.file_field :map %>
-    <div class="actions">
-      <%= f.submit 'Upload Map' %>
-    </div>
-  <% end %>
-</div>
-
-<div id="dv-import" class="dialog" title="Import DV">
-  <%= form_for @instrument, :url => {:action => 'import_dv'} do |f| %>
-    <%= f.file_field :dv %>
-    <div class="actions">
-      <%= f.submit 'Upload DV' %>
-    </div>
-  <% end %>
-</div>
-
-<div id="linking-import" class="dialog" title="Import topic linking">
-  <%= form_for @instrument, :url => {:action => 'import_linking'} do |f| %>
-    <%= f.file_field :linking %>
-    <div class="actions">
-      <%= f.submit 'Upload linking' %>
     </div>
   <% end %>
 </div>
