@@ -9,7 +9,11 @@ class QuestionsController < ApplicationController
   # GET /instrument/1/questions.json
   def index
     @questions = @instrument.questions
-    render layout: "index"
+    respond_to do |format|
+      format.html { render layout: "index" }
+      format.json { render layout: "index" }
+      format.text { render 'index.txt.erb', layout: false, content_type: 'text/plain' }
+    end
   end
 
   # GET /questions/1
