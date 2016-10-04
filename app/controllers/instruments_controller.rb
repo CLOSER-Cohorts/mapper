@@ -345,7 +345,7 @@ class InstrumentsController < ApplicationController
 		  data = line.split("|")
 		  if data[1] == "Sequence"
 			parent_id = nil
-			if data[3] != "none"
+			if data[3] != "none" && data[3] != "-"
 			  parent = Sequence.find_by_URN(data[3])
 			  if parent.nil?
 				#throw error
