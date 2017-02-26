@@ -2,26 +2,27 @@ require 'test_helper'
 
 class QuestionsControllerTest < ActionController::TestCase
   setup do
-    @question = Question.all.first
+    @question = questions :Question_1
+    @instrument = @question.instrument
   end
 
   test "should get index" do
-    get :index
+    get :index, {'instrument_id' => @instrument.id}
     assert_response :success
     assert_not_nil assigns(:questions)
   end
 
   test "should get new" do
-    get :new
+    get :new, {'instrument_id' => @instrument.id}
     assert_response :success
   end
 
   test "should create question" do
     assert_difference('Question.count') do
-      post :create, question: {  }
+      post :create, {instrument_id: @instrument.id, question: { 'instrument_id' => @instrument.id }}
     end
 
-    assert_redirected_to question_path(assigns(:question))
+    assert_equal 'http://test.host' + instrument_path(@question.instrument), @response.redirect_url.split('?')[0]
   end
 
   test "should show question" do
@@ -35,8 +36,8 @@ class QuestionsControllerTest < ActionController::TestCase
   end
 
   test "should update question" do
-    patch :update, id: @question, question: {  }
-    assert_redirected_to question_path(assigns(:question))
+    patch :update, id: @question, question: { 'instrument_id' => @instrument.id }
+    assert_equal instrument_questions_url(@question.instrument), @response.redirect_url.split('?')[0]
   end
 
   test "should destroy question" do
@@ -44,6 +45,6 @@ class QuestionsControllerTest < ActionController::TestCase
       delete :destroy, id: @question
     end
 
-    assert_redirected_to questions_path
+    assert_redirected_to instrument_path(assigns(:instrument))
   end
 end

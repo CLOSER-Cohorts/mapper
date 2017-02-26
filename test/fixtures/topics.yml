@@ -1,21 +1,750 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-north:
+---
+Topic_1:
+  id: 0
+  name: None
+  created_at: 2015-10-29 17:01:42.914963000 Z
+  updated_at: 2015-10-29 17:01:42.914963000 Z
+  colectica_code: 0
+Topic_2:
   id: 1
-  name: North
-  parent_id: NULL 
-
-east:
+  name: Demographics
+  created_at: 2015-06-05 16:22:33.146652000 Z
+  updated_at: 2015-11-02 10:41:31.994632000 Z
+  colectica_code: 101
+Topic_3:
   id: 2
-  name: East
-  parent_id: 1
-
-south:
+  name: Housing and local environment (Housing and environment)
+  created_at: 2015-07-23 06:00:55.610824000 Z
+  updated_at: 2015-11-02 10:41:32.009870000 Z
+  colectica_code: 102
+Topic_4:
   id: 3
-  name: South
-  parent_id: 2
-
-west:
+  name: Physical health
+  created_at: 2015-07-23 06:00:55.617676000 Z
+  updated_at: 2015-11-02 10:41:32.013508000 Z
+  colectica_code: 103
+Topic_5:
   id: 4
-  name: West
-  parent_id: 3 
+  name: Mental health and mental processes
+  created_at: 2015-07-23 06:00:55.620796000 Z
+  updated_at: 2015-11-02 10:41:32.017315000 Z
+  colectica_code: 104
+Topic_6:
+  id: 5
+  name: Health care
+  created_at: 2015-07-23 06:00:55.623770000 Z
+  updated_at: 2015-11-02 10:41:32.020967000 Z
+  colectica_code: 105
+Topic_7:
+  id: 6
+  name: Health behaviour (Health and lifestyle)
+  created_at: 2015-07-23 06:00:55.626587000 Z
+  updated_at: 2015-11-02 10:41:32.024888000 Z
+  colectica_code: 106
+Topic_8:
+  id: 7
+  name: Family and social networks
+  created_at: 2015-07-23 06:00:55.630307000 Z
+  updated_at: 2015-11-02 10:41:32.028901000 Z
+  colectica_code: 107
+Topic_9:
+  id: 8
+  name: Education
+  created_at: 2015-07-23 06:00:55.634525000 Z
+  updated_at: 2015-11-02 10:41:32.032638000 Z
+  colectica_code: 108
+Topic_10:
+  id: 9
+  name: Employment and income (Employment and pensions)
+  created_at: 2015-07-23 06:00:55.638756000 Z
+  updated_at: 2015-11-02 10:41:32.037300000 Z
+  colectica_code: 109
+Topic_11:
+  id: 10
+  name: Expectations, attitudes and beliefs (Attitudes and beliefs)
+  created_at: 2015-07-23 06:00:55.642973000 Z
+  updated_at: 2015-11-02 10:41:32.041632000 Z
+  colectica_code: 110
+Topic_12:
+  id: 11
+  name: Child development
+  created_at: 2015-07-23 06:00:55.647661000 Z
+  updated_at: 2015-11-02 10:41:32.046638000 Z
+  colectica_code: 111
+Topic_13:
+  id: 12
+  name: Life events
+  created_at: 2015-07-23 06:00:55.655197000 Z
+  updated_at: 2015-11-02 10:41:32.050591000 Z
+  colectica_code: 112
+Topic_14:
+  id: 13
+  name: Omics
+  created_at: 2015-07-23 06:00:55.658794000 Z
+  updated_at: 2015-11-02 10:41:32.055418000 Z
+  colectica_code: 113
+Topic_15:
+  id: 19
+  name: Place of birth
+  parent_id: 1
+  created_at: 2015-07-23 09:10:49.883515000 Z
+  updated_at: 2015-11-02 10:41:32.059042000 Z
+  colectica_code: 10101
+Topic_16:
+  id: 20
+  name: Gender
+  parent_id: 1
+  created_at: 2015-07-23 09:10:49.910949000 Z
+  updated_at: 2015-11-02 10:41:32.062708000 Z
+  colectica_code: 10102
+Topic_17:
+  id: 21
+  name: Ethnic group
+  parent_id: 1
+  created_at: 2015-07-23 09:10:49.915781000 Z
+  updated_at: 2015-11-02 10:41:32.066422000 Z
+  colectica_code: 10103
+Topic_18:
+  id: 22
+  name: Language(s) spoken
+  parent_id: 1
+  created_at: 2015-07-23 09:10:49.920968000 Z
+  updated_at: 2015-11-02 10:41:32.070865000 Z
+  colectica_code: 10104
+Topic_19:
+  id: 23
+  name: Religion
+  parent_id: 1
+  created_at: 2015-07-23 09:10:49.925216000 Z
+  updated_at: 2015-11-02 10:41:32.074891000 Z
+  colectica_code: 10105
+Topic_20:
+  id: 24
+  name: Location
+  parent_id: 1
+  created_at: 2015-07-23 09:10:49.928671000 Z
+  updated_at: 2015-11-02 10:41:32.078900000 Z
+  colectica_code: 10106
+Topic_21:
+  id: 25
+  name: Housing
+  parent_id: 2
+  created_at: 2015-07-23 09:10:49.932748000 Z
+  updated_at: 2015-11-02 10:41:32.083040000 Z
+  colectica_code: 10201
+Topic_22:
+  id: 26
+  name: Neighbourhood
+  parent_id: 2
+  created_at: 2015-07-23 09:10:49.937889000 Z
+  updated_at: 2015-11-02 10:41:32.087229000 Z
+  colectica_code: 10202
+Topic_23:
+  id: 27
+  name: Travel and transport
+  parent_id: 2
+  created_at: 2015-07-23 09:10:49.942150000 Z
+  updated_at: 2015-11-02 10:41:32.091555000 Z
+  colectica_code: 10203
+Topic_24:
+  id: 28
+  name: Environmental exposure
+  parent_id: 2
+  created_at: 2015-07-23 09:10:49.948200000 Z
+  updated_at: 2015-11-02 10:41:32.096264000 Z
+  colectica_code: 10204
+Topic_25:
+  id: 29
+  name: Residential mobility
+  parent_id: 2
+  created_at: 2015-07-23 09:10:49.953474000 Z
+  updated_at: 2015-11-02 10:41:32.100951000 Z
+  colectica_code: 10205
+Topic_26:
+  id: 30
+  name: Cardiovascular system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.960734000 Z
+  updated_at: 2015-11-02 10:41:32.105135000 Z
+  colectica_code: 10301
+Topic_27:
+  id: 31
+  name: Musculoskeletal system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.965044000 Z
+  updated_at: 2015-11-02 10:41:32.109620000 Z
+  colectica_code: 10302
+Topic_28:
+  id: 32
+  name: Respiratory system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.969488000 Z
+  updated_at: 2015-11-02 10:41:32.113935000 Z
+  colectica_code: 10303
+Topic_29:
+  id: 33
+  name: Nervous system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.974310000 Z
+  updated_at: 2015-11-02 10:41:32.117500000 Z
+  colectica_code: 10304
+Topic_30:
+  id: 34
+  name: Digestive system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.978858000 Z
+  updated_at: 2015-11-02 10:41:32.122008000 Z
+  colectica_code: 10305
+Topic_31:
+  id: 35
+  name: Urogenital system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.983221000 Z
+  updated_at: 2015-11-02 10:41:32.126456000 Z
+  colectica_code: 10306
+Topic_32:
+  id: 36
+  name: Endocrine system
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.987973000 Z
+  updated_at: 2015-11-02 10:41:32.130231000 Z
+  colectica_code: 10307
+Topic_33:
+  id: 37
+  name: Hemic and immune systems
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.993161000 Z
+  updated_at: 2015-11-02 10:41:32.134624000 Z
+  colectica_code: 10308
+Topic_34:
+  id: 38
+  name: Hearing, vision, speech
+  parent_id: 3
+  created_at: 2015-07-23 09:10:49.997304000 Z
+  updated_at: 2015-11-02 10:41:32.139034000 Z
+  colectica_code: 10309
+Topic_35:
+  id: 39
+  name: Oral/dental health
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.001143000 Z
+  updated_at: 2015-11-02 10:41:32.143312000 Z
+  colectica_code: 10310
+Topic_36:
+  id: 40
+  name: Skin diseases | Dermatology
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.005438000 Z
+  updated_at: 2015-11-02 10:41:32.147560000 Z
+  colectica_code: 10311
+Topic_37:
+  id: 41
+  name: Congenital malformations
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.010547000 Z
+  updated_at: 2015-11-02 10:41:32.151657000 Z
+  colectica_code: 10312
+Topic_38:
+  id: 42
+  name: Cancer
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.015470000 Z
+  updated_at: 2015-11-02 10:41:32.155592000 Z
+  colectica_code: 10313
+Topic_39:
+  id: 43
+  name: Mortality
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.021698000 Z
+  updated_at: 2015-11-02 10:41:32.159579000 Z
+  colectica_code: 10314
+Topic_40:
+  id: 44
+  name: Reproductive health
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.026589000 Z
+  updated_at: 2015-11-02 10:41:32.163472000 Z
+  colectica_code: 10315
+Topic_41:
+  id: 45
+  name: Women's health
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.030577000 Z
+  updated_at: 2015-11-02 10:41:32.168342000 Z
+  colectica_code: 10316
+Topic_42:
+  id: 46
+  name: Accidents and injuries
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.034923000 Z
+  updated_at: 2015-11-02 10:41:32.172179000 Z
+  colectica_code: 10317
+Topic_43:
+  id: 47
+  name: Allergies
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.039831000 Z
+  updated_at: 2015-11-02 10:41:32.176056000 Z
+  colectica_code: 10318
+Topic_44:
+  id: 48
+  name: Infections
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.044356000 Z
+  updated_at: 2015-11-02 10:41:32.180219000 Z
+  colectica_code: 10319
+Topic_45:
+  id: 49
+  name: Anthropometry
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.048485000 Z
+  updated_at: 2015-11-02 10:41:32.184026000 Z
+  colectica_code: 10320
+Topic_46:
+  id: 50
+  name: Physical characteristics
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.052991000 Z
+  updated_at: 2015-11-02 10:41:32.187989000 Z
+  colectica_code: 10321
+Topic_47:
+  id: 51
+  name: Physical functioning
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.056908000 Z
+  updated_at: 2015-11-02 10:41:32.191892000 Z
+  colectica_code: 10322
+Topic_48:
+  id: 52
+  name: General health
+  parent_id: 3
+  created_at: 2015-07-23 09:10:50.061022000 Z
+  updated_at: 2015-11-02 10:41:32.195883000 Z
+  colectica_code: 10323
+Topic_49:
+  id: 53
+  name: Mental disorders
+  parent_id: 4
+  created_at: 2015-07-23 09:10:50.065147000 Z
+  updated_at: 2015-11-02 10:41:32.200000000 Z
+  colectica_code: 10401
+Topic_50:
+  id: 54
+  name: Personality | Temperament
+  parent_id: 4
+  created_at: 2015-07-23 09:10:50.071806000 Z
+  updated_at: 2015-11-02 10:41:32.204024000 Z
+  colectica_code: 10402
+Topic_51:
+  id: 55
+  name: Wellbeing
+  parent_id: 4
+  created_at: 2015-07-23 09:10:50.076907000 Z
+  updated_at: 2015-11-02 10:41:32.208317000 Z
+  colectica_code: 10403
+Topic_52:
+  id: 56
+  name: 'Emotions '
+  parent_id: 4
+  created_at: 2015-07-23 09:10:50.080795000 Z
+  updated_at: 2015-11-02 10:41:32.212849000 Z
+  colectica_code: 10404
+Topic_53:
+  id: 57
+  name: Cognitive function
+  parent_id: 4
+  created_at: 2015-07-23 09:10:50.086180000 Z
+  updated_at: 2015-11-02 10:41:32.216989000 Z
+  colectica_code: 10405
+Topic_54:
+  id: 58
+  name: Health services utilisation
+  parent_id: 5
+  created_at: 2015-07-23 09:10:50.090868000 Z
+  updated_at: 2015-11-02 10:41:32.221394000 Z
+  colectica_code: 10501
+Topic_55:
+  id: 59
+  name: Hospital admissions
+  parent_id: 5
+  created_at: 2015-07-23 09:10:50.093873000 Z
+  updated_at: 2015-11-02 10:41:32.225110000 Z
+  colectica_code: 10502
+Topic_56:
+  id: 60
+  name: Immunisations
+  parent_id: 5
+  created_at: 2015-07-23 09:10:50.097545000 Z
+  updated_at: 2015-11-02 10:41:32.228883000 Z
+  colectica_code: 10503
+Topic_57:
+  id: 61
+  name: Medications
+  parent_id: 5
+  created_at: 2015-07-23 09:10:50.102107000 Z
+  updated_at: 2015-11-02 10:41:32.233033000 Z
+  colectica_code: 10504
+Topic_58:
+  id: 62
+  name: Complementary therapies
+  parent_id: 5
+  created_at: 2015-07-23 09:10:50.106732000 Z
+  updated_at: 2015-11-02 10:41:32.238139000 Z
+  colectica_code: 10505
+Topic_59:
+  id: 63
+  name: Health insurance
+  parent_id: 5
+  created_at: 2015-07-23 09:10:50.110964000 Z
+  updated_at: 2015-11-02 10:41:32.242123000 Z
+  colectica_code: 10506
+Topic_60:
+  id: 64
+  name: Diet and nutrition
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.115139000 Z
+  updated_at: 2015-11-02 10:41:32.246131000 Z
+  colectica_code: 10601
+Topic_61:
+  id: 65
+  name: Physical activity
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.118801000 Z
+  updated_at: 2015-11-02 10:41:32.250250000 Z
+  colectica_code: 10602
+Topic_62:
+  id: 66
+  name: Sleep
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.123409000 Z
+  updated_at: 2015-11-02 10:41:32.254083000 Z
+  colectica_code: 10603
+Topic_63:
+  id: 67
+  name: Smoking
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.127511000 Z
+  updated_at: 2015-11-02 10:41:32.258379000 Z
+  colectica_code: 10604
+Topic_64:
+  id: 68
+  name: Alcohol consumption
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.131638000 Z
+  updated_at: 2015-11-02 10:41:32.262462000 Z
+  colectica_code: 10605
+Topic_65:
+  id: 69
+  name: Illegal drugs
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.135846000 Z
+  updated_at: 2015-11-02 10:41:32.266436000 Z
+  colectica_code: 10606
+Topic_66:
+  id: 70
+  name: Risk taking
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.141819000 Z
+  updated_at: 2015-11-02 10:41:32.270160000 Z
+  colectica_code: 10607
+Topic_67:
+  id: 71
+  name: Criminal behaviour
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.146442000 Z
+  updated_at: 2015-11-02 10:41:32.274052000 Z
+  colectica_code: 10608
+Topic_68:
+  id: 72
+  name: Sexual behaviour
+  parent_id: 6
+  created_at: 2015-07-23 09:10:50.150695000 Z
+  updated_at: 2015-11-02 10:41:32.277791000 Z
+  colectica_code: 10609
+Topic_69:
+  id: 73
+  name: Home life
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.155277000 Z
+  updated_at: 2015-11-02 10:41:32.281948000 Z
+  colectica_code: 10701
+Topic_70:
+  id: 74
+  name: Household composition
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.158798000 Z
+  updated_at: 2015-11-02 10:41:32.292755000 Z
+  colectica_code: 10702
+Topic_71:
+  id: 75
+  name: Marital status
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.163531000 Z
+  updated_at: 2015-11-02 10:41:32.296585000 Z
+  colectica_code: 10703
+Topic_72:
+  id: 76
+  name: Family members and relations
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.167671000 Z
+  updated_at: 2015-11-02 10:41:32.300780000 Z
+  colectica_code: 10704
+Topic_73:
+  id: 77
+  name: Friends
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.172377000 Z
+  updated_at: 2015-11-02 10:41:32.305155000 Z
+  colectica_code: 10705
+Topic_74:
+  id: 78
+  name: Parenting
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.176126000 Z
+  updated_at: 2015-11-02 10:41:32.309941000 Z
+  colectica_code: 11103
+Topic_75:
+  id: 79
+  name: Childcare
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.180265000 Z
+  updated_at: 2015-11-02 10:41:32.313972000 Z
+  colectica_code: 10706
+Topic_76:
+  id: 80
+  name: Child welfare
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.184041000 Z
+  updated_at: 2015-11-02 10:41:32.318019000 Z
+  colectica_code: 10707
+Topic_77:
+  id: 81
+  name: Social support
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.188557000 Z
+  updated_at: 2015-11-02 10:41:32.322013000 Z
+  colectica_code: 10708
+Topic_78:
+  id: 82
+  name: Leisure activities
+  parent_id: 7
+  created_at: 2015-07-23 09:10:50.192471000 Z
+  updated_at: 2015-11-02 10:41:32.326607000 Z
+  colectica_code: 10709
+Topic_79:
+  id: 83
+  name: Qualifications
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.196134000 Z
+  updated_at: 2015-11-02 10:41:32.330967000 Z
+  colectica_code: 10801
+Topic_80:
+  id: 84
+  name: Schooling
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.200449000 Z
+  updated_at: 2015-11-02 10:41:32.334411000 Z
+  colectica_code: 10802
+Topic_81:
+  id: 85
+  name: Further education | Higher education
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.207745000 Z
+  updated_at: 2015-11-02 10:41:32.340720000 Z
+  colectica_code: 10803
+Topic_82:
+  id: 86
+  name: Training
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.212376000 Z
+  updated_at: 2015-11-02 10:41:32.344535000 Z
+  colectica_code: 10804
+Topic_83:
+  id: 87
+  name: Basic skills
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.216515000 Z
+  updated_at: 2015-11-02 10:41:32.348304000 Z
+  colectica_code: 10805
+Topic_84:
+  id: 88
+  name: Adult education
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.221625000 Z
+  updated_at: 2015-11-02 10:41:32.352170000 Z
+  colectica_code: 10806
+Topic_85:
+  id: 89
+  name: Learning difficulties
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.225108000 Z
+  updated_at: 2015-11-02 10:41:32.356066000 Z
+  colectica_code: 10807
+Topic_86:
+  id: 90
+  name: Pre-school
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.230627000 Z
+  updated_at: 2015-11-02 10:41:32.359971000 Z
+  colectica_code: 10808
+Topic_87:
+  id: 91
+  name: 'Cognitive function '
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.235049000 Z
+  updated_at: 2015-11-02 10:41:32.364065000 Z
+  colectica_code: 10405
+Topic_88:
+  id: 92
+  name: Cognitive skills
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.239549000 Z
+  updated_at: 2015-11-02 10:41:32.368292000 Z
+  colectica_code: 10810
+Topic_89:
+  id: 93
+  name: Non cognitive skills
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.243337000 Z
+  updated_at: 2015-11-02 10:41:32.372341000 Z
+  colectica_code: 10811
+Topic_90:
+  id: 94
+  name: School engagement
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.247390000 Z
+  updated_at: 2015-11-02 10:41:32.377158000 Z
+  colectica_code: 10812
+Topic_91:
+  id: 95
+  name: Education aspirations
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.250798000 Z
+  updated_at: 2015-11-02 10:41:32.381435000 Z
+  colectica_code: 10813
+Topic_92:
+  id: 96
+  name: Lifelong learning
+  parent_id: 8
+  created_at: 2015-07-23 09:10:50.255098000 Z
+  updated_at: 2015-11-02 10:41:32.385254000 Z
+  colectica_code: 10814
+Topic_93:
+  id: 97
+  name: Occupation | Employment
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.258895000 Z
+  updated_at: 2015-11-02 10:41:32.389167000 Z
+  colectica_code: 10901
+Topic_94:
+  id: 98
+  name: Social class
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.263185000 Z
+  updated_at: 2015-11-02 10:41:32.392608000 Z
+  colectica_code: 10902
+Topic_95:
+  id: 99
+  name: 'Income '
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.269770000 Z
+  updated_at: 2015-11-02 10:41:32.397035000 Z
+  colectica_code: 10903
+Topic_96:
+  id: 100
+  name: Finances
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.276597000 Z
+  updated_at: 2015-11-02 10:41:32.401465000 Z
+  colectica_code: 10904
+Topic_97:
+  id: 101
+  name: Assets
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.280786000 Z
+  updated_at: 2015-11-02 10:41:32.405356000 Z
+  colectica_code: 10905
+Topic_98:
+  id: 102
+  name: Consumption | Expenditure
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.285258000 Z
+  updated_at: 2015-11-02 10:41:32.409192000 Z
+  colectica_code: 10906
+Topic_99:
+  id: 103
+  name: Pensions
+  parent_id: 9
+  created_at: 2015-07-23 09:10:50.289801000 Z
+  updated_at: 2015-11-02 10:41:32.412893000 Z
+  colectica_code: 10907
+Topic_100:
+  id: 104
+  name: Infant feeding
+  parent_id: 11
+  created_at: 2015-07-23 09:10:50.292997000 Z
+  updated_at: 2015-11-02 10:41:32.418028000 Z
+  colectica_code: 11101
+Topic_101:
+  id: 105
+  name: Language and vocabulary
+  parent_id: 11
+  created_at: 2015-07-23 09:10:50.296888000 Z
+  updated_at: 2015-11-02 10:41:32.421958000 Z
+  colectica_code: 11102
+Topic_102:
+  id: 106
+  name: Parenting
+  parent_id: 11
+  created_at: 2015-07-23 09:10:50.300955000 Z
+  updated_at: 2015-11-02 10:41:32.426599000 Z
+  colectica_code: 11103
+Topic_103:
+  id: 107
+  name: Developmental milestones
+  parent_id: 11
+  created_at: 2015-07-23 09:10:50.305444000 Z
+  updated_at: 2015-11-02 10:41:32.431522000 Z
+  colectica_code: 11104
+Topic_104:
+  id: 108
+  name: Genetics
+  parent_id: 13
+  created_at: 2015-07-23 09:10:50.309425000 Z
+  updated_at: 2015-11-02 10:41:32.436203000 Z
+  colectica_code: 11301
+Topic_105:
+  id: 109
+  name: Genomics
+  parent_id: 13
+  created_at: 2015-07-23 09:10:50.313239000 Z
+  updated_at: 2015-11-02 10:41:32.439337000 Z
+  colectica_code: 11302
+Topic_106:
+  id: 110
+  name: Transcriptomics
+  parent_id: 13
+  created_at: 2015-07-23 09:10:50.317333000 Z
+  updated_at: 2015-11-02 10:41:32.442281000 Z
+  colectica_code: 11303
+Topic_107:
+  id: 111
+  name: Metabolomics
+  parent_id: 13
+  created_at: 2015-07-23 09:10:50.322373000 Z
+  updated_at: 2015-11-02 10:41:32.445307000 Z
+  colectica_code: 11304
+Topic_108:
+  id: 112
+  name: Epigenomics
+  parent_id: 13
+  created_at: 2015-07-23 09:10:50.326334000 Z
+  updated_at: 2015-11-02 10:41:32.449447000 Z
+  colectica_code: 11305
+Topic_109:
+  id: 113
+  name: Proteomics
+  parent_id: 13
+  created_at: 2015-07-23 09:10:50.330075000 Z
+  updated_at: 2015-11-02 10:41:32.453578000 Z
+  colectica_code: 11306

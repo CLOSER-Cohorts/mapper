@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       patch :import_map
       patch :import_dv
       patch :import_linking
+      get :topic_nests
     end
     collection do 
       post :batch

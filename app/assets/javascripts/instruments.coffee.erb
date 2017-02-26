@@ -255,6 +255,7 @@ var ready = function() {
   var dataSrc = function ( json ) {
 	$topic_selector = jQuery('#original-topic-selector');
 	for (var i = 0; i < json.data.length; i++) {
+	  console.log(json.data[i].qc);
 	  if (!json.data[i].my_nest.good) {
 	    conflict[json.data[i].type+json.data[i].id.toString()] = resolveConflict.bind({},json.data[i].my_nest.fixed_points);
 		json.data[i].topic = '<a style="color: red;" href="javascript://" onClick="conflict[\'' + 
