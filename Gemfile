@@ -61,4 +61,5 @@ group :development, :test do
   gem 'rb-readline'
   gem 'rails-perftest'
   gem 'ruby-prof'
+  gem 'db_fixtures_dump'
 end

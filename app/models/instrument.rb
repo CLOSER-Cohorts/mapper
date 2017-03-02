@@ -1,4 +1,4 @@
-# The instrument model represents an entire 
+# The snstrument model represents an entire 
 # questionnare/data collection.
 #
 # Instruments are containers sequences, questions and
@@ -20,6 +20,19 @@ class Instrument < ActiveRecord::Base
   accepts_nested_attributes_for :questions
   accepts_nested_attributes_for :variables
   accepts_nested_attributes_for :sequences
+
+  def topic_nests
+    nests = []
+    
+    qvs = variables.to_a + questions.to_a
+    qvs.each do |qv|
+      if nests.index{ |nest| nest.members.include? qv }.nil?
+        nests << Nest.new(qv)
+      end
+    end
+   
+    nests
+  end
 
   # Returns a string of all variable namess that
   # belong to this instrument separated by commas.
