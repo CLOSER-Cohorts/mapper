@@ -1,6 +1,6 @@
 # The instruments controller handles requests relating to the
 # instrument model. It contains all the standard CRUD options
-# but also supplies import actions and configuration file 
+# but also supplies import actions and configuration file
 # outputs.
 class InstrumentsController < ApplicationController
   before_action :authenticate_user!, except: [
@@ -12,15 +12,15 @@ class InstrumentsController < ApplicationController
     :mapper
   ]
   before_action :set_instrument, only: [
-    :show, 
-    :edit, 
-    :update, 
-    :destroy, 
-    :questions, 
-    :import_qlist, 
-    :import_from_caddies, 
-    :import_variables, 
-    :import_map, 
+    :show,
+    :edit,
+    :update,
+    :destroy,
+    :questions,
+    :import_qlist,
+    :import_from_caddies,
+    :import_variables,
+    :import_map,
     :import_dv,
     :import_linking
   ]
@@ -94,6 +94,10 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  def create?
+    true
+  end
+
   # PATCH /instruments/batch
   def batch
     authorize Instrument
@@ -146,7 +150,7 @@ class InstrumentsController < ApplicationController
         redirect_to instruments_url, notice: 'Instruments successfully created.'
       else
         render :batch, alert: 'No control.txt file included.'
-      end 
+      end
     else
       render :batch
     end
@@ -222,8 +226,8 @@ class InstrumentsController < ApplicationController
     dv_io = params[:instrument][:dv]
     total_skipped, skipped_lines, pieces = read_dv_txt(@instrument, dv_io.read)
     respond_to do |format|
-      format.html { 
-        redirect_to @instrument, 
+      format.html {
+        redirect_to @instrument,
         notice: 'dv.txt imported successfully. ' + total_skipped.to_s + ' lines skipped.',
         more_notice: pieces.join('<br/>') + '<br/>' + skipped_lines.join('<br/>')
       }
@@ -268,17 +272,17 @@ class InstrumentsController < ApplicationController
         format.html { redirect_to @instrument, alert: 'Topic linking failed to import.' }
       end
     end
-    
+
   end
 
   # GET /instruments/1/mapping.txt
   # GET /instruments/1/mapping.json
   def mapping
-    @map = Instrument.get_mapping(params[:instrument_id])   
+    @map = Instrument.get_mapping(params[:instrument_id])
     respond_to do |format|
       format.text { render 'mapping.txt.erb', layout: false, content_type: 'text/plain' }
       format.json  {}
-    end  
+    end
   end
 
   # GET /instruments/1/dv.txt
@@ -318,10 +322,10 @@ class InstrumentsController < ApplicationController
       format.json  {}
     end
   end
-  
+
   # GET /instruments/1/mapper.txt
   # GET /instruments/1/mapper.json
-  def mapper 
+  def mapper
     @instrument = Instrument.find(params[:instrument_id])
     respond_to do |format|
       format.text { render 'mapper.txt.erb', layout: false, content_type: 'text/plain' }
@@ -339,7 +343,7 @@ class InstrumentsController < ApplicationController
     def instrument_params
       params.require(:instrument).permit(:prefix, :port, :study)
     end
-    
+
     def read_mapper_txt (instrument, mapper)
       mapper.each_line do |line|
 		  data = line.split("|")
@@ -369,10 +373,10 @@ class InstrumentsController < ApplicationController
 			  if question.nil?
 			    grid_limits = data[2].chomp(']').reverse.chomp('[').reverse.split(',')
 			    instrument.questions.create(
-				  qc: data[0], 
-				  literal: data[4], 
-				  parent_id: parent_id, 
-				  max_x: grid_limits[1].to_i - 1, 
+				  qc: data[0],
+				  literal: data[4],
+				  parent_id: parent_id,
+				  max_x: grid_limits[1].to_i - 1,
 				  max_y: grid_limits[0].to_i - 1
 			    )
 			  end
@@ -380,7 +384,7 @@ class InstrumentsController < ApplicationController
 		  end
 		end
     end
-    
+
     def read_variables_txt (instrument, var_data)
       default = 'Normal'
       var_data.force_encoding('UTF-8')
@@ -423,7 +427,7 @@ class InstrumentsController < ApplicationController
         instrument.variables.create(:name => data_name, :label => data_label, :var_type => data_var_type)
       end
     end
-    
+
     def read_mapping_txt (instrument, map)
       map.each_line do |line|
         data = line.split("\t")
@@ -448,13 +452,13 @@ class InstrumentsController < ApplicationController
         end
       end
     end
-    
+
     def read_dv_txt (instrument, dv)
       skipped = {
-        target_question_not_found: [], 
-        target_variable_not_found: [], 
-        dv_not_found: [], 
-        too_many_target_variables: [], 
+        target_question_not_found: [],
+        target_variable_not_found: [],
+        dv_not_found: [],
+        too_many_target_variables: [],
         wrong_variable_type: [],
         already_mapped: []
       }
@@ -462,7 +466,7 @@ class InstrumentsController < ApplicationController
       dv.each_line do |line|
         line_counter += 1
         data = line.split("\t")
-      
+
         if data[1][0...3] == 'qc_'
           question = instrument.questions.find_by_qc(data[1].chomp.strip)
           if question.nil?
@@ -473,9 +477,9 @@ class InstrumentsController < ApplicationController
               skipped[:too_many_target_variables].push({line_number: line_counter, line: line})
               next
             end
-          end 
+          end
 
-          src = question.variables.first 
+          src = question.variables.first
         else
           src = Variable.find_by_name(data[1].chomp.strip)
           if src.nil?
@@ -508,7 +512,7 @@ class InstrumentsController < ApplicationController
 
         variable.src_variables << src
       end
-   
+
       total_skipped = 0
       pieces = []
       skipped_lines = []
@@ -520,7 +524,7 @@ class InstrumentsController < ApplicationController
             skipped_lines << "Skipped line " + skipped_obj[:line_number].to_s + ": " + skipped_obj[:line]
           end
         end
-      end 
-      return total_skipped, skipped_lines, pieces   
+      end
+      return total_skipped, skipped_lines, pieces
     end
 end

@@ -1,16 +1,16 @@
 == README
 
-Currently this app has only be delpoyed via Heroku, so there is not a full
-set of guidence to get you setup.
+Currently this app has only be deployed via Heroku, so there is not a full
+set of guidance to get you setup.
 
-=== Keypoints
+=== Key points
 
 * Ruby version: 2.2.1
-* Rails version: 4.2.1
-* Web server: Puma: 2.14.1
+* Rails version: 4.2.7.1
+* Web server: Puma: 3.11.4
 
 The production environment uses Memcached to share cached variables between
-prcoesses/threads/worksers.
+processes/threads/workers.
 
 
 This README would normally document whatever steps are necessary to get the
@@ -26,7 +26,7 @@ Things you may want to cover:
 
 * Database creation
 
-* Database initialization
+* Database initialisation
 
 * How to run the test suite
 
@@ -39,3 +39,7 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+=== TODO
+
+Sort out tests.

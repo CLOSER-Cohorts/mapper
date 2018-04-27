@@ -2,7 +2,9 @@ require 'test_helper'
 
 class InstrumentsControllerTest < ActionController::TestCase
   setup do
-    @instrument = Instrument.all.first
+    @instrument = instruments(:ione)
+    @user = users :User_1
+    sign_in @user
   end
 
   test "should get index" do
