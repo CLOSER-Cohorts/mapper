@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -25,7 +27,7 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -56,7 +58,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  #config.cache_store = :memory_store, {size: 64.megabytes}
+  # config.cache_store = :memory_store, {size: 64.megabytes}
   config.cache_store = :dalli_store,
     (ENV["MEMCACHIER_BLUE_SERVERS"] || "").split(","),
     {:username => ENV["MEMCACHIER_BLUE_USERNAME"],
@@ -66,18 +68,18 @@ Rails.application.configure do
      :socket_failure_delay => 0.2,
      :pool_size => 6,
      :compress => true
-    }
+     }
 
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
+    # Enable serving of images, stylesheets, and JS scrypts from an asset server
+    # config.action_controller.asset_host = 'http://assets.example.com'
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+    # Ignore bad email addresses and do not raise email delivery errors.
+    # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+    # config.action_mailer.raise_delivery_errors = false
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+    # Enable locale fallbacks for I18n (makes lookups for any locale fall back
+    # to the I18n.default_locale when a translation cannot be found).
+    config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify

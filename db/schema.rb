@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -26,27 +25,25 @@ ActiveRecord::Schema.define(version: 20150915115331) do
 
   create_table "links", force: :cascade do |t|
     t.integer  "topic_id"
-    t.integer  "target_id"
     t.string   "target_type"
+    t.integer  "target_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["target_type", "target_id"], name: "index_links_on_target_type_and_target_id", using: :btree
+    t.index ["topic_id"], name: "index_links_on_topic_id", using: :btree
   end
-
-  add_index "links", ["target_type", "target_id"], name: "index_links_on_target_type_and_target_id", using: :btree
-  add_index "links", ["topic_id"], name: "index_links_on_topic_id", using: :btree
 
   create_table "maps", force: :cascade do |t|
     t.integer  "variable_id"
-    t.integer  "mapable_id"
     t.string   "mapable_type"
+    t.integer  "mapable_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "x"
     t.integer  "y"
+    t.index ["mapable_type", "mapable_id"], name: "index_maps_on_mapable_type_and_mapable_id", using: :btree
+    t.index ["variable_id"], name: "index_maps_on_variable_id", using: :btree
   end
-
-  add_index "maps", ["mapable_type", "mapable_id"], name: "index_maps_on_mapable_type_and_mapable_id", using: :btree
-  add_index "maps", ["variable_id"], name: "index_maps_on_variable_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.string   "qc"
@@ -57,11 +54,10 @@ ActiveRecord::Schema.define(version: 20150915115331) do
     t.integer  "parent_id"
     t.integer  "max_x"
     t.integer  "max_y"
+    t.index ["instrument_id"], name: "index_questions_on_instrument_id", using: :btree
+    t.index ["parent_id"], name: "index_questions_on_parent_id", using: :btree
+    t.index ["qc", "instrument_id"], name: "index_questions_on_qc_and_instrument_id", unique: true, using: :btree
   end
-
-  add_index "questions", ["instrument_id"], name: "index_questions_on_instrument_id", using: :btree
-  add_index "questions", ["parent_id"], name: "index_questions_on_parent_id", using: :btree
-  add_index "questions", ["qc", "instrument_id"], name: "index_questions_on_qc_and_instrument_id", unique: true, using: :btree
 
   create_table "sequences", force: :cascade do |t|
     t.string   "name"
@@ -70,12 +66,11 @@ ActiveRecord::Schema.define(version: 20150915115331) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "URN"
+    t.index ["URN"], name: "index_sequences_on_URN", unique: true, using: :btree
+    t.index ["instrument_id"], name: "index_sequences_on_instrument_id", using: :btree
+    t.index ["name", "instrument_id"], name: "index_sequences_on_name_and_instrument_id", unique: true, using: :btree
+    t.index ["parent_id"], name: "index_sequences_on_parent_id", using: :btree
   end
-
-  add_index "sequences", ["URN"], name: "index_sequences_on_URN", unique: true, using: :btree
-  add_index "sequences", ["instrument_id"], name: "index_sequences_on_instrument_id", using: :btree
-  add_index "sequences", ["name", "instrument_id"], name: "index_sequences_on_name_and_instrument_id", unique: true, using: :btree
-  add_index "sequences", ["parent_id"], name: "index_sequences_on_parent_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.string   "name"
@@ -83,9 +78,8 @@ ActiveRecord::Schema.define(version: 20150915115331) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "colectica_code"
+    t.index ["parent_id"], name: "index_topics_on_parent_id", using: :btree
   end
-
-  add_index "topics", ["parent_id"], name: "index_topics_on_parent_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -101,10 +95,9 @@ ActiveRecord::Schema.define(version: 20150915115331) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "study"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "variables", force: :cascade do |t|
     t.string   "name"
@@ -113,10 +106,9 @@ ActiveRecord::Schema.define(version: 20150915115331) do
     t.integer  "instrument_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["instrument_id"], name: "index_variables_on_instrument_id", using: :btree
+    t.index ["name", "instrument_id"], name: "index_variables_on_name_and_instrument_id", unique: true, using: :btree
   end
-
-  add_index "variables", ["instrument_id"], name: "index_variables_on_instrument_id", using: :btree
-  add_index "variables", ["name", "instrument_id"], name: "index_variables_on_name_and_instrument_id", unique: true, using: :btree
 
   add_foreign_key "links", "topics"
   add_foreign_key "maps", "variables"
