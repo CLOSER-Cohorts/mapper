@@ -4,7 +4,7 @@ Mapper has been specifically designed to connect data and questionnaire metadata
 
 ### Configuration
 
-* Ruby version: 2.5.1
+* Ruby version: 2.5.0
 * Rails version: 5.0.7.1
 * Web server: Puma: 3.12.0
 
